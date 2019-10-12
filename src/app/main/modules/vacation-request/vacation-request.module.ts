@@ -1,12 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { VacationRequestRoutingModule} from './vacation-request-routing.module'
+import { VacationRequestComponent } from './vacation-request.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [VacationRequestComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    VacationRequestRoutingModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule
   ]
 })
 export class VacationRequestModule { }

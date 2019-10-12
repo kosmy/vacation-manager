@@ -10,11 +10,10 @@ import { UserDataService } from '../../../shared/services/user-data.service';
 export class UserInfoComponent implements OnInit {
 
   certainUser: User
-  constructor(private userDataService: UserDataService) {
-    this.certainUser = this.userDataService.findCertainUser(1);
-  }
+  constructor(private userDataService: UserDataService) { }
 
   ngOnInit() {
+    this.certainUser = this.userDataService.findCertainUser(1);
   }
 
 }

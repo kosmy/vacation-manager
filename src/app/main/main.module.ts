@@ -6,6 +6,7 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
 import { ContentComponent } from './layout/content/content.component';
 import { MainRoutingModule } from './main-routing.module';
 import { ProfileModule } from './modules/profile/profile.module';
+import { VacationRequestModule } from './modules/vacation-request/vacation-request.module';
 
 
 
@@ -15,6 +16,7 @@ import { ProfileModule } from './modules/profile/profile.module';
     CommonModule,
     MainRoutingModule,
     ProfileModule,
+    VacationRequestModule
   ]
 })
 export class MainModule { }

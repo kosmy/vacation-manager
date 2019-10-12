@@ -3,6 +3,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { UserDataService } from '../../../shared/services/user-data.service';
 import { VacationService } from '../../../shared/services/vacation.service';
 import { Vacation } from '../../../shared/models/vacation';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,10 +24,9 @@ export class UserVacationsComponent implements OnInit {
   displayedColumns: string[] = ['startDate', 'type', 'status',];
   // expandedElement: Vacation | null;
   userVacationsAvailable: number;
-  isVacationRequest: boolean = false;
   userVacationsList: Vacation[];
 
-  constructor(private userDataService: UserDataService, private vacationService: VacationService) { }
+  constructor(private userDataService: UserDataService, private vacationService: VacationService, private router: Router) { }
 
   ngOnInit() {
     this.userVacationsAvailable = this.userDataService.findCertainUser(1).vacationsAvailable;
@@ -34,12 +34,6 @@ export class UserVacationsComponent implements OnInit {
   }
 
   requestVacation() {
-    this.isVacationRequest = true;
+    this.router.navigate(['main/vacation-request'])
   }
-
-  changeFlag() {
-    this.isVacationRequest = false
-  }
-  
-
 }
