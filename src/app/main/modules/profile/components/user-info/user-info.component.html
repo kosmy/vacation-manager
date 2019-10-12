@@ -1,0 +1,37 @@
+
+    <div class="title">
+        <h2>My Profile</h2>
+    </div>
+    <div class="image">
+        <img [src]='certainUser.avatar'>
+        <div class="info">
+            <h4>{{certainUser.name}}</h4>
+            <p>Developer</p>
+        </div>
+    </div>
+    <div class="info">
+        <div class="birth">
+            <p>date of birth</p>
+            <h3>{{certainUser.birthday | date}}</h3>
+        </div>
+        <div class="email">
+            <p>personal email</p>
+            <h3>{{certainUser.email}}</h3>
+        </div>
+        <div class="phone">
+            <p>mobile phone</p>
+            <h3>{{certainUser.phone}}</h3>
+        </div>
+        <div class="skype">
+            <p>skype</p>
+            <h3>{{certainUser.skype}}</h3>
+        </div>
+        <div class="hire-date">
+            <p>hire date</p>
+            <h3>{{certainUser.startDate | date}}</h3>
+        </div>
+        <div class="team-name">
+            <p>team name</p>
+            <h3>{{certainUser.team}}</h3>
+        </div>
+    </div>

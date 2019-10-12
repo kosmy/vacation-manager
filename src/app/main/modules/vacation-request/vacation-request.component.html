@@ -1,0 +1,39 @@
+<form [formGroup]="vacationRequestForm" (ngSubmit)="onSubmit(vacationRequestForm)">
+    <div class="block">
+        <label for="vacationType">Vacation Type</label>
+        <mat-form-field id="vacationType">
+            <mat-label>Select an option</mat-label>
+            <mat-select formControlName="type">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let type of vacationTypes" [value]="type.value">{{type.text}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="block">
+        <label for="from">From</label>
+        <mat-form-field id="from">
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="start">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+
+
+    <div class="block">
+        <label for="to">To</label>
+        <mat-form-field id="to">
+            <input matInput [matDatepicker]="pickerTwo" placeholder="Choose a date" formControlName="end">
+            <mat-datepicker-toggle matSuffix [for]="pickerTwo"></mat-datepicker-toggle>
+            <mat-datepicker #pickerTwo></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Leave a comment" formControlName="comment"></textarea>
+    </mat-form-field>
+
+    <button type="submit" mat-stroked-button>Request Vacation</button>
+
+</form>

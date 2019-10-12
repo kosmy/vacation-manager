@@ -1,0 +1,21 @@
+:host {
+  border: 2px solid rgb(226, 226, 226);
+  width: 600px;
+  height: 450px;
+  margin-left: 50px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+}
