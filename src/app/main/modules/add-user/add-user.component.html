@@ -5,6 +5,12 @@
     <form class="main-block" [formGroup]="addUserForm" (ngSubmit)="onSubmit(addUserForm)">
         <div class="sub-block">
             <mat-form-field type="text">
+                <input matInput placeholder="Login" name="login" formControlName="login">
+            </mat-form-field>
+            <mat-form-field type="text">
+                <input matInput placeholder="Password" name="password" formControlName="password">
+            </mat-form-field>
+            <mat-form-field type="text">
                 <input matInput placeholder="Name" name="name" formControlName="name">
             </mat-form-field>
             <mat-form-field type="text">
@@ -17,9 +23,16 @@
                     <mat-option *ngFor="let status of statuses" [value]="status.value">{{status.text}}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field >
+            <mat-form-field>
                 <input type="number" matInput placeholder="Vacations Available" name="vacationsAvailable"
                     formControlName="vacationsAvailable">
+            </mat-form-field>
+            <mat-form-field id="team">
+                <mat-label>Team</mat-label>
+                <mat-select formControlName="team">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let team of teams" [value]="team.teamName">{{team.teamName}}</mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
         <div class="sub-block">
@@ -46,9 +59,6 @@
                 <mat-datepicker #pickerTwo></mat-datepicker>
             </mat-form-field>
 
-            <mat-form-field type="text">
-                <input matInput placeholder="team" name="team" formControlName="team">
-            </mat-form-field>
             <button mat-stroked-button>Add user</button>
         </div>
     </form>

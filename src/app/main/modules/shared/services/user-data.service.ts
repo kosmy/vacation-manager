@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, WorkStatus } from '../models/user';
+import { WorkStatus, User } from '../models/user';
 
 @Injectable()
 export class UserDataService {
@@ -7,6 +7,8 @@ export class UserDataService {
   private employees: User[] = [
     {
       id: 1,
+      login: 'nikita',
+      password: 'nikita',
       name: 'Nikita',
       surname: 'Kostash',
       birthday: new Date(2011, 0, 1, 0, 0, 0, 0),
@@ -22,6 +24,8 @@ export class UserDataService {
     },
     {
       id: 2,
+      login: 'andrey',
+      password: 'andrey',
       name: 'Andrey',
       surname: 'Shevchuk',
       birthday: new Date(1995, 11, 26, 11, 57, 36, 500),
@@ -37,6 +41,8 @@ export class UserDataService {
     },
     {
       id: 3,
+      login: 'denis',
+      password: 'denis',
       name: 'Denis',
       surname: 'Voychenko',
       birthday: new Date(1995, 11, 26, 11, 57, 36, 500),
@@ -52,6 +58,8 @@ export class UserDataService {
     },
     {
       id: 4,
+      login: 'anastasia',
+      password: 'anastasia',
       name: 'Anastasia',
       surname: 'Kristensen',
       birthday: new Date(1995, 11, 26, 11, 57, 36, 500),
@@ -67,31 +75,28 @@ export class UserDataService {
     }
   ]
 
-  load() {
-    return JSON.parse(JSON.stringify(this.employees)); // Emulate immutable data
+  getUsersLength(): number {
+    return this.getUsers().length;
   }
-
-  // addUser(newUser: User) {
-  //   this.users.push(newUser)
-  // }
 
   findCertainUser(id: number) {
     return this.employees.find(user => user.id === id)
   }
-  userLength = this.employees.length;
-
   addUser(user: User) {
-    if (!localStorage.getItem('users')) {
-      localStorage.setItem('users', JSON.stringify([]));
-    }
-    this.employees = JSON.parse(localStorage.getItem('users'));
+    this.checkIfEmptyAndFill()
+    this.getUsers()
     this.employees.push(user);
-    localStorage.setItem('users', JSON.stringify(this.employees));
+    localStorage.setItem('employees', JSON.stringify(this.employees));
   }
 
-  getUsers() {
-    return JSON.parse(localStorage.getItem('users'));
-    // return this.users;
+  getUsers(): User[] {
+    this.checkIfEmptyAndFill();
+    return JSON.parse(localStorage.getItem('employees'));
+  }
+  checkIfEmptyAndFill() {
+    if (!localStorage.getItem('employees')) {
+      localStorage.setItem('employees', JSON.stringify(this.employees));
+    }
   }
 
 }

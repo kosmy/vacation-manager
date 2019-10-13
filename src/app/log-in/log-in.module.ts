@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { AuthorizationService } from './services/authorization.service';
+import { SharedModule } from '../main/modules/shared/shared.module';
 
 
 
@@ -14,7 +15,8 @@ import { AuthorizationService } from './services/authorization.service';
     CommonModule,
     MatButtonModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers: [AuthorizationService]
 })

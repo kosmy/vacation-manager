@@ -4,6 +4,7 @@ import { UserDataService } from './services/user-data.service';
 import { VacationService } from './services/vacation.service';
 import { VacationStatusPipe } from './pipes/vacation-status.pipe';
 import { VacationTypePipe } from './pipes/vacation-type.pipe';
+import { TeamDataService } from './services/team-data.service';
 
 
 
@@ -14,13 +15,12 @@ import { VacationTypePipe } from './pipes/vacation-type.pipe';
   ],
   providers: [
     UserDataService,
-    VacationService
+    VacationService,
+    TeamDataService
   ],
   exports: [
     VacationTypePipe,
     VacationStatusPipe,
-    // UserDataService,
-    // VacationService
   ]
 })
 export class SharedModule { }

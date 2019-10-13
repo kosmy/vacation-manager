@@ -7,6 +7,8 @@ import { ContentComponent } from './layout/content/content.component';
 import { MainRoutingModule } from './main-routing.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { VacationRequestModule } from './modules/vacation-request/vacation-request.module';
+import { AddUserModule } from './modules/add-user/add-user.module';
+import { AddTeamModule } from './modules/add-team/add-team.module';
 
 
 
@@ -16,7 +18,9 @@ import { VacationRequestModule } from './modules/vacation-request/vacation-reque
     CommonModule,
     MainRoutingModule,
     ProfileModule,
-    VacationRequestModule
+    VacationRequestModule,
+    AddUserModule,
+    AddTeamModule
   ]
 })
 export class MainModule { }

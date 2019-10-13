@@ -8,6 +8,8 @@ export enum WorkStatus{
 export class User {
     constructor( 
         public id: number,
+        public login: string,
+        public password: string,
         public name: string,
         public surname: string,
         public birthday: Date,
@@ -18,7 +20,7 @@ export class User {
         public vacationsAvailable: number,
         public startDate: Date,
         public workStatus: WorkStatus,
-        public team: Team["name"],
+        public team: Team["teamName"],
         public avatar?: string,
         public fireDate? : Date) { }
 }

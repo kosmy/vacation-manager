@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AddUserRoutingModule } from './add-user-routing.module';
 import { AddUserComponent } from './add-user.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -24,7 +24,6 @@ import { SharedModule } from '../shared/shared.module';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    FormsModule
   ]
 })
 export class AddUserModule { }

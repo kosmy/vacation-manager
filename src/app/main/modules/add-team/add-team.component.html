@@ -1,0 +1,23 @@
+<div class="whole-block">
+    <div class="title">
+        Add New Team
+    </div>
+    <div class="main-block">
+        <form class="main-block" [formGroup]="addTeamForm" (ngSubmit)="onSubmit(addTeamForm)">
+            <div class="sub-block">
+                <mat-form-field type="text">
+                    <input matInput placeholder="Team Name" name="teamName" formControlName="teamName">
+                </mat-form-field>
+                <mat-form-field type="text">
+                    <input matInput placeholder="Team Lead Name" name="teamLeadName" formControlName="teamLeadName">
+                </mat-form-field>
+            </div>
+            <div class="sub-block">
+                <mat-form-field type="text">
+                    <input matInput placeholder="Team Members" name="teamMembers" formControlName="teamMembers">
+                </mat-form-field>
+                <button mat-stroked-button>Add Team</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WorkStatus, User } from '../shared/models/user';
 import { UserDataService } from '../shared/services/user-data.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Team } from '../shared/models/team';
+import { TeamDataService } from '../shared/services/team-data.service';
 
 @Component({
   selector: 'app-add-user',
@@ -11,20 +13,20 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class AddUserComponent implements OnInit {
 
   statuses = [{ value: WorkStatus.active, text: "Active" }, { value: WorkStatus.fired, text: "Fired" }];
-
   addUserForm: FormGroup;
-
   user: User;
-  usersLength: number;
-  constructor(private userDataService: UserDataService) { }
+  teams: Team[];
+  constructor(private userDataService: UserDataService, private teamDataService: TeamDataService) { }
 
   ngOnInit() {
     this.buildForm();
-    this.usersLength = this.userDataService.getUsers.length;
+    this.teams = this.teamDataService.getTeams();
   }
 
   buildForm() {
     this.addUserForm = new FormGroup({
+      login: new FormControl(),
+      password: new FormControl(),
       name: new FormControl(),
       surname: new FormControl(),
       birthday: new FormControl(),
@@ -39,7 +41,9 @@ export class AddUserComponent implements OnInit {
     })
   }
   onSubmit(addUserForm: FormGroup) {
-    this.user = new User(this.usersLength + 1,
+    this.user = new User(this.userDataService.getUsersLength() + 1,
+      addUserForm.value.login,
+      addUserForm.value.password,
       addUserForm.value.name,
       addUserForm.value.surname,
       addUserForm.value.birthday,
