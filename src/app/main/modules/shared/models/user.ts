@@ -1,3 +1,5 @@
+import { Team } from './team'
+
 export enum WorkStatus{
     active,
     fired
@@ -16,7 +18,7 @@ export class User {
         public vacationsAvailable: number,
         public startDate: Date,
         public workStatus: WorkStatus,
-        public team: string,
+        public team: Team["name"],
         public avatar?: string,
-        public fireDate? : Date,) { }
+        public fireDate? : Date) { }
 }

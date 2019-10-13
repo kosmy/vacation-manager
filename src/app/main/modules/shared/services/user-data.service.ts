@@ -4,8 +4,7 @@ import { User, WorkStatus } from '../models/user';
 @Injectable()
 export class UserDataService {
 
-  localUsers: User[];
-  private users: User[] = [
+  private employees: User[] = [
     {
       id: 1,
       name: 'Nikita',
@@ -69,30 +68,30 @@ export class UserDataService {
   ]
 
   load() {
-    return JSON.parse(JSON.stringify(this.users)); // Emulate immutable data
+    return JSON.parse(JSON.stringify(this.employees)); // Emulate immutable data
   }
 
-  addUser(newUser: User) {
-    this.users.push(newUser)
-  }
+  // addUser(newUser: User) {
+  //   this.users.push(newUser)
+  // }
 
   findCertainUser(id: number) {
-    return this.users.find(user => user.id === id)
+    return this.employees.find(user => user.id === id)
   }
-  userLength = this.users.length;
+  userLength = this.employees.length;
 
-  addUserLocal(user: User) {
+  addUser(user: User) {
     if (!localStorage.getItem('users')) {
-      localStorage.setItem('vacationRequests', JSON.stringify([]));
+      localStorage.setItem('users', JSON.stringify([]));
     }
-    this.localUsers = JSON.parse(localStorage.getItem('vacationRequests'));
-    this.localUsers.push(user);
-    localStorage.setItem('vacationRequests', JSON.stringify(this.localUsers));
+    this.employees = JSON.parse(localStorage.getItem('users'));
+    this.employees.push(user);
+    localStorage.setItem('users', JSON.stringify(this.employees));
   }
 
   getUsers() {
-    // return JSON.parse(localStorage.getItem('vacationRequests'));
-    return this.users;
+    return JSON.parse(localStorage.getItem('users'));
+    // return this.users;
   }
 
 }

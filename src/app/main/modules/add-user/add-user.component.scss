@@ -1,0 +1,40 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+.whole-block {
+  border: 1px solid gray;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+
+  .title {
+    border-bottom: 1px solid gray;
+    text-align: center;
+    font-size: 25px;
+    padding: 7px 0px;
+  }
+
+  .main-block {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+
+    .sub-block:first-child {
+        border-right: 1px solid gray;
+    }
+    .sub-block {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      padding: 20px 50px;
+
+      button {
+          margin-top: 15px;
+      }
+    }
+  }
+}
