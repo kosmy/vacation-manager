@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../../shared/models/user';
 import { UserDataService } from '../../../shared/services/user-data.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-info',
@@ -9,11 +10,14 @@ import { UserDataService } from '../../../shared/services/user-data.service';
 })
 export class UserInfoComponent implements OnInit {
 
-  certainUser: User
+  @Input() certainUser: User
+
   constructor(private userDataService: UserDataService) { }
 
   ngOnInit() {
-    this.certainUser = this.userDataService.findCertainUser(1);
+    
   }
+
+  
 
 }

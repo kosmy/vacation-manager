@@ -20,6 +20,9 @@
             <mat-datepicker-toggle matSuffix [for]="pickerTwo"></mat-datepicker-toggle>
             <mat-datepicker #pickerTwo></mat-datepicker>
         </mat-form-field>
+        <mat-form-field id="amount" type="number">
+            <input matInput placeholder="Amount of Days" name="amount" formControlName="amount">
+        </mat-form-field>
         <mat-form-field class="example-full-width">
             <textarea matInput placeholder="Leave a Comment" formControlName="comment"></textarea>
         </mat-form-field>

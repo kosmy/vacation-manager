@@ -4,6 +4,7 @@ import { WorkStatus, User } from '../models/user';
 @Injectable()
 export class UserDataService {
 
+  public userId: number = 0;
   private employees: User[] = [
     {
       id: 1,
@@ -79,8 +80,8 @@ export class UserDataService {
     return this.getUsers().length;
   }
 
-  findCertainUser(id: number) {
-    return this.employees.find(user => user.id === id)
+  findCertainUser(login: string, password: string): User {
+    return this.employees.find(user => user.login === login && user.password === password)
   }
   addUser(user: User) {
     this.checkIfEmptyAndFill()
@@ -99,6 +100,23 @@ export class UserDataService {
     }
   }
 
+  findUserById(id: number): User {
+    return this.employees.find(user => user.id === id)
+  }
+
+  rememberUserId(userId: number) {
+    if (!localStorage.getItem('userId')) {
+      localStorage.setItem('userId', JSON.stringify(this.userId));
+    }
+    this.userId = userId;
+    localStorage.setItem('userId', JSON.stringify(this.userId));
+  }
+  getUserId(): number {
+    if (!localStorage.getItem('userId')) {
+      localStorage.setItem('userId', JSON.stringify(this.userId));
+    }
+    return JSON.parse(localStorage.getItem('userId'));
+  }
 }
 
 

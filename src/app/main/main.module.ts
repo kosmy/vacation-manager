@@ -9,6 +9,7 @@ import { ProfileModule } from './modules/profile/profile.module';
 import { VacationRequestModule } from './modules/vacation-request/vacation-request.module';
 import { AddUserModule } from './modules/add-user/add-user.module';
 import { AddTeamModule } from './modules/add-team/add-team.module';
+import { SharedModule } from './modules/shared/shared.module';
 
 
 
@@ -20,7 +21,8 @@ import { AddTeamModule } from './modules/add-team/add-team.module';
     ProfileModule,
     VacationRequestModule,
     AddUserModule,
-    AddTeamModule
+    AddTeamModule,
+    SharedModule
   ]
 })
 export class MainModule { }

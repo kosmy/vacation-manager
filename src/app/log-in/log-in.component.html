@@ -1,9 +1,10 @@
-<form>
+<form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm)">
     <mat-form-field type="text">
-        <input matInput placeholder="Login" [(ngModel)]="login" name="login">
+        <input matInput placeholder="Login" formControlName="login">
     </mat-form-field>
     <mat-form-field type="text">
-        <input matInput placeholder="Password" [(ngModel)]="password" name="password">
+        <input matInput placeholder="Password" formControlName="password">
     </mat-form-field>
-    <button mat-stroked-button (click)="enter()">Log in</button>
+    <button mat-stroked-button>Log in</button>
 </form>
+

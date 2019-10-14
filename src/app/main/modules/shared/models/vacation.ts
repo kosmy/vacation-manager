@@ -28,6 +28,7 @@ export class Vacation {
         public type: VacationType,
         public startDate: Date,
         public endDate: Date,
+        public amount: number,
         public comment: string,
         public status: VacationStatus) { }
 }

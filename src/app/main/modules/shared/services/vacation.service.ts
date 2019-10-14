@@ -20,9 +20,10 @@ export class VacationService {
 
   }
 
-  getVacationRequests() {
-    return JSON.parse(localStorage.getItem('vacationRequests'));
+  getVacationRequests(id: number) {
+    return JSON.parse(localStorage.getItem('vacationRequests')).filter(request => request.userId === id);
   }
+
 
   convertStatus(status: VacationStatus) {
     switch (status) {
