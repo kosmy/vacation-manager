@@ -10,6 +10,9 @@ import { VacationRequestModule } from './modules/vacation-request/vacation-reque
 import { AddUserModule } from './modules/add-user/add-user.module';
 import { AddTeamModule } from './modules/add-team/add-team.module';
 import { SharedModule } from './modules/shared/shared.module';
+import { VacationRequestListModule } from './modules/vacation-request-list/vacation-request-list.module';
+import { EmployeesListComponent } from './modules/employees-list/employees-list.component';
+
 
 
 
@@ -22,7 +25,8 @@ import { SharedModule } from './modules/shared/shared.module';
     VacationRequestModule,
     AddUserModule,
     AddTeamModule,
-    SharedModule
+    SharedModule,
+    VacationRequestListModule
   ]
 })
 export class MainModule { }

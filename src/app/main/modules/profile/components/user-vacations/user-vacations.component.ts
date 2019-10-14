@@ -33,7 +33,7 @@ export class UserVacationsComponent implements OnInit {
   constructor(private userDataService: UserDataService, private vacationService: VacationService, private router: Router) { }
 
   ngOnInit() {
-    this.userVacationsList = this.vacationService.getVacationRequests(this.certainUser.id);
+    this.userVacationsList = this.vacationService.getVacationRequestsForUser(this.certainUser.id);
     console.log(this.userVacationsList)
   }
 

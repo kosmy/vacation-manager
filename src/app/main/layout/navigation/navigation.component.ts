@@ -28,5 +28,6 @@ export class NavigationComponent implements OnInit {
     this.certainUserId = this.userDataService.getUserId()
     this.router.navigate(["/main/vacation-request", this.certainUserId])
   }
+  
 
 }
