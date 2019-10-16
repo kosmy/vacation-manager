@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VacationType, Vacation, VacationStatus } from '../shared/models/vacation';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { VacationService } from '../shared/services/vacation.service';
 import { Router } from '@angular/router';
 import { UserDataService } from '../shared/services/user-data.service';
@@ -28,11 +28,11 @@ export class VacationRequestComponent implements OnInit {
 
   buildForm() {
     this.vacationRequestForm = new FormGroup({
-      type: new FormControl(),
-      start: new FormControl(),
-      end: new FormControl(),
-      amount: new FormControl(),
-      comment: new FormControl()
+      type: new FormControl('', [Validators.required]),
+      start: new FormControl('', [Validators.required]),
+      end: new FormControl('', [Validators.required]),
+      amount: new FormControl('', [Validators.required]),
+      comment: new FormControl('', [Validators.required])
     })
   }
   onSubmit(vacationRequestForm: FormGroup) {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Team } from '../shared/models/team';
 import { TeamDataService } from '../shared/services/team-data.service';
 
@@ -22,8 +22,8 @@ export class AddTeamComponent implements OnInit {
 
   buildForm() {
     this.addTeamForm = new FormGroup({
-      teamName: new FormControl(),
-      teamLeadName: new FormControl(),
+      teamName: new FormControl('', [Validators.required]),
+      teamLeadName: new FormControl('', [Validators.required]),
       teamMembers: new FormControl()
     })
   }

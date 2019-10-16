@@ -3,29 +3,44 @@
         Vacation Request
     </div>
     <form class="main-block" [formGroup]="vacationRequestForm" (ngSubmit)="onSubmit(vacationRequestForm)">
-        <mat-form-field id="vacationType">
+        <mat-form-field>
             <mat-label>Vacation Type</mat-label>
             <mat-select formControlName="type">
                 <mat-option>None</mat-option>
                 <mat-option *ngFor="let type of vacationTypes" [value]="type.value">{{type.text}}</mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-error *ngIf="vacationRequestForm.get('type').invalid && vacationRequestForm.get('type').touched">
+            <ng-container *ngIf="vacationRequestForm.get('type').errors.required">type is required.</ng-container>
+        </mat-error>
         <mat-form-field id="from">
             <input matInput [matDatepicker]="picker" placeholder="Choose a From Date" formControlName="start">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+        <mat-error *ngIf="vacationRequestForm.get('start').invalid && vacationRequestForm.get('start').touched">
+            <ng-container *ngIf="vacationRequestForm.get('start').errors.required">start date is required.</ng-container>
+        </mat-error>
         <mat-form-field id="to">
             <input matInput [matDatepicker]="pickerTwo" placeholder="Choose a To Date" formControlName="end">
             <mat-datepicker-toggle matSuffix [for]="pickerTwo"></mat-datepicker-toggle>
             <mat-datepicker #pickerTwo></mat-datepicker>
         </mat-form-field>
-        <mat-form-field id="amount" type="number">
-            <input matInput placeholder="Amount of Days" name="amount" formControlName="amount">
+        <mat-error *ngIf="vacationRequestForm.get('end').invalid && vacationRequestForm.get('end').touched">
+            <ng-container *ngIf="vacationRequestForm.get('end').errors.required">end date is required.</ng-container>
+        </mat-error>
+        <mat-form-field type="number">
+            <input matInput placeholder="Amount of Days" formControlName="amount">
         </mat-form-field>
+        <mat-error *ngIf="vacationRequestForm.get('amount').invalid && vacationRequestForm.get('amount').touched">
+            <ng-container *ngIf="vacationRequestForm.get('amount').errors.required">amount is required.</ng-container>
+        </mat-error>
         <mat-form-field class="example-full-width">
             <textarea matInput placeholder="Leave a Comment" formControlName="comment"></textarea>
         </mat-form-field>
+        <mat-error *ngIf="vacationRequestForm.get('comment').invalid && vacationRequestForm.get('comment').touched">
+            <ng-container *ngIf="vacationRequestForm.get('comment').errors.required">comment is required.</ng-container>
+        </mat-error>
         <button type="submit" mat-stroked-button>Request Vacation</button>
     </form>
 </div>

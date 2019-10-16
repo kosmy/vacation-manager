@@ -10,7 +10,7 @@ export enum VacationType {
 export enum VacationStatus {
     Pending,
     Approved,
-    Rejected
+    Refused
 }
 
 // export interface Vacation {

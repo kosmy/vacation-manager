@@ -4,7 +4,7 @@ import { User } from '../shared/models/user';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { AddUserComponent } from '../add-user/add-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @Component({
   selector: 'app-employees-list',
@@ -29,7 +29,7 @@ export class EmployeesListComponent implements OnInit {
   }
 
   editUser(user: User): void {
-    const dialogRef = this.dialog.open(AddUserComponent, {
+    const dialogRef = this.dialog.open(EditUserComponent, {
       width: '800px',
       data: user
     });

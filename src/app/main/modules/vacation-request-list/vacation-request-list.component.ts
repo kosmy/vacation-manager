@@ -15,7 +15,7 @@ export class VacationRequestListComponent implements OnInit {
   @ViewChild (MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  displayedColumns: string[] = ['name', 'team', 'vacationDates', 'amount', 'balance'];
+  displayedColumns: string[] = ['name', 'team', 'vacationDates', 'amount', 'balance', 'status', 'action'];
   vacationsList: Vacation[];
   dataSource;
 
@@ -29,5 +29,8 @@ export class VacationRequestListComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
+  }
+  decide() {
+    
   }
 }

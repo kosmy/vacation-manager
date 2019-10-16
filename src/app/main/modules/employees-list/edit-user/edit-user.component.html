@@ -1,0 +1,65 @@
+<div class="whole-block">
+    <div class="title">
+        Add New Employee
+    </div>
+    <form class="main-block" [formGroup]="addUserForm" (ngSubmit)="onSubmit(addUserForm)">
+        <div class="sub-block">
+            <mat-form-field type="text">
+                <input matInput placeholder="Login" name="login" formControlName="login">
+            </mat-form-field>
+            <mat-form-field type="text">
+                <input matInput placeholder="Password" name="password" formControlName="password">
+            </mat-form-field>
+            <mat-form-field type="text">
+                <input matInput placeholder="Name" name="name" formControlName="name">
+            </mat-form-field>
+            <mat-form-field type="text">
+                <input matInput placeholder="Surname" name="surname" formControlName="surname">
+            </mat-form-field>
+            <mat-form-field id="workStatus">
+                <mat-label>Work Status</mat-label>
+                <mat-select formControlName="workStatus">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let status of statuses" [value]="status.value">{{status.text}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="number" matInput placeholder="Vacations Available" name="balance"
+                    formControlName="balance">
+            </mat-form-field>
+            <mat-form-field id="team">
+                <mat-label>Team</mat-label>
+                <mat-select formControlName="team">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let team of teams" [value]="team.teamName">{{team.teamName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="sub-block">
+            <mat-form-field id="startDate">
+                <input matInput [matDatepicker]="picker" placeholder="Birthday" formControlName="birthday">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field type="text">
+                <input matInput placeholder="workEmail" name="workEmail" formControlName="workEmail">
+            </mat-form-field>
+            <mat-form-field type="text">
+                <input matInput placeholder="email" name="email" formControlName="email">
+            </mat-form-field>
+            <mat-form-field type="text">
+                <input matInput placeholder="phone" name="phone" formControlName="phone">
+            </mat-form-field>
+            <mat-form-field type="text">
+                <input matInput placeholder="skype" name="skype" formControlName="skype">
+            </mat-form-field>
+            <mat-form-field id="startDate">
+                <input matInput [matDatepicker]="pickerTwo" placeholder="Start Date" formControlName="startDate">
+                <mat-datepicker-toggle matSuffix [for]="pickerTwo"></mat-datepicker-toggle>
+                <mat-datepicker #pickerTwo></mat-datepicker>
+            </mat-form-field>
+
+            <button mat-stroked-button>Edit Employee</button>
+        </div>
+    </form>
+</div>

@@ -6,7 +6,7 @@ import { AddUserComponent } from './add-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from '../shared/shared.module';
@@ -24,7 +24,9 @@ import { SharedModule } from '../shared/shared.module';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    
+  ],
+  providers: [
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ]
 })
 export class AddUserModule { }

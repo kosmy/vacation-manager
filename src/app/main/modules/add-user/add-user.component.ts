@@ -1,10 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WorkStatus, User } from '../shared/models/user';
 import { UserDataService } from '../shared/services/user-data.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Team } from '../shared/models/team';
 import { TeamDataService } from '../shared/services/team-data.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-user',
@@ -18,9 +17,7 @@ export class AddUserComponent implements OnInit {
   user: User;
   teams: Team[];
   constructor(private userDataService: UserDataService,
-    private teamDataService: TeamDataService,
-    public dialogRef: MatDialogRef<AddUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: User) { }
+    private teamDataService: TeamDataService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -30,32 +27,25 @@ export class AddUserComponent implements OnInit {
 
   buildForm() {
     this.addUserForm = new FormGroup({
-      login: new FormControl(),
-      password: new FormControl(),
-      name: new FormControl(),
-      surname: new FormControl(),
-      birthday: new FormControl(),
-      workEmail: new FormControl(),
-      email: new FormControl(),
-      phone: new FormControl(),
-      skype: new FormControl(),
-      balance: new FormControl(),
-      startDate: new FormControl(),
-      workStatus: new FormControl(),
-      team: new FormControl(),
+      login: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
+      birthday: new FormControl('', [Validators.required]),
+      workEmail: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [Validators.required]),
+      skype: new FormControl('', [Validators.required]),
+      balance: new FormControl('', [Validators.required]),
+      startDate: new FormControl('', [Validators.required]),
+      workStatus: new FormControl('', [Validators.required]),
+      team: new FormControl('', [Validators.required]),
     })
   }
 
   fillUserInputs() {
-    console.log(this.data)
-    if (this.data) {
-      this.user = this.data;
-      this.addUserForm.patchValue(this.user);
-    }
-    else {
-      this.user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-      this.addUserForm.patchValue(this.user);
-    }
+    this.user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+    this.addUserForm.patchValue(this.user);
   }
 
 
