@@ -17,10 +17,13 @@ export class VacationRequestComponent implements OnInit {
 
   vacationRequestForm: FormGroup;
 
+  userId: number;
+
   constructor(private vacationService: VacationService, private router: Router, private userDataService: UserDataService) { }
 
   ngOnInit() {
     this.buildForm();
+    this.userId = this.userDataService.getUserId();
   }
 
   buildForm() {
@@ -33,7 +36,7 @@ export class VacationRequestComponent implements OnInit {
     })
   }
   onSubmit(vacationRequestForm: FormGroup) {
-    this.vacationRequest = new Vacation( 1, 
+    this.vacationRequest = new Vacation(this.userId, 
       vacationRequestForm.value.type, 
       vacationRequestForm.value.start, 
       vacationRequestForm.value.end,

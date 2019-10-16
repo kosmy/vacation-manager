@@ -5,11 +5,12 @@ import { VacationService } from './services/vacation.service';
 import { VacationStatusPipe } from './pipes/vacation-status.pipe';
 import { VacationTypePipe } from './pipes/vacation-type.pipe';
 import { TeamDataService } from './services/team-data.service';
+import { VacationRequestUserPipe } from './pipes/vacation-request-user.pipe';
 
 
 
 @NgModule({
-  declarations: [VacationStatusPipe, VacationTypePipe],
+  declarations: [VacationStatusPipe, VacationTypePipe, VacationRequestUserPipe],
   imports: [
     CommonModule
   ],
@@ -21,6 +22,7 @@ import { TeamDataService } from './services/team-data.service';
   exports: [
     VacationTypePipe,
     VacationStatusPipe,
+    VacationRequestUserPipe
   ]
 })
 export class SharedModule { }

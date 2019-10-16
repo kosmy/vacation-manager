@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { WorkStatus, User } from '../shared/models/user';
 import { UserDataService } from '../shared/services/user-data.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Team } from '../shared/models/team';
 import { TeamDataService } from '../shared/services/team-data.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-user',
@@ -16,11 +17,15 @@ export class AddUserComponent implements OnInit {
   addUserForm: FormGroup;
   user: User;
   teams: Team[];
-  constructor(private userDataService: UserDataService, private teamDataService: TeamDataService) { }
+  constructor(private userDataService: UserDataService,
+    private teamDataService: TeamDataService,
+    public dialogRef: MatDialogRef<AddUserComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: User) { }
 
   ngOnInit() {
     this.buildForm();
     this.teams = this.teamDataService.getTeams();
+    this.fillUserInputs();
   }
 
   buildForm() {
@@ -34,31 +39,42 @@ export class AddUserComponent implements OnInit {
       email: new FormControl(),
       phone: new FormControl(),
       skype: new FormControl(),
-      vacationsAvailable: new FormControl(),
+      balance: new FormControl(),
       startDate: new FormControl(),
       workStatus: new FormControl(),
       team: new FormControl(),
     })
   }
-  onSubmit(addUserForm: FormGroup) {
-    this.user = new User(this.userDataService.getUsersLength() + 1,
-      addUserForm.value.login,
-      addUserForm.value.password,
-      addUserForm.value.name,
-      addUserForm.value.surname,
-      addUserForm.value.birthday,
-      addUserForm.value.workEmail,
-      addUserForm.value.email,
-      addUserForm.value.phone,
-      addUserForm.value.skype,
-      addUserForm.value.vacationsAvailable,
-      addUserForm.value.startDate,
-      WorkStatus.active,
-      addUserForm.value.team);
 
+  fillUserInputs() {
+    console.log(this.data)
+    if (this.data) {
+      this.user = this.data;
+      this.addUserForm.patchValue(this.user);
+    }
+    else {
+      this.user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      this.addUserForm.patchValue(this.user);
+    }
+  }
+
+
+  onSubmit(addUserForm: FormGroup) {
+    this.user.id = this.userDataService.getUsersLength() + 1
+    this.user.login = addUserForm.value.login
+    this.user.password = addUserForm.value.password
+    this.user.name = addUserForm.value.name;
+    this.user.surname = addUserForm.value.surname;
+    this.user.birthday = addUserForm.value.birthday;
+    this.user.workEmail = addUserForm.value.workEmail;
+    this.user.email = addUserForm.value.email;
+    this.user.phone = addUserForm.value.phone;
+    this.user.skype = addUserForm.value.skype;
+    this.user.balance = addUserForm.value.balance;
+    this.user.startDate = addUserForm.value.startDate;
+    this.user.workStatus = WorkStatus.active;
+    this.user.team = addUserForm.value.team;
 
     this.userDataService.addUser(this.user);
-    console.log(this.user)
-    console.log(this.userDataService.getUsers())
   }
 }

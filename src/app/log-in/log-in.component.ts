@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthorizationService } from './services/authorization.service';
 import { UserDataService } from '../main/modules/shared/services/user-data.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { User } from '../main/modules/shared/models/user';
 
 @Component({
   selector: 'app-log-in',
@@ -12,20 +13,22 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class LogInComponent {
 
   logInForm: FormGroup;
+  users: User[]
 
   constructor(private router: Router, private authService: AuthorizationService, private userDataService: UserDataService) { }
 
   whatUserId(login, password): number {
-    return this.userDataService.findCertainUser(login, password).id;
+    return this.users.find( user => user.login === login && user.password === password).id;
   }
   ngOnInit() {
     this.buildForm();
+    this.users = this.userDataService.getUsers();
   }
 
   buildForm() {
     this.logInForm = new FormGroup({
-      login: new FormControl(),
-      password: new FormControl(),
+      login: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required])
     })
   }
   onSubmit(logInForm: FormGroup) {

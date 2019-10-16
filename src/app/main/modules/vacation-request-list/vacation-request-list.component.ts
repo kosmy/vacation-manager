@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { Vacation } from '../shared/models/vacation';
 import { VacationService } from '../shared/services/vacation.service';
-import { User } from '../shared/models/user';
-import { UserDataService } from '../shared/services/user-data.service';
+import {MatPaginator} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+
 
 @Component({
   selector: 'app-vacation-request-list',
@@ -10,28 +12,22 @@ import { UserDataService } from '../shared/services/user-data.service';
   styleUrls: ['./vacation-request-list.component.scss']
 })
 export class VacationRequestListComponent implements OnInit {
+  @ViewChild (MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  displayedColumns: string[] = ['name', 'team', 'vacationDates', 'amount', 'vacationsAvailable', 'action'];
+  displayedColumns: string[] = ['name', 'team', 'vacationDates', 'amount', 'balance'];
   vacationsList: Vacation[];
-  allUsers: User[];
-  neededUsers: User[];
+  dataSource;
 
-  constructor(private vacationService: VacationService, private userDataService: UserDataService) { }
+  
+
+  constructor(private vacationService: VacationService) { }
 
   ngOnInit() {
-    this.vacationsList = this.vacationService.getAllVacationRequests();
-    console.log(this.vacationsList)
-
-    this.allUsers = this.userDataService.getUsers();
-    this.filter();
-    console.log(this.neededUsers)
+    this.dataSource =  new MatTableDataSource<any>(this.vacationService.getAllVacationRequests());
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
   }
-
-  filter() {
-    // можно через map
-    for (let vacation of this.vacationsList) {
-      this.neededUsers = this.allUsers.filter(user => user.id === vacation.userId)
-    }
-  }
-
 }

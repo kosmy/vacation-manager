@@ -6,6 +6,8 @@ import { VacationRequestListComponent } from './vacation-request-list.component'
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from '../shared/shared.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { SharedModule } from '../shared/shared.module';
     VacationRequestListRoutingModule,
     MatTableModule,
     MatButtonModule,
-    SharedModule
+    SharedModule,
+    MatPaginatorModule,
+    MatSortModule
   ]
 })
 export class VacationRequestListModule { }

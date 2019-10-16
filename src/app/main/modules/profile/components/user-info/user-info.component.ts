@@ -10,12 +10,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserInfoComponent implements OnInit {
 
-  @Input() certainUser: User
-
+  @Input() certainUser: User;
   constructor(private userDataService: UserDataService) { }
 
   ngOnInit() {
-    
   }
 
   

@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { LogInComponent } from './log-in.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthorizationService } from './services/authorization.service';
 import { SharedModule } from '../main/modules/shared/shared.module';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 
 
 
@@ -16,8 +17,11 @@ import { SharedModule } from '../main/modules/shared/shared.module';
     MatButtonModule,
     MatInputModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
   ],
-  providers: [AuthorizationService]
+  providers: [AuthorizationService,
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+  ]
 })
 export class LogInModule { }

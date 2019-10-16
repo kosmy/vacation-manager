@@ -1,10 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { UserDataService } from '../../../shared/services/user-data.service';
 import { VacationService } from '../../../shared/services/vacation.service';
 import { Vacation } from '../../../shared/models/vacation';
 import { Router } from '@angular/router';
 import { User } from '../../../shared/models/user';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 @Component({
@@ -23,7 +25,9 @@ import { User } from '../../../shared/models/user';
 export class UserVacationsComponent implements OnInit {
 
   @Input() certainUser: User
+  @ViewChild (MatPaginator, {static: true}) paginator: MatPaginator;
 
+  dataSource;
 
   displayedColumns: string[] = ['startDate', 'amount', 'type', 'status',];
   // expandedElement: Vacation | null;
@@ -33,8 +37,11 @@ export class UserVacationsComponent implements OnInit {
   constructor(private userDataService: UserDataService, private vacationService: VacationService, private router: Router) { }
 
   ngOnInit() {
-    this.userVacationsList = this.vacationService.getVacationRequestsForUser(this.certainUser.id);
-    console.log(this.userVacationsList)
+    // this.userVacationsList = this.vacationService.getVacationRequestsForUser(this.certainUser.id);
+    // console.log(this.userVacationsList)
+    this.dataSource =  new MatTableDataSource<any>(this.vacationService.getVacationRequestsForUser(this.certainUser.id));
+    this.dataSource.paginator = this.paginator;
+    
   }
 
   requestVacation() {

@@ -17,7 +17,7 @@ export class User {
         public email: string,
         public phone: string,
         public skype: string,
-        public vacationsAvailable: number,
+        public balance: number,
         public startDate: Date,
         public workStatus: WorkStatus,
         public team: Team["teamName"],
