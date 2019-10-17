@@ -2,7 +2,7 @@
     <div class="title">
         Add New Employee
     </div>
-    <form class="main-block" [formGroup]="addUserForm" (ngSubmit)="onSubmit(addUserForm)">
+    <form class="main-block" [formGroup]="addUserForm" (ngSubmit)="editUser(addUserForm)">
         <div class="sub-block">
             <mat-form-field type="text">
                 <input matInput placeholder="Login" name="login" formControlName="login">
@@ -33,7 +33,7 @@
                     <mat-option>None</mat-option>
                     <mat-option *ngFor="let team of teams" [value]="team.teamName">{{team.teamName}}</mat-option>
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field> 
         </div>
         <div class="sub-block">
             <mat-form-field id="startDate">

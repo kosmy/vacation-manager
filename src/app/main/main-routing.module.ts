@@ -13,7 +13,7 @@ const routes: Routes = [
             { loadChildren: './modules/add-team/add-team.module#AddTeamModule', path: 'add-team'},
             { loadChildren: './modules/vacation-request-list/vacation-request-list.module#VacationRequestListModule', path: 'vacation-request-list'},
             { loadChildren: './modules/employees-list/employees-list.module#EmployeesListModule', path: 'employees-list'},                      
-            { path: '', redirectTo: 'profile', pathMatch: 'full'}
+            { path: '', redirectTo: '/profile/:id', pathMatch: 'full'}
         ]
     }
 ];

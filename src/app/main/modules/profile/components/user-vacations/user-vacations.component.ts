@@ -27,7 +27,7 @@ export class UserVacationsComponent implements OnInit {
   @Input() certainUser: User
   @ViewChild (MatPaginator, {static: true}) paginator: MatPaginator;
 
-  dataSource;
+  private dataSource;
 
   displayedColumns: string[] = ['startDate', 'amount', 'type', 'status',];
   // expandedElement: Vacation | null;

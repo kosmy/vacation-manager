@@ -26,6 +26,7 @@ export class EditUserComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.teams = this.teamDataService.getTeams();
+    console.log(this.teams)
     this.fillUserInputs();
   }
   buildForm() {
@@ -59,7 +60,7 @@ export class EditUserComponent implements OnInit {
   }
 
 
-  onSubmit(addUserForm: FormGroup) {
+  editUser(addUserForm: FormGroup) {
     this.user.id = this.data.id;
     this.user.login = addUserForm.value.login;
     this.user.password = addUserForm.value.password;
@@ -75,6 +76,7 @@ export class EditUserComponent implements OnInit {
     this.user.workStatus = WorkStatus.active;
     this.user.team = addUserForm.value.team;
 
-    this.userDataService.addUser(this.user);
+    this.userDataService.editUser(this.user);
+    this.dialogRef.close();
   }
 }

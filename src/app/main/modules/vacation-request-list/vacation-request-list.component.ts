@@ -4,6 +4,8 @@ import { VacationService } from '../shared/services/vacation.service';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { VacationRequestAnswerComponent } from './vacation-request-answer/vacation-request-answer.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -16,21 +18,22 @@ export class VacationRequestListComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns: string[] = ['name', 'team', 'vacationDates', 'amount', 'balance', 'status', 'action'];
+  // displayedColumns: string[] = ['vacationDates', 'amount', 'status', 'action'];
+
   vacationsList: Vacation[];
   dataSource;
 
-  
-
-  constructor(private vacationService: VacationService) { }
+  constructor(private vacationService: VacationService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.dataSource =  new MatTableDataSource<any>(this.vacationService.getAllVacationRequests());
-    setTimeout(() => {
-      this.dataSource.sort = this.sort;
+      // this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    });
   }
-  decide() {
-    
+  decide(request: Vacation) {
+    const dialogRef = this.dialog.open(VacationRequestAnswerComponent, {
+      width: '800px',
+      data: request
+    });
   }
 }

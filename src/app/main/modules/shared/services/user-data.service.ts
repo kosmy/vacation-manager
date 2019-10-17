@@ -94,6 +94,15 @@ export class UserDataService {
     this.checkIfEmptyAndFill();
     return JSON.parse(localStorage.getItem('employees'));
   }
+
+  editUser(modifiedUser: User) {
+    this.employees = this.getUsers();
+    let oldUser = this.employees.find(user => user.id === modifiedUser.id);
+    let oldUserIndex = this.employees.indexOf(this.employees.find(user => user.id === modifiedUser.id));
+    let newUser = modifiedUser;
+    this.employees.splice(oldUserIndex,1,newUser);
+    localStorage.setItem('vacationRequests', JSON.stringify(this.employees));
+  }
   checkIfEmptyAndFill() {
     if (!localStorage.getItem('employees')) {
       localStorage.setItem('employees', JSON.stringify(this.employees));

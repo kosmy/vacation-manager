@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { WorkStatus, User } from '../shared/models/user';
 import { UserDataService } from '../shared/services/user-data.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Team } from '../shared/models/team';
 import { TeamDataService } from '../shared/services/team-data.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { EditUserComponent } from '../employees-list/edit-user/edit-user.component';
 
 @Component({
   selector: 'app-add-user',
@@ -17,7 +19,8 @@ export class AddUserComponent implements OnInit {
   user: User;
   teams: Team[];
   constructor(private userDataService: UserDataService,
-    private teamDataService: TeamDataService) { }
+    private teamDataService: TeamDataService, public dialogRef: MatDialogRef<AddUserComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: User) { }
 
   ngOnInit() {
     this.buildForm();
@@ -43,9 +46,20 @@ export class AddUserComponent implements OnInit {
     })
   }
 
+  // fillUserInputs() {
+  //   this.user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+  //   this.addUserForm.patchValue(this.user);
+  // }
   fillUserInputs() {
-    this.user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-    this.addUserForm.patchValue(this.user);
+    console.log(this.data)
+    if (this.data) {
+      this.user = this.data;
+      this.addUserForm.patchValue(this.user);
+    }
+    else {
+      this.user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      this.addUserForm.patchValue(this.user);
+    }
   }
 
 
@@ -66,5 +80,6 @@ export class AddUserComponent implements OnInit {
     this.user.team = addUserForm.value.team;
 
     this.userDataService.addUser(this.user);
+
   }
 }

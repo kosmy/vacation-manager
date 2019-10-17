@@ -14,7 +14,7 @@ export class VacationService {
       localStorage.setItem('vacationRequests', JSON.stringify([]));
     }
 
-    this.localVacationArray = JSON.parse(localStorage.getItem('vacationRequests'));
+    this.localVacationArray = this.getAllVacationRequests()
     this.localVacationArray.push(vacation);
     localStorage.setItem('vacationRequests', JSON.stringify(this.localVacationArray));
 
@@ -27,6 +27,18 @@ export class VacationService {
     return JSON.parse(localStorage.getItem('vacationRequests'));
   }
 
+  approve(vacationRequest: Vacation) {
+    this.localVacationArray = this.getAllVacationRequests();
+    this.localVacationArray.find(request => request.userId === vacationRequest.userId).status = VacationStatus.Approved;
+    localStorage.setItem('vacationRequests', JSON.stringify(this.localVacationArray));
+  }
+
+  refuse(vacationRequest: Vacation) {
+    this.localVacationArray = this.getAllVacationRequests();
+    this.localVacationArray.find(request => request.userId === vacationRequest.userId).status = VacationStatus.Refused;
+    localStorage.setItem('vacationRequests', JSON.stringify(this.localVacationArray));
+  }
+
 
   convertStatus(status: VacationStatus) {
     switch (status) {
@@ -37,7 +49,7 @@ export class VacationService {
         return "Approved"
         break;
       case (2):
-        return "Rejected"
+        return "Refused"
         break;
       default:
         return "Unknown"

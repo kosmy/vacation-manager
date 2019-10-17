@@ -8,10 +8,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from '../shared/shared.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { VacationRequestAnswerComponent } from './vacation-request-answer/vacation-request-answer.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
-  declarations: [VacationRequestListComponent],
+  declarations: [VacationRequestListComponent, VacationRequestAnswerComponent],
   imports: [
     CommonModule,
     VacationRequestListRoutingModule,
@@ -19,7 +21,11 @@ import { MatSortModule } from '@angular/material/sort';
     MatButtonModule,
     SharedModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    VacationRequestAnswerComponent
   ]
 })
 export class VacationRequestListModule { }
