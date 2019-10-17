@@ -1,11 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Optional } from '@angular/core';
 import { WorkStatus, User } from '../shared/models/user';
 import { UserDataService } from '../shared/services/user-data.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Team } from '../shared/models/team';
 import { TeamDataService } from '../shared/services/team-data.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { EditUserComponent } from '../employees-list/edit-user/edit-user.component';
 
 @Component({
   selector: 'app-add-user',
@@ -18,9 +17,11 @@ export class AddUserComponent implements OnInit {
   addUserForm: FormGroup;
   user: User;
   teams: Team[];
-  constructor(private userDataService: UserDataService,
-    private teamDataService: TeamDataService, public dialogRef: MatDialogRef<AddUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: User) { }
+  constructor(
+    private userDataService: UserDataService,
+    private teamDataService: TeamDataService,
+    @Optional() public dialogRef: MatDialogRef<AddUserComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: User) { }
 
   ngOnInit() {
     this.buildForm();

@@ -13,11 +13,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '../shared/shared.module';
-import { EditUserComponent } from './edit-user/edit-user.component';
+import { AddUserModule } from '../add-user/add-user.module';
 
 
 @NgModule({
-  declarations: [EmployeesListComponent, EditUserComponent],
+  declarations: [EmployeesListComponent, ],
   imports: [
     CommonModule,
     EmployeesListRoutingModule,
@@ -31,10 +31,10 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    SharedModule
+    SharedModule,
+    AddUserModule,
   ],
   entryComponents: [
-    EditUserComponent
   ]
 })
 export class EmployeesListModule { }

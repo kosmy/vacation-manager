@@ -18,7 +18,7 @@ export class LogInComponent {
   constructor(private router: Router, private authService: AuthorizationService, private userDataService: UserDataService) { }
 
   whatUserId(login, password): number {
-    return this.users.find( user => user.login === login && user.password === password).id;
+    return 1;
   }
   ngOnInit() {
     this.buildForm();

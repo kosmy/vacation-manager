@@ -4,7 +4,6 @@ import { User } from '../shared/models/user';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { EditUserComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from '../add-user/add-user.component';
 
 @Component({
