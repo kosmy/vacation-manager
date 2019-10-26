@@ -4,8 +4,8 @@
             <a>My Profile</a>
         </div>
         <div class="block" (click)="toVacationRequest()">
-            <!-- <a [routerLink]="['/main/vacation-request-list', certainUserId]" routerLinkActive="active">Request Vacation</a> -->
-            <a routerLink="/main/vacation-request-list'" routerLinkActive="active">Request Vacation</a>
+            <a [routerLink]="['/main/vacation-request', certainUserId]" routerLinkActive="active">Request Vacation</a>
+            <!-- <a routerLink="/main/vacation-request-list'" routerLinkActive="active">Request Vacation</a> -->
         </div>
         <div class="block">
             <a routerLink="/main/add-user" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Add New
@@ -18,7 +18,7 @@
             <a routerLink="/main/vacation-request-list" routerLinkActive="active">Vacation Requests</a>
         </div>
         <div class="block">
-            <a routerLink="/main/employees-list" routerLinkActive="active">Employees List</a>
+            <a routerLink="/main/user-list" routerLinkActive="active">Employees List</a>
         </div>
     </div>
 </nav>

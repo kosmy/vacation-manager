@@ -7,7 +7,7 @@ import { MainComponent } from './main/main.component';
 const routes: Routes = [
   { path: 'log-in', component: LogInComponent},
   { path: '', redirectTo: 'log-in', pathMatch: 'full'},
-  { path: 'main', component: MainComponent}
+  // { path: 'main', component: MainComponent}
 ];
 
 @NgModule({

@@ -41,6 +41,6 @@
         <mat-error *ngIf="vacationRequestForm.get('comment').invalid && vacationRequestForm.get('comment').touched">
             <ng-container *ngIf="vacationRequestForm.get('comment').errors.required">comment is required.</ng-container>
         </mat-error>
-        <button type="submit" mat-stroked-button>Request Vacation</button>
+        <button type="submit" mat-stroked-button [disabled]="vacationRequestForm.invalid">Request Vacation</button>
     </form>
 </div>

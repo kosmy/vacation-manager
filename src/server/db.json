@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "login": "nikita",
+      "password": "nikita",
+      "name": "nikita",
+      "surname": "nikita",
+      "birthday": "typicode",
+      "workEmail": "typicode",
+      "email": "typicode",
+      "phone": "typicode",
+      "skype": "typicode",
+      "balance": "typicode",
+      "startDate": "typicode",
+      "workStatus": "typicode",
+      "team": "typicode",
+      "avatar": "typicode",
+      "fireDate": "typicode"
+    },
+    {
+      "id": 6,
+      "login": "qwerty",
+      "password": "qwerty",
+      "name": "qwerty",
+      "surname": "qwerty",
+      "birthday": "2019-10-08T21:00:00.000Z",
+      "workEmail": "asdads",
+      "email": "adasd",
+      "phone": "12321",
+      "skype": "sadadd",
+      "balance": 4,
+      "startDate": "2019-10-16T21:00:00.000Z",
+      "workStatus": 0,
+      "team": "Angular"
+    }
+  ],
+  "teams": [
+    {
+      "id": 1,
+      "teamName": "Angular",
+      "teamLeadName": "Nikita"
+    }
+  ],
+  "vacations": [
+    {
+      "id": 1,
+      "userId": "1",
+      "startDate": 1,
+      "endDate": 2,
+      "amount": 3,
+      "comment": "asdadasd",
+      "status": 1
+    }
+  ]
+}

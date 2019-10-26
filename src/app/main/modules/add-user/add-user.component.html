@@ -111,7 +111,7 @@
                 </ng-container>
             </mat-error>
 
-            <button mat-stroked-button>Add Employee</button>
+            <button mat-stroked-button [disabled]="addUserForm.invalid" >Add Employee</button>
         </div>
     </form>
 </div>

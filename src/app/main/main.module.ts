@@ -11,7 +11,7 @@ import { AddUserModule } from './modules/add-user/add-user.module';
 import { AddTeamModule } from './modules/add-team/add-team.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { VacationRequestListModule } from './modules/vacation-request-list/vacation-request-list.module';
-import { EmployeesListModule } from './modules/employees-list/employees-list.module';
+import { UserListModule } from './modules/user-list/user-list.module';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import { EmployeesListModule } from './modules/employees-list/employees-list.mod
     AddTeamModule,
     SharedModule,
     VacationRequestListModule,
-    EmployeesListModule
+    UserListModule
   ]
 })
 export class MainModule { }

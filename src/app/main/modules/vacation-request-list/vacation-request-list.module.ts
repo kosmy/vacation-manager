@@ -10,6 +10,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { VacationRequestAnswerComponent } from './vacation-request-answer/vacation-request-answer.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AddUserModule } from '../add-user/add-user.module';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     SharedModule,
     MatPaginatorModule,
     MatSortModule,
-    MatDialogModule
+    MatDialogModule,
+    AddUserModule
   ],
   entryComponents: [
     VacationRequestAnswerComponent

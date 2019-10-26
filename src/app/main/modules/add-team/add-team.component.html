@@ -28,7 +28,7 @@
                     <ng-container *ngIf="addTeamForm.get('skype').errors.required">skype is required.
                     </ng-container>
                 </mat-error> -->
-                <button mat-stroked-button>Add Team</button>
+                <button mat-stroked-button [disabled]="addTeamForm.invalid">Add Team</button>
             </div>
         </form>
     </div>
