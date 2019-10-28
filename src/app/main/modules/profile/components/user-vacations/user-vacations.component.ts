@@ -1,13 +1,19 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { UserDataService } from '../../../shared/services/user-data.service';
-import { VacationService } from '../../../shared/services/vacation.service';
+import { VacationAPIService } from '../../../shared/services/vacation-api.service';
 import { Vacation } from '../../../shared/models/vacation';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../../shared/models/user';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { UserAPIService } from '../../../shared/services/user-api.service';
+import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
+export const array = [
+  {}
+]
 
 @Component({
   selector: 'app-user-vacations',
@@ -24,27 +30,54 @@ import { MatPaginator } from '@angular/material/paginator';
 
 export class UserVacationsComponent implements OnInit {
 
-  @Input() certainUser: User
-  @ViewChild (MatPaginator, {static: true}) paginator: MatPaginator;
+  id: User["id"]
+  // @ViewChild(MatPaginator, { statics: false }) paginator: MatPaginator;
+  private paginator: MatPaginator;
 
-  private dataSource;
+@ViewChild(MatPaginator, { static: false }) set matPaginator(mp: MatPaginator) {
+  this.paginator = mp;
+  this.dataSource.paginator = this.paginator;
+}
 
+  dataSource;
+  userBalance: User["balance"];
+  isLoaded: boolean = false;
   displayedColumns: string[] = ['startDate', 'amount', 'type', 'status',];
   // expandedElement: Vacation | null;
-  userVacationsAvailable: number;
-  userVacationsList: Vacation[];
+  users: User[];
 
-  constructor(private userDataService: UserDataService, private vacationService: VacationService, private router: Router) { }
+  constructor(private vacationAPIService: VacationAPIService,
+    private router: Router,
+    private userAPIService: UserAPIService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     // this.userVacationsList = this.vacationService.getVacationRequestsForUser(this.certainUser.id);
     // console.log(this.userVacationsList)
-    this.dataSource =  new MatTableDataSource<any>(this.vacationService.getVacationRequestsForUser(this.certainUser.id));
-    this.dataSource.paginator = this.paginator;
-    
+    this.route.params.subscribe((params) => {
+      this.id = +params["id"];
+      this.getBalance();
+      this.getVacations();
+    })
+  }
+
+// get vacation balance for certain user
+  getBalance() {
+    this.userAPIService.getUserById(6).subscribe((user) => {
+      this.userBalance = user.balance;
+    })
+  }
+  
+// get all vacation requests for certain user and fill the table
+  getVacations() {
+    this.vacationAPIService.getVacationsForUser(6).subscribe((vacations: Vacation[]) => {
+      this.dataSource = new MatTableDataSource<any>(vacations);
+      this.isLoaded = true;
+    })
   }
 
   requestVacation() {
-    this.router.navigate(['main/vacation-request', this.certainUser.id])
+    this.router.navigate(['main/vacation-request', this.id])
   }
+
 }

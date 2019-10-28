@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserDataService } from './services/user-data.service';
-import { VacationService } from './services/vacation.service';
+import { VacationAPIService } from './services/vacation-api.service';
 import { VacationStatusPipe } from './pipes/vacation-status.pipe';
 import { VacationTypePipe } from './pipes/vacation-type.pipe';
-import { TeamDataService } from './services/team-data.service';
+import { TeamAPIService } from './services/team-api.service';
 import { VacationRequestUserPipe } from './pipes/vacation-request-user.pipe';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { APIService } from './services/api.service';
+import { UserAPIService } from './services/user-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -18,6 +18,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+
 
 
 
@@ -25,23 +27,24 @@ import { MatSelectModule } from '@angular/material/select';
   declarations: [VacationStatusPipe, VacationTypePipe, VacationRequestUserPipe],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     MatTableModule,
     MatButtonModule,
     MatPaginatorModule,
     MatSortModule,
-    HttpClientModule,
     MatDialogModule,
-    ReactiveFormsModule,
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatIconModule
   ],
   providers: [
     UserDataService,
-    VacationService,
-    TeamDataService,
-    APIService
+    VacationAPIService,
+    TeamAPIService,
+    UserAPIService
   ],
   exports: [
     VacationTypePipe,
@@ -50,7 +53,14 @@ import { MatSelectModule } from '@angular/material/select';
     MatTableModule,
     MatButtonModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatIconModule
   ]
 })
 export class SharedModule { }

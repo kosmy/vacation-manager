@@ -1,26 +1,39 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, OnInit } from '@angular/core';
 import { Vacation } from '../models/vacation';
 import { UserDataService } from '../services/user-data.service';
+import { UserAPIService } from '../services/user-api.service';
+import { User } from '../models/user';
 
 @Pipe({
   name: 'userProp'
 })
 export class VacationRequestUserPipe implements PipeTransform {
 
-  constructor(private userDataService: UserDataService) { }
+  constructor(private userAPIService: UserAPIService) { }
+
+  user: User;
 
   transform(userId?: Vacation["userId"], userProp?: string): any {
     switch (userProp) {
       case 'name':
-        return `${this.userDataService.findUserById(userId).name} ${this.userDataService.findUserById(userId).surname}`;
+        this.getUserFromAPI(userId)
+        return `${this.user.name} ${this.user.surname}`;
         break;
       case 'team':
-        return this.userDataService.findUserById(userId).team
+        this.getUserFromAPI(userId)
+        return `${this.user.team}`;
         break;
       case 'balance':
-        return this.userDataService.findUserById(userId).balance
+        this.getUserFromAPI(userId)
+        return `${this.user.balance}`;
         break;
     }
+  }
+
+  getUserFromAPI(userId) {
+    this.userAPIService.getUserById(userId).subscribe((user) => {
+      this.user = user
+    });
   }
 
 }

@@ -73,6 +73,40 @@ export class UserDataService {
       workStatus: WorkStatus.active,
       team: 'Angular',
       avatar: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon&f=y'
+    },
+    {
+      id: 5,
+      login: 'anastasia',
+      password: 'anastasia',
+      name: 'Anastasia',
+      surname: 'Kristensen',
+      birthday: new Date(1995, 11, 26, 11, 57, 36, 500),
+      workEmail: 'abc@asdasd.com',
+      email: 'dsfsf@sfdg.com',
+      phone: '0931234567',
+      skype: 'qwerty',
+      balance: 15,
+      startDate: new Date(2016, 9, 15, 7, 46, 36, 500),
+      workStatus: WorkStatus.active,
+      team: 'Angular',
+      avatar: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon&f=y'
+    },
+    {
+      id: 7,
+      login: 'anastasia',
+      password: 'anastasia',
+      name: 'Anastasia',
+      surname: 'Kristensen',
+      birthday: new Date(1995, 11, 26, 11, 57, 36, 500),
+      workEmail: 'abc@asdasd.com',
+      email: 'dsfsf@sfdg.com',
+      phone: '0931234567',
+      skype: 'qwerty',
+      balance: 15,
+      startDate: new Date(2016, 9, 15, 7, 46, 36, 500),
+      workStatus: WorkStatus.active,
+      team: 'Angular',
+      avatar: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon&f=y'
     }
   ]
 

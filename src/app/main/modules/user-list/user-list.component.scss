@@ -14,11 +14,19 @@
   table {
     background-color: rgb(99, 99, 99);
   }
+  .filter {
+    align-self: center;
+    padding: 10px 0px;
+
+    input {
+      height: 20px;
+    }
+  }
   mat-paginator {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
   }
-  
+
   .title {
     border-bottom: 1px solid gray;
     text-align: center;
@@ -31,7 +39,6 @@
     flex-direction: column;
     height: auto;
     padding: 20px 60px;
-    
 
     button {
       padding: 0px 0px;

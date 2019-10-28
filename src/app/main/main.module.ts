@@ -7,11 +7,11 @@ import { ContentComponent } from './layout/content/content.component';
 import { MainRoutingModule } from './main-routing.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { VacationRequestModule } from './modules/vacation-request/vacation-request.module';
-import { AddUserModule } from './modules/add-user/add-user.module';
+import { AddEditUserModule } from './modules/add-edit-user/add-edit-user.module';
 import { AddTeamModule } from './modules/add-team/add-team.module';
 import { SharedModule } from './modules/shared/shared.module';
-import { VacationRequestListModule } from './modules/vacation-request-list/vacation-request-list.module';
 import { UserListModule } from './modules/user-list/user-list.module';
+import { VacationRequestListModule } from './modules/vacation-request-list/vacation-request-list.module';
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import { UserListModule } from './modules/user-list/user-list.module';
     MainRoutingModule,
     ProfileModule,
     VacationRequestModule,
-    AddUserModule,
+    AddEditUserModule,
     AddTeamModule,
     SharedModule,
     VacationRequestListModule,

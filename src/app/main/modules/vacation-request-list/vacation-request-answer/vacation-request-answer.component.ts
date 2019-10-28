@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from '../../shared/models/user';
 import { Vacation } from '../../shared/models/vacation';
 import { UserDataService } from '../../shared/services/user-data.service';
-import { VacationService } from '../../shared/services/vacation.service';
+import { VacationAPIService } from '../../shared/services/vacation-api.service';
 import { VacationRequestListComponent } from '../vacation-request-list.component';
 
 @Component({
@@ -15,7 +15,7 @@ export class VacationRequestAnswerComponent implements OnInit {
 
   request: Vacation;
 
-  constructor(private userDataService: UserDataService, private vacationService: VacationService,
+  constructor(private userDataService: UserDataService, private vacationAPIService: VacationAPIService,
     public dialogRef: MatDialogRef<VacationRequestListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Vacation) { }
 
@@ -23,12 +23,12 @@ export class VacationRequestAnswerComponent implements OnInit {
     this.request = this.data;
   }
 
-  approve(request: Vacation) {
-    this.vacationService.approve(request);
-    this.dialogRef.close();
-  }
-  refuse(request: Vacation) {
-    this.vacationService.refuse(request);
-    this.dialogRef.close();
-  }
+  // approve(request: Vacation) {
+  //   this.vacationAPIService.approve(request);
+  //   this.dialogRef.close();
+  // }
+  // refuse(request: Vacation) {
+  //   this.vacationAPIService.refuse(request);
+  //   this.dialogRef.close();
+  // }
 }

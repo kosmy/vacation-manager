@@ -10,7 +10,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { VacationRequestAnswerComponent } from './vacation-request-answer/vacation-request-answer.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AddUserModule } from '../add-user/add-user.module';
+import { AddEditUserModule } from '../add-edit-user/add-edit-user.module';
 
 
 @NgModule({
@@ -24,7 +24,7 @@ import { AddUserModule } from '../add-user/add-user.module';
     MatPaginatorModule,
     MatSortModule,
     MatDialogModule,
-    AddUserModule
+    AddEditUserModule
   ],
   entryComponents: [
     VacationRequestAnswerComponent

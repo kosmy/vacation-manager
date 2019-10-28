@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Team } from '../shared/models/team';
-import { TeamDataService } from '../shared/services/team-data.service';
+import { TeamAPIService } from '../shared/services/team-api.service';
 
 @Component({
   selector: 'app-add-team',
@@ -14,7 +14,7 @@ export class AddTeamComponent implements OnInit {
   team: Team;
   usersLength: number;
   
-  constructor(private teamDataService: TeamDataService) { }
+  constructor(private teamAPIService: TeamAPIService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -32,6 +32,6 @@ export class AddTeamComponent implements OnInit {
       addTeamForm.value.teamName,
       addTeamForm.value.teamLeadName
     );
-    this.teamDataService.addTeam(this.team);
+    this.teamAPIService.addTeam(this.team).subscribe();
   }
 }

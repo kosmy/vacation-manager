@@ -25,7 +25,6 @@ export enum VacationStatus {
 export class Vacation {
     constructor(
         public userId: User["id"],
-        public type: VacationType,
         public startDate: Date,
         public endDate: Date,
         public amount: number,

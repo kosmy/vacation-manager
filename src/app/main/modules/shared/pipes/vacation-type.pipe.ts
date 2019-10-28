@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { VacationService } from '../services/vacation.service';
+import { VacationAPIService } from '../services/vacation-api.service';
 import { VacationType } from '../models/vacation';
 
 @Pipe({
@@ -7,10 +7,10 @@ import { VacationType } from '../models/vacation';
 })
 export class VacationTypePipe implements PipeTransform {
 
-  constructor( public vacationService: VacationService){};
+  constructor( public vacationAPIService: VacationAPIService){};
 
   transform(type?: VacationType): any {
-    return this.vacationService.convertType(type)
+    return this.vacationAPIService.convertType(type)
   }
 
 }

@@ -1,39 +1,43 @@
 import { Component, OnInit, Inject, Optional } from '@angular/core';
 import { WorkStatus, User } from '../shared/models/user';
-import { UserDataService } from '../shared/services/user-data.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Team } from '../shared/models/team';
-import { TeamDataService } from '../shared/services/team-data.service';
+import { TeamAPIService } from '../shared/services/team-api.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { APIService } from '../shared/services/api.service';
+import { UserAPIService } from '../shared/services/user-api.service';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.scss']
+  selector: 'app-add-edit-user',
+  templateUrl: './add-edit-user.component.html',
+  styleUrls: ['./add-edit-user.component.scss']
 })
-export class AddUserComponent implements OnInit {
+export class AddEditUserComponent implements OnInit {
 
   statuses = [{ value: WorkStatus.active, text: "Active" }, { value: WorkStatus.fired, text: "Fired" }];
   addUserForm: FormGroup;
   user: User;
   teams: Team[];
+  allUsers: User[];
 
   // constructor(private userDataService: UserDataService,
   //   private teamDataService: TeamDataService, public dialogRef: MatDialogRef<AddUserComponent>,
   //   @Inject(MAT_DIALOG_DATA) public data: User) { }
 
   constructor(
-    private userDataService: UserDataService,
-    private teamDataService: TeamDataService,
-    private ApiService: APIService,
-    @Optional() public dialogRef: MatDialogRef<AddUserComponent>,
+    private teamAPIService: TeamAPIService,
+    private userApiService: UserAPIService,
+    @Optional() public dialogRef: MatDialogRef<AddEditUserComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: User) { }
 
   ngOnInit() {
     this.buildForm();
-    this.teams = this.teamDataService.getTeams();
+    this.teamAPIService.getAllTeams().subscribe((teams: Team[]) => {
+      this.teams = teams;
+    });
     this.fillUserInputs();
+
+    this.userApiService.getAllUsers().subscribe(data => this.allUsers = data)
+    console.log(this.allUsers);
   }
 
   buildForm() {
@@ -71,7 +75,7 @@ export class AddUserComponent implements OnInit {
 
 
   onSubmit(addUserForm: FormGroup) {
-    this.user.id = this.userDataService.getUsersLength() + 1
+    // this.user.id = this.userDataService.getUsersLength() + 1
     this.user.login = addUserForm.value.login
     this.user.password = addUserForm.value.password
     this.user.name = addUserForm.value.name;
@@ -87,8 +91,9 @@ export class AddUserComponent implements OnInit {
     this.user.team = addUserForm.value.team;
 
     // this.userDataService.addUser(this.user);
+    
     console.log(this.user);
-    this.ApiService.addUser(this.user).subscribe();
+    this.userApiService.addUser(this.user).subscribe();
 
     this.user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
