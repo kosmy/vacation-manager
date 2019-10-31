@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Optional } from '@angular/core';
+import { Component, OnInit, Inject, Optional, ViewEncapsulation } from '@angular/core';
 import { WorkStatus, User } from '../shared/models/user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Team } from '../shared/models/team';
@@ -9,15 +9,20 @@ import { UserAPIService } from '../shared/services/user-api.service';
 @Component({
   selector: 'app-add-edit-user',
   templateUrl: './add-edit-user.component.html',
-  styleUrls: ['./add-edit-user.component.scss']
+  styleUrls: ['./add-edit-user.component.scss'],
+  encapsulation: ViewEncapsulation.None 
+
 })
 export class AddEditUserComponent implements OnInit {
 
   statuses = [{ value: WorkStatus.active, text: "Active" }, { value: WorkStatus.fired, text: "Fired" }];
   addUserForm: FormGroup;
   user: User;
+  isModal: boolean = false;
   teams: Team[];
   allUsers: User[];
+  btnName: string;
+  titleName: string;
 
   // constructor(private userDataService: UserDataService,
   //   private teamDataService: TeamDataService, public dialogRef: MatDialogRef<AddUserComponent>,
@@ -64,15 +69,19 @@ export class AddEditUserComponent implements OnInit {
   // }
   fillUserInputs() {
     if (this.data) {
+      this.isModal = true;
       this.user = this.data;
       this.addUserForm.patchValue(this.user);
+      this.btnName = "Edit User";
+      this.titleName = "Edit Profile"
     }
     else {
       this.user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
       this.addUserForm.patchValue(this.user);
+      this.btnName = "Add User";
+      this.titleName = "Add Employee"
     }
   }
-
 
   onSubmit(addUserForm: FormGroup) {
     // this.user.id = this.userDataService.getUsersLength() + 1

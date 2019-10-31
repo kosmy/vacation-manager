@@ -31,7 +31,9 @@ export class VacationRequestUserPipe implements PipeTransform {
   }
 
   getUserFromAPI(userId) {
-    this.userAPIService.getUserById(userId).subscribe((user) => {
+    console.log(userId)
+    let subscription = this.userAPIService.getUserById(userId).subscribe((user) => {
+      console.log(user.name)
       this.user = user
     });
   }

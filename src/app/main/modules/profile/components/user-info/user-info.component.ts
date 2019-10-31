@@ -1,13 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Optional, Inject, ViewEncapsulation } from '@angular/core';
 import { User } from '../../../shared/models/user';
 import { UserDataService } from '../../../shared/services/user-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserAPIService } from '../../../shared/services/user-api.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Vacation } from '../../../shared/models/vacation';
 
 @Component({
   selector: 'app-user-info',
   templateUrl: './user-info.component.html',
-  styleUrls: ['./user-info.component.scss']
+  styleUrls: ['./user-info.component.scss'],
+  encapsulation: ViewEncapsulation.None 
 })
 export class UserInfoComponent implements OnInit {
 
@@ -15,19 +18,38 @@ export class UserInfoComponent implements OnInit {
   certainUser: User;
   allUsers: User[];
   isLoaded: boolean = false;
+  isModal: boolean = false;
 
-  constructor(private userDataService: UserDataService, private userApiService: UserAPIService, private route: ActivatedRoute) { }
+  constructor(
+    private userApiService: UserAPIService,
+    private route: ActivatedRoute,
+    @Optional() public dialogRef: MatDialogRef<UserInfoComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: Vacation
+    ) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
-      const id = +params["id"];
-      this.userApiService.getUserById(6).subscribe((user) => {
-        this.certainUser = user;
-        this.isLoaded = true
-      });
-    })
+    if (this.data) {
+      this.getUserFromList(this.data);
+      this.isModal = true;
+      this.isLoaded = true;
+    }
+    else {
+      this.route.params.subscribe((params) => {
+        const id = +params["id"];
+        this.userApiService.getUserById(id).subscribe((user) => {
+          this.certainUser = user;
+          this.isLoaded = true
+        });
+      })
+    }
   }
 
-
+  getUserFromList(vacation: Vacation) {
+    this.userApiService.getUserById(vacation.userId).subscribe((user) => {
+      console.log("UserFromData", user)
+      this.certainUser = user;
+      console.log("CertainUser", this.certainUser)
+    })
+  }
 
 }

@@ -17,7 +17,9 @@ export class UserAPIService {
   }
 
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>(this.userApiUrl + id);
+    return this.http.get<User>(this.userApiUrl + id).pipe(map((response) => {
+      return response
+    }));
   }
 
   editUser(user: User) {

@@ -4,11 +4,11 @@ import { Team } from '../shared/models/team';
 import { TeamAPIService } from '../shared/services/team-api.service';
 
 @Component({
-  selector: 'app-add-team',
-  templateUrl: './add-team.component.html',
-  styleUrls: ['./add-team.component.scss']
+  selector: 'app-add-edit-team',
+  templateUrl: './add-edit-team.component.html',
+  styleUrls: ['./add-edit-team.component.scss']
 })
-export class AddTeamComponent implements OnInit {
+export class AddEditTeamComponent implements OnInit {
 
   addTeamForm: FormGroup;
   team: Team;

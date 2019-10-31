@@ -1,9 +1,9 @@
-<ng-container *ngIf="isLoaded">
+<div *ngIf="isLoaded" [className]="isModal ? 'profile-modal' : 'profile-block'">
     <div class="title">
-        <h2>My Profile</h2>
+        <h2>Profile</h2>
     </div>
     <div class="image">
-        <!-- <img [src]='certainUser.avatar'> -->
+        <img [src]='certainUser.avatar'>
         <div class="info">
             <h4>{{certainUser.name}}</h4>
             <p>Developer</p>
@@ -35,4 +35,4 @@
             <h3>{{certainUser.team}}</h3>
         </div>
     </div>
-</ng-container>
+</div>

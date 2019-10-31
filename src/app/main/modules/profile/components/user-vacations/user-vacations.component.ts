@@ -63,14 +63,14 @@ export class UserVacationsComponent implements OnInit {
 
 // get vacation balance for certain user
   getBalance() {
-    this.userAPIService.getUserById(6).subscribe((user) => {
+    this.userAPIService.getUserById(this.id).subscribe((user) => {
       this.userBalance = user.balance;
     })
   }
   
 // get all vacation requests for certain user and fill the table
   getVacations() {
-    this.vacationAPIService.getVacationsForUser(6).subscribe((vacations: Vacation[]) => {
+    this.vacationAPIService.getVacationsForUser(this.id).subscribe((vacations: Vacation[]) => {
       this.dataSource = new MatTableDataSource<any>(vacations);
       this.isLoaded = true;
     })

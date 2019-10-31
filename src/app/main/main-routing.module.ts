@@ -11,9 +11,11 @@ const routes: Routes = [
             { loadChildren: './modules/profile/profile.module#ProfileModule', path: 'profile/:id'},
             { loadChildren: './modules/vacation-request/vacation-request.module#VacationRequestModule', path: 'vacation-request/:id'},
             { loadChildren: './modules/add-edit-user/add-edit-user.module#AddEditUserModule', path: 'add-edit-user'},
-            { loadChildren: './modules/add-team/add-team.module#AddTeamModule', path: 'add-team'},
+            { loadChildren: './modules/add-edit-team/add-edit-team.module#AddEditTeamModule', path: 'add-edit-team'},
             { loadChildren: './modules/vacation-request-list/vacation-request-list.module#VacationRequestListModule', path: 'vacation-request-list'},
-            { loadChildren: './modules/user-list/user-list.module#UserListModule', path: 'user-list'},                      
+            { loadChildren: './modules/user-list/user-list.module#UserListModule', path: 'user-list'}, 
+            { loadChildren: './modules/team-list/team-list.module#TeamListModule', path: 'team-list'},
+            { loadChildren: './modules/calendar/calendar.module#CalendarModule', path: 'calendar'},                                                                                      
             // { path: '', redirectTo: 'profile/:id', pathMatch: 'full'},
         ]
     }

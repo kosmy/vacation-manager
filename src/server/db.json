@@ -97,22 +97,6 @@
       "startDate": "2019-10-21T21:00:00.000Z",
       "workStatus": 0,
       "team": "Angular"
-    },
-    {
-      "id": 12,
-      "login": "asd",
-      "password": "asd",
-      "name": "asd",
-      "surname": "asd",
-      "birthday": "2019-10-15T21:00:00.000Z",
-      "workEmail": "asda",
-      "email": "asdasdasd",
-      "phone": "12313",
-      "skype": "asd",
-      "balance": 2,
-      "startDate": "2019-10-15T21:00:00.000Z",
-      "workStatus": 0,
-      "team": "Angular"
     }
   ],
   "teams": [
@@ -123,8 +107,13 @@
     },
     {
       "teamName": "React",
-      "teamLeadName": "Nikita",
+      "teamLeadName": "Andrey",
       "id": 2
+    },
+    {
+      "teamName": "Vue",
+      "teamLeadName": "Vova",
+      "id": 3
     }
   ],
   "vacations": [
@@ -132,100 +121,46 @@
       "id": 1,
       "userId": 6,
       "startDate": "2019-10-15T21:00:00.000Z",
-      "endDate": "2019-10-15T21:00:00.000Z",
-      "amount": 2,
+      "endDate": "2019-10-18T21:00:00.000Z",
+      "amount": 4,
+      "comment": "asdadasd",
+      "status": 2
+    },
+    {
+      "id": 2,
+      "userId": 6,
+      "startDate": "2019-10-20T21:00:00.000Z",
+      "endDate": "2019-10-25T21:00:00.000Z",
+      "amount": 6,
       "comment": "asdadasd",
       "status": 1
     },
     {
       "userId": 1,
-      "startDate": "2019-10-22T21:00:00.000Z",
-      "endDate": "2019-10-21T21:00:00.000Z",
-      "amount": "5",
-      "comment": "jbkjbk",
-      "status": 0,
-      "id": 2
-    },
-    {
-      "userId": 1,
-      "startDate": "2019-10-22T21:00:00.000Z",
-      "endDate": "2019-10-21T21:00:00.000Z",
-      "amount": "5",
-      "comment": ",jnkjnk ",
+      "startDate": "2019-11-05T22:00:00.000Z",
+      "endDate": "2019-11-11T22:00:00.000Z",
+      "amount": "100",
+      "comment": "sfdfsdf",
       "status": 0,
       "id": 3
     },
     {
-      "userId": 6,
-      "startDate": "2019-10-07T21:00:00.000Z",
-      "endDate": "2019-10-15T21:00:00.000Z",
-      "amount": "15",
-      "comment": "esdfsdf",
+      "userId": 1,
+      "startDate": "2019-11-10T22:00:00.000Z",
+      "endDate": "2019-11-17T22:00:00.000Z",
+      "amount": "5",
+      "comment": "lklm ljknl",
       "status": 0,
       "id": 4
     },
     {
-      "userId": 6,
-      "startDate": "2019-10-15T21:00:00.000Z",
-      "endDate": "2019-10-21T21:00:00.000Z",
-      "amount": "14",
-      "comment": "sdsdfsd",
+      "userId": 1,
+      "startDate": "2019-09-30T21:00:00.000Z",
+      "endDate": "2019-10-16T21:00:00.000Z",
+      "amount": "33",
+      "comment": "qwett",
       "status": 0,
       "id": 5
-    },
-    {
-      "userId": 6,
-      "startDate": "2019-10-22T21:00:00.000Z",
-      "endDate": "2019-10-21T21:00:00.000Z",
-      "amount": "5",
-      "comment": "dvdfvf",
-      "status": 0,
-      "id": 6
-    },
-    {
-      "userId": 6,
-      "startDate": "2019-10-08T21:00:00.000Z",
-      "endDate": "2019-10-22T21:00:00.000Z",
-      "amount": "12",
-      "comment": "fdvdfv",
-      "status": 0,
-      "id": 7
-    },
-    {
-      "userId": 6,
-      "startDate": "2019-10-15T21:00:00.000Z",
-      "endDate": "2019-10-30T22:00:00.000Z",
-      "amount": "24",
-      "comment": "dfvdv",
-      "status": 0,
-      "id": 8
-    },
-    {
-      "userId": 6,
-      "startDate": "2019-10-08T21:00:00.000Z",
-      "endDate": "2019-10-16T21:00:00.000Z",
-      "amount": "24",
-      "comment": "dfdf",
-      "status": 0,
-      "id": 9
-    },
-    {
-      "userId": 6,
-      "startDate": "2019-10-08T21:00:00.000Z",
-      "endDate": "2019-10-15T21:00:00.000Z",
-      "amount": "15",
-      "comment": "dfdsfds",
-      "status": 0,
-      "id": 10
-    },
-    {
-      "userId": 6,
-      "startDate": "2019-10-22T21:00:00.000Z",
-      "endDate": "2019-10-21T21:00:00.000Z",
-      "amount": "14",
-      "comment": "sdfsdf",
-      "status": 0,
-      "id": 11
     }
   ]
 }

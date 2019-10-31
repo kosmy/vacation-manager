@@ -16,8 +16,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProfileRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    
-
+  ],
+  exports: [
+    ProfileComponent,
+    UserInfoComponent
   ]
 })
 export class ProfileModule { }

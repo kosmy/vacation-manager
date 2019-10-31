@@ -1,117 +1,118 @@
-<div class="whole-block">
-    <div class="title">
-        Add New Employee
-    </div>
-    <form class="main-block" [formGroup]="addUserForm" (ngSubmit)="onSubmit(addUserForm)">
-        <div class="sub-block">
-            <mat-form-field type="text">
-                <input matInput placeholder="Login" formControlName="login">
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('login').invalid && addUserForm.get('login').touched">
-                <ng-container *ngIf="addUserForm.get('login').errors.required">login is required.
-                </ng-container>
-            </mat-error>
-            <mat-form-field type="text">
-                <input matInput placeholder="Password" formControlName="password">
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('password').invalid && addUserForm.get('password').touched">
-                <ng-container *ngIf="addUserForm.get('password').errors.required">password is required.
-                </ng-container>
-            </mat-error>
-            <mat-form-field type="text">
-                <input matInput placeholder="Name"formControlName="name">
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('name').invalid && addUserForm.get('name').touched">
-                <ng-container *ngIf="addUserForm.get('name').errors.required">name is required.
-                </ng-container>
-            </mat-error>
-            <mat-form-field type="text">
-                <input matInput placeholder="Surname" name="surname" formControlName="surname">
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('surname').invalid && addUserForm.get('surname').touched">
-                <ng-container *ngIf="addUserForm.get('surname').errors.required">surname is required.
-                </ng-container>
-            </mat-error>
-            <mat-form-field id="workStatus">
-                <mat-label>Work Status</mat-label>
-                <mat-select formControlName="workStatus">
-                    <mat-option>None</mat-option>
-                    <mat-option *ngFor="let status of statuses" [value]="status.value">{{status.text}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('workStatus').invalid && addUserForm.get('workStatus').touched">
-                <ng-container *ngIf="addUserForm.get('workStatus').errors.required">workStatus is required.
-                </ng-container>
-            </mat-error>
-            <mat-form-field>
-                <input type="number" matInput placeholder="Vacations Available"
-                    formControlName="balance">
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('balance').invalid && addUserForm.get('balance').touched">
-                <ng-container *ngIf="addUserForm.get('balance').errors.required">balance is required.
-                </ng-container>
-            </mat-error>
-            <mat-form-field>
-                <mat-label>Team</mat-label>
-                <mat-select formControlName="team">
-                    <mat-option>None</mat-option>
-                    <mat-option *ngFor="let team of teams" [value]="team.teamName">{{team.teamName}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('team').invalid && addUserForm.get('team').touched">
-                <ng-container *ngIf="addUserForm.get('team').errors.required">team is required.
-                </ng-container>
-            </mat-error>
+<div class="container">
+    <div [className]="isModal ? 'edit-user-modal' : 'whole-block'">
+        <div class="title">
+            {{titleName}}
         </div>
-        <div class="sub-block">
-            <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Birthday" formControlName="birthday">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('birthday').invalid && addUserForm.get('birthday').touched">
-                <ng-container *ngIf="addUserForm.get('birthday').errors.required">birthday is required.
-                </ng-container>
-            </mat-error>
-            <mat-form-field type="text">
-                <input matInput placeholder="workEmail"formControlName="workEmail">
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('workEmail').invalid && addUserForm.get('workEmail').touched">
-                <ng-container *ngIf="addUserForm.get('workEmail').errors.required">workEmail is required.
-                </ng-container>
-            </mat-error>
-            <mat-form-field type="text">
-                <input matInput placeholder="email" formControlName="email">
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('email').invalid && addUserForm.get('email').touched">
-                <ng-container *ngIf="addUserForm.get('email').errors.required">email is required.
-                </ng-container>
-            </mat-error>
-            <mat-form-field type="text">
-                <input matInput placeholder="phone" name="phone" formControlName="phone">
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('phone').invalid && addUserForm.get('phone').touched">
-                <ng-container *ngIf="addUserForm.get('phone').errors.required">phone is required.
-                </ng-container>
-            </mat-error>
-            <mat-form-field type="text">
-                <input matInput placeholder="skype" name="skype" formControlName="skype">
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('skype').invalid && addUserForm.get('skype').touched">
-                <ng-container *ngIf="addUserForm.get('skype').errors.required">skype is required.
-                </ng-container>
-            </mat-error>
-            <mat-form-field id="startDate">
-                <input matInput [matDatepicker]="pickerTwo" placeholder="Start Date" formControlName="startDate">
-                <mat-datepicker-toggle matSuffix [for]="pickerTwo"></mat-datepicker-toggle>
-                <mat-datepicker #pickerTwo></mat-datepicker>
-            </mat-form-field>
-            <mat-error *ngIf="addUserForm.get('startDate').invalid && addUserForm.get('startDate').touched">
-                <ng-container *ngIf="addUserForm.get('startDate').errors.required">startDate is required.
-                </ng-container>
-            </mat-error>
+        <form class="main-block" [formGroup]="addUserForm" (ngSubmit)="onSubmit(addUserForm)">
+            <div class="sub-block">
+                <mat-form-field type="text">
+                    <input matInput placeholder="Login" formControlName="login">
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('login').invalid && addUserForm.get('login').touched">
+                    <ng-container *ngIf="addUserForm.get('login').errors.required">login is required.
+                    </ng-container>
+                </mat-error>
+                <mat-form-field type="text">
+                    <input matInput placeholder="Password" formControlName="password">
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('password').invalid && addUserForm.get('password').touched">
+                    <ng-container *ngIf="addUserForm.get('password').errors.required">password is required.
+                    </ng-container>
+                </mat-error>
+                <mat-form-field type="text">
+                    <input matInput placeholder="Name" formControlName="name">
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('name').invalid && addUserForm.get('name').touched">
+                    <ng-container *ngIf="addUserForm.get('name').errors.required">name is required.
+                    </ng-container>
+                </mat-error>
+                <mat-form-field type="text">
+                    <input matInput placeholder="Surname" name="surname" formControlName="surname">
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('surname').invalid && addUserForm.get('surname').touched">
+                    <ng-container *ngIf="addUserForm.get('surname').errors.required">surname is required.
+                    </ng-container>
+                </mat-error>
+                <mat-form-field id="workStatus">
+                    <mat-label>Work Status</mat-label>
+                    <mat-select formControlName="workStatus">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let status of statuses" [value]="status.value">{{status.text}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('workStatus').invalid && addUserForm.get('workStatus').touched">
+                    <ng-container *ngIf="addUserForm.get('workStatus').errors.required">workStatus is required.
+                    </ng-container>
+                </mat-error>
+                <mat-form-field>
+                    <input type="number" matInput placeholder="Vacations Available" formControlName="balance">
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('balance').invalid && addUserForm.get('balance').touched">
+                    <ng-container *ngIf="addUserForm.get('balance').errors.required">balance is required.
+                    </ng-container>
+                </mat-error>
+                <mat-form-field>
+                    <mat-label>Team</mat-label>
+                    <mat-select formControlName="team">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let team of teams" [value]="team.teamName">{{team.teamName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('team').invalid && addUserForm.get('team').touched">
+                    <ng-container *ngIf="addUserForm.get('team').errors.required">team is required.
+                    </ng-container>
+                </mat-error>
+            </div>
+            <div class="sub-block">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Birthday" formControlName="birthday">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('birthday').invalid && addUserForm.get('birthday').touched">
+                    <ng-container *ngIf="addUserForm.get('birthday').errors.required">birthday is required.
+                    </ng-container>
+                </mat-error>
+                <mat-form-field type="text">
+                    <input matInput placeholder="workEmail" formControlName="workEmail">
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('workEmail').invalid && addUserForm.get('workEmail').touched">
+                    <ng-container *ngIf="addUserForm.get('workEmail').errors.required">workEmail is required.
+                    </ng-container>
+                </mat-error>
+                <mat-form-field type="text">
+                    <input matInput placeholder="email" formControlName="email">
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('email').invalid && addUserForm.get('email').touched">
+                    <ng-container *ngIf="addUserForm.get('email').errors.required">email is required.
+                    </ng-container>
+                </mat-error>
+                <mat-form-field type="text">
+                    <input matInput placeholder="phone" name="phone" formControlName="phone">
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('phone').invalid && addUserForm.get('phone').touched">
+                    <ng-container *ngIf="addUserForm.get('phone').errors.required">phone is required.
+                    </ng-container>
+                </mat-error>
+                <mat-form-field type="text">
+                    <input matInput placeholder="skype" name="skype" formControlName="skype">
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('skype').invalid && addUserForm.get('skype').touched">
+                    <ng-container *ngIf="addUserForm.get('skype').errors.required">skype is required.
+                    </ng-container>
+                </mat-error>
+                <mat-form-field id="startDate">
+                    <input matInput [matDatepicker]="pickerTwo" placeholder="Start Date" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="pickerTwo"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerTwo></mat-datepicker>
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('startDate').invalid && addUserForm.get('startDate').touched">
+                    <ng-container *ngIf="addUserForm.get('startDate').errors.required">startDate is required.
+                    </ng-container>
+                </mat-error>
 
-            <button mat-stroked-button [disabled]="addUserForm.invalid" >Add Employee</button>
-        </div>
-    </form>
+                <button mat-stroked-button [disabled]="addUserForm.invalid">{{btnName}}</button>
+            </div>
+        </form>
+    </div>
 </div>

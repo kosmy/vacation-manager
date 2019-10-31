@@ -18,7 +18,9 @@ export class UserListComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: false }) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
-    this.dataSource.paginator = this.paginator;
+    if (this.dataSource) {
+      this.dataSource.paginator = this.paginator;
+    }
   }
   // @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -39,15 +41,11 @@ export class UserListComponent implements OnInit {
 
   editUser(user: User): void {
     const dialogRef = this.dialog.open(AddEditUserComponent, {
-      width: '800px',
+      width: 'fit-content',
       data: user
     });
   }
-  // filterUsers() {
-  //   return this.dataSource
-  //     .filter(item => this.filterValue ? item.name.toLowerCase().indexOf(this.filterValue.toLowerCase()) !== -1 : item);
-  // }
-
+  
   assignCopy() {
     this.filteredUsers = this.users;
   }
@@ -57,9 +55,6 @@ export class UserListComponent implements OnInit {
       this.assignCopy();
     }
     this.filteredUsers = Object.assign([], this.users)
-      // .filter((user: User) => {
-      //   return user.name.toLowerCase().indexOf(value.toLowerCase()) > -1
-      // })
       .filter((user: User) => {
         if (user.name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           return user.name.toLowerCase().indexOf(value.toLowerCase()) > -1

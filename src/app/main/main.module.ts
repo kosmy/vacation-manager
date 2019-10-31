@@ -8,10 +8,13 @@ import { MainRoutingModule } from './main-routing.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { VacationRequestModule } from './modules/vacation-request/vacation-request.module';
 import { AddEditUserModule } from './modules/add-edit-user/add-edit-user.module';
-import { AddTeamModule } from './modules/add-team/add-team.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { UserListModule } from './modules/user-list/user-list.module';
 import { VacationRequestListModule } from './modules/vacation-request-list/vacation-request-list.module';
+import { VacationRequestAnswerModule } from './modules/vacation-request-answer/vacation-request-answer.module';
+import { AddEditTeamModule } from './modules/add-edit-team/add-edit-team.module';
+import { TeamListModule } from './modules/team-list/team-list.module';
+import { CalendarModule } from './modules/calendar/calendar.module';
 
 
 @NgModule({
@@ -22,10 +25,13 @@ import { VacationRequestListModule } from './modules/vacation-request-list/vacat
     ProfileModule,
     VacationRequestModule,
     AddEditUserModule,
-    AddTeamModule,
+    AddEditTeamModule,
     SharedModule,
     VacationRequestListModule,
-    UserListModule
+    UserListModule,
+    VacationRequestAnswerModule,
+    TeamListModule,
+    CalendarModule
   ]
 })
 export class MainModule { }

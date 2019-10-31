@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AddTeamComponent } from './add-team.component';
+import { AddEditTeamComponent } from './add-edit-team.component';
 
 
 const routes: Routes = [
-  { component: AddTeamComponent, path: ''},
+  { component: AddEditTeamComponent, path: ''},
 ];
 
 @NgModule({

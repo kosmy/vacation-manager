@@ -3,31 +3,27 @@ import { CommonModule } from '@angular/common';
 
 import { VacationRequestListRoutingModule } from './vacation-request-list-routing.module';
 import { VacationRequestListComponent } from './vacation-request-list.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from '../shared/shared.module';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { VacationRequestAnswerComponent } from './vacation-request-answer/vacation-request-answer.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { AddEditUserModule } from '../add-edit-user/add-edit-user.module';
+import { ProfileModule } from '../profile/profile.module';
+import { VacationRequestAnswerModule } from '../vacation-request-answer/vacation-request-answer.module';
+import { VacationRequestAnswerComponent } from '../vacation-request-answer/vacation-request-answer.component';
+import { UserInfoComponent } from '../profile/components/user-info/user-info.component';
+import { ProfileComponent } from '../profile/profile.component';
 
 
 @NgModule({
-  declarations: [VacationRequestListComponent, VacationRequestAnswerComponent],
+  declarations: [VacationRequestListComponent],
   imports: [
     CommonModule,
     VacationRequestListRoutingModule,
-    MatTableModule,
-    MatButtonModule,
     SharedModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatDialogModule,
-    AddEditUserModule
+    ProfileModule,
+    VacationRequestAnswerModule,
   ],
   entryComponents: [
-    VacationRequestAnswerComponent
+    VacationRequestAnswerComponent,
+    ProfileComponent,
+    UserInfoComponent
   ]
 })
 export class VacationRequestListModule { }

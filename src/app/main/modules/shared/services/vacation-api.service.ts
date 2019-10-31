@@ -14,34 +14,10 @@ export class VacationAPIService {
 
   constructor(private http: HttpClient) { }
 
-  // addVacationRequest(vacation: Vacation) {
-  //   if (!localStorage.getItem('vacationRequests')) {
-  //     localStorage.setItem('vacationRequests', JSON.stringify([]));
-  //   }
+  editVacation(request) {
+    return this.http.put(this.vacationApiUrl + request.id, request);
+  }
 
-  //   this.localVacationArray = this.getAllVacationRequests()
-  //   this.localVacationArray.push(vacation);
-  //   localStorage.setItem('vacationRequests', JSON.stringify(this.localVacationArray));
-  // }
-
-  // getVacationRequestsForUser(id: number) {
-  //   return JSON.parse(localStorage.getItem('vacationRequests')).filter(request => request.userId === id);
-  // }
-  // getAllVacationRequests() {
-  //   return JSON.parse(localStorage.getItem('vacationRequests'));
-  // }
-
-  // approve(vacationRequest: Vacation) {
-  //   this.localVacationArray = this.getAllVacationRequests();
-  //   this.localVacationArray.find(request => request.userId === vacationRequest.userId).status = VacationStatus.Approved;
-  //   localStorage.setItem('vacationRequests', JSON.stringify(this.localVacationArray));
-  // }
-
-  // refuse(vacationRequest: Vacation) {
-  //   this.localVacationArray = this.getAllVacationRequests();
-  //   this.localVacationArray.find(request => request.userId === vacationRequest.userId).status = VacationStatus.Refused;
-  //   localStorage.setItem('vacationRequests', JSON.stringify(this.localVacationArray));
-  // }
   addVacation(vacation: Vacation): Observable<Vacation> {
     return this.http.post<Vacation>(this.vacationApiUrl, vacation);
   }
