@@ -4,17 +4,17 @@
       "id": 1,
       "login": "nikita",
       "password": "nikita",
-      "name": "nikita",
+      "name": "mykytaa",
       "surname": "nikita",
-      "birthday": "typicode",
-      "workEmail": "typicode",
-      "email": "typicode",
-      "phone": "typicode",
-      "skype": "typicode",
-      "balance": "typicode",
-      "startDate": "typicode",
-      "workStatus": "typicode",
-      "team": "typicode",
+      "birthday": "2019-11-12T22:00:00.000Z",
+      "workEmail": "asdasd@sadasd.com",
+      "email": "qwerty@sadasd.com",
+      "phone": "093-217-47-10",
+      "skype": "yoyoskype",
+      "balance": 10,
+      "startDate": "2019-11-27T22:00:00.000Z",
+      "workStatus": 0,
+      "team": "Angular",
       "avatar": "typicode",
       "fireDate": "typicode"
     },
@@ -133,7 +133,7 @@
       "endDate": "2019-10-25T21:00:00.000Z",
       "amount": 6,
       "comment": "asdadasd",
-      "status": 1
+      "status": 2
     },
     {
       "userId": 1,
@@ -141,7 +141,7 @@
       "endDate": "2019-11-11T22:00:00.000Z",
       "amount": "100",
       "comment": "sfdfsdf",
-      "status": 0,
+      "status": 1,
       "id": 3
     },
     {
@@ -150,7 +150,7 @@
       "endDate": "2019-11-17T22:00:00.000Z",
       "amount": "5",
       "comment": "lklm ljknl",
-      "status": 0,
+      "status": 2,
       "id": 4
     },
     {
@@ -159,7 +159,7 @@
       "endDate": "2019-10-16T21:00:00.000Z",
       "amount": "33",
       "comment": "qwett",
-      "status": 0,
+      "status": 1,
       "id": 5
     }
   ]

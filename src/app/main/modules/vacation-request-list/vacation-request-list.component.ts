@@ -50,7 +50,8 @@ export class VacationRequestListComponent implements OnInit {
 
   decide(vacation: Vacation) {
     const dialogRef = this.dialog.open(VacationRequestAnswerComponent, {
-      width: '200px',
+      width: 'fit-content',
+      height: 'fit-content',
       data: vacation
     });
   }

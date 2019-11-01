@@ -1,9 +1,57 @@
-:host {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .mat-dialog-container {
   padding: 0px !important;
   border-radius: 10px !important;
+}
+.request-block {
+  height: auto;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 10px;
+
+  .title {
+    padding: 0px 30px;
+    color: aliceblue;
+  }
+
+  .head {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid gray;
+    border-left: none;
+    border-right: none;
+    align-items: center;
+
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-left: 5%;
+    }
+
+    .head-info {
+      display: flex;
+      flex-direction: column;
+      margin-left: 10%;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5% 10%;
+
+    .second-block {
+      display: flex;
+      flex-direction: column;
+      margin-left: 20%;
+    }
+    // border-bottom: 1px solid gray;
+  }
+
+  .answer {
+    border-top: 1px solid gray;
+  }
 }

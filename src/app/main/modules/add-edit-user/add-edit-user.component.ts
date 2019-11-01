@@ -10,7 +10,7 @@ import { UserAPIService } from '../shared/services/user-api.service';
   selector: 'app-add-edit-user',
   templateUrl: './add-edit-user.component.html',
   styleUrls: ['./add-edit-user.component.scss'],
-  encapsulation: ViewEncapsulation.None 
+  encapsulation: ViewEncapsulation.None
 
 })
 export class AddEditUserComponent implements OnInit {
@@ -84,7 +84,6 @@ export class AddEditUserComponent implements OnInit {
   }
 
   onSubmit(addUserForm: FormGroup) {
-    // this.user.id = this.userDataService.getUsersLength() + 1
     this.user.login = addUserForm.value.login
     this.user.password = addUserForm.value.password
     this.user.name = addUserForm.value.name;
@@ -99,19 +98,18 @@ export class AddEditUserComponent implements OnInit {
     this.user.workStatus = WorkStatus.active;
     this.user.team = addUserForm.value.team;
 
-    // this.userDataService.addUser(this.user);
-    
-    console.log(this.user);
-    this.userApiService.addUser(this.user).subscribe();
-
+    if (this.data) {
+      this.userApiService.editUser(this.user).subscribe();
+    }
+    else {
+      this.userApiService.addUser(this.user).subscribe();
+    }
     this.user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-
     this.addUserForm.reset();
     this.addUserForm.markAsUntouched();
     Object.keys(this.addUserForm.controls).forEach(name => {
       let control = this.addUserForm.controls[name];
       control.setErrors(null);
     });
-
   }
 }

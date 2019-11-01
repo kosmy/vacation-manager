@@ -26,7 +26,6 @@ export class TeamListComponent implements OnInit {
   getTeams() {
     this.teamAPIService.getAllTeams().subscribe((teams) => {
       this.dataSource = new MatTableDataSource<any>(teams)
-      console.log(teams)
       this.isLoaded = true;
     });
   }

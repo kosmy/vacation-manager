@@ -1,2 +1,59 @@
-<button mat-stroked-button color="primary" (click)="approve()">Approve</button>
-<button mat-stroked-button color="warn" (click)="refuse()">Refuse</button>
+<!-- <button mat-stroked-button color="primary" (click)="approve()">Approve</button>
+<button mat-stroked-button color="warn" (click)="refuse()">Refuse</button>  -->
+
+<div class="request-block" *ngIf="isLoaded">
+    <div class="title">
+        <h2>Vacation Request</h2>
+    </div>
+    <div class="head">
+        <img [src]='user.avatar'>
+        <div class="head-info">
+            <h4>{{user.name}} {{user.surname}}</h4>
+            <p>Developer</p>
+            <p>TeamLeader</p>
+        </div>
+    </div>
+    <form class="main-block" [formGroup]="requestAnswerForm" (ngSubmit)="onSubmit(requestAnswerForm)">
+        <div class="info">
+            <div class="first-block">
+                <div class="comment">
+                    <p>comment</p>
+                    <h3>{{request.comment}}</h3>
+                </div>
+            </div>
+            <div class="second-block">
+                <mat-form-field id="from">
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a From Date"
+                        formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-error
+                    *ngIf="requestAnswerForm.get('startDate').invalid && requestAnswerForm.get('startDate').touched">
+                    <ng-container *ngIf="requestAnswerForm.get('startDate').errors.required">start date is required.
+                    </ng-container>
+                </mat-error>
+                <mat-form-field id="to">
+                    <input matInput [matDatepicker]="pickerTwo" placeholder="Choose a To Date"
+                        formControlName="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="pickerTwo"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerTwo></mat-datepicker>
+                </mat-form-field>
+                <mat-error *ngIf="requestAnswerForm.get('endDate').invalid && requestAnswerForm.get('endDate').touched">
+                    <ng-container *ngIf="requestAnswerForm.get('endDate').errors.required">end date is required.
+                    </ng-container>
+                </mat-error>
+            </div>
+        </div>
+        <div class="answer">
+            <h3>Answer the Request</h3>
+            <mat-radio-group aria-label="Select an option" formControlName="status">
+                <mat-radio-button value="1">Approve</mat-radio-button>
+                <mat-radio-button value="2">Refuse</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <button mat-stroked-button [disabled]="requestAnswerForm.invalid">Answer</button>
+        <!-- <button mat-stroked-button>Cancel</button> -->
+    </form>
+
+</div>

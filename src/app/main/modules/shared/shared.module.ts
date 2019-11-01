@@ -13,12 +13,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { UserAPIService } from './services/user-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import {MatRadioModule} from '@angular/material/radio';
+
 
 
 
@@ -27,6 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
   declarations: [VacationStatusPipe, VacationTypePipe, VacationRequestUserPipe],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     MatTableModule,
@@ -38,7 +41,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatRadioModule
   ],
   providers: [
     UserDataService,
@@ -60,7 +64,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatNativeDateModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    MatRadioModule
   ]
 })
 export class SharedModule { }

@@ -4,6 +4,9 @@ import { Vacation, VacationStatus } from '../shared/models/vacation';
 import { VacationAPIService } from '../shared/services/vacation-api.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VacationRequestListComponent } from '../vacation-request-list/vacation-request-list.component';
+import { UserAPIService } from '../shared/services/user-api.service';
+import { User } from '../shared/models/user';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 
@@ -16,24 +19,69 @@ import { VacationRequestListComponent } from '../vacation-request-list/vacation-
 })
 export class VacationRequestAnswerComponent implements OnInit {
 
-  request: Vacation;
+  request;
+  user: User;
+  isLoaded: boolean = false;
+  requestAnswerForm: FormGroup;
+  answer: number;
 
-  constructor(private userDataService: UserDataService, private vacationAPIService: VacationAPIService,
+  fromCalendar
+
+  constructor(private userAPIService: UserAPIService, private vacationAPIService: VacationAPIService,
     public dialogRef: MatDialogRef<VacationRequestListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Vacation) { }
+    @Inject(MAT_DIALOG_DATA) public data) { }
 
   ngOnInit() {
-    this.request = this.data;
+    // this.fromCalendar = this.request.event.extendedProps.vacation;
+    if (this.data.event) {
+      this.request = this.data.event.extendedProps.vacation
+    }
+    else {
+      this.request = this.data
+    }
+    this.userAPIService.getUserById(this.request.userId).subscribe((user) => {
+      this.user = user;
+      this.buildForm();
+      this.fillInputs();
+      this.isLoaded = true;
+    })
   }
 
-  approve() {
-    this.request.status = VacationStatus.Approved
-    this.vacationAPIService.editVacation(this.request).subscribe();
-    this.dialogRef.close();
+  buildForm() {
+    this.requestAnswerForm = new FormGroup({
+      startDate: new FormControl('', [Validators.required]),
+      endDate: new FormControl('', [Validators.required]),
+      status: new FormControl('', [Validators.required]),
+    })
   }
-  refuse() {
-    this.request.status = VacationStatus.Refused
+  fillInputs() {
+    this.requestAnswerForm.patchValue(this.request);
+  }
+
+  // approve() {
+  //   this.request.status = VacationStatus.Approved
+  //   this.vacationAPIService.editVacation(this.request).subscribe();
+  //   this.dialogRef.close();
+  // }
+  // refuse() {
+  //   this.request.status = VacationStatus.Refused
+  //   this.vacationAPIService.editVacation(this.request).subscribe();
+  //   this.dialogRef.close();
+  // }
+
+  onSubmit(requestAnswerForm: FormGroup) {
+
+    this.request.startDate = requestAnswerForm.value.startDate;
+    this.request.endDate = requestAnswerForm.value.endDate;
+    this.request.status = +requestAnswerForm.value.status;
+
     this.vacationAPIService.editVacation(this.request).subscribe();
-    this.dialogRef.close();
+
+    this.requestAnswerForm.reset();
+    this.requestAnswerForm.markAsUntouched();
+    Object.keys(this.requestAnswerForm.controls).forEach(name => {
+      let control = this.requestAnswerForm.controls[name];
+      control.setErrors(null);
+    });
   }
 }
