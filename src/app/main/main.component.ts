@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { UserDataService } from './modules/shared/services/user-data.service';
-import { User } from './modules/shared/models/user';
+import { Employee } from './modules/shared/models/employee';
+import { AuthorizationService } from '../log-in/services/authorization.service';
 
 @Component({
   selector: 'app-main',
@@ -11,9 +10,10 @@ import { User } from './modules/shared/models/user';
 export class MainComponent implements OnInit {
 
 
-  constructor() { }
+  constructor(private authService: AuthorizationService) { }
 
   ngOnInit() {
+    this.authService.getUserId('yo').subscribe( users => console.log(users))
   }
 
 }

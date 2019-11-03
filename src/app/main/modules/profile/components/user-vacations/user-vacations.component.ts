@@ -1,15 +1,11 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { UserDataService } from '../../../shared/services/user-data.service';
 import { VacationAPIService } from '../../../shared/services/vacation-api.service';
 import { Vacation } from '../../../shared/models/vacation';
 import { Router, ActivatedRoute } from '@angular/router';
-import { User } from '../../../shared/models/user';
+import { Employee } from '../../../shared/models/employee';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { UserAPIService } from '../../../shared/services/user-api.service';
-import { filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 export const array = [
   {}
@@ -19,18 +15,11 @@ export const array = [
   selector: 'app-user-vacations',
   templateUrl: './user-vacations.component.html',
   styleUrls: ['./user-vacations.component.scss'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
 })
 
 export class UserVacationsComponent implements OnInit {
 
-  id: User["id"]
+  id: Employee["id"]
   // @ViewChild(MatPaginator, { statics: false }) paginator: MatPaginator;
   private paginator: MatPaginator;
 
@@ -40,11 +29,10 @@ export class UserVacationsComponent implements OnInit {
 }
 
   dataSource;
-  userBalance: User["balance"];
+  userBalance: Employee["balance"];
   isLoaded: boolean = false;
   displayedColumns: string[] = ['startDate', 'amount', 'type', 'status',];
-  // expandedElement: Vacation | null;
-  users: User[];
+  users: Employee[];
 
   constructor(private vacationAPIService: VacationAPIService,
     private router: Router,

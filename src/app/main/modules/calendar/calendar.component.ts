@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, AfterViewInit, DoCheck } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, DoCheck, ChangeDetectorRef } from '@angular/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { UserAPIService } from '../shared/services/user-api.service';
 import { VacationAPIService } from '../shared/services/vacation-api.service';
-import { User } from '../shared/models/user';
+import { Employee } from '../shared/models/employee';
 import { Vacation } from '../shared/models/vacation';
 import interactionPlugin from '@fullcalendar/interaction';
 import { EventInput, preventDefault } from '@fullcalendar/core';
@@ -30,14 +30,15 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   calendarEvents: EventInput[] = [];
   calendarPlugins = [dayGridPlugin, interactionPlugin];
-  user: User;
+  user: Employee;
   vacations: Vacation[];
   isLoaded: boolean = false;
 
-  constructor(private userAPIService: UserAPIService, private vacationAPIService: VacationAPIService, private dialog: MatDialog) { }
+  constructor(private userAPIService: UserAPIService, private vacationAPIService: VacationAPIService, private dialog: MatDialog, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.getData();
+    console.log(this.calendarEvents)
   }
 
   ngAfterViewInit(): void {
@@ -47,6 +48,10 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         console.log(data)
       })
     }, 1000);
+    // this.calendarComponent.eventClick.subscribe((data) => {
+    //   this.openDialog(data);
+    //   this.cd.detectChanges();
+    // })
   }
 
   // getData() {
@@ -57,7 +62,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   //   })
   // }
 
-  fillCalendar(vacation: Vacation, user: User) {
+  fillCalendar(vacation: Vacation, user: Employee) {
     this.calendarEvents.push(
       {
         title: `${user.name} ${user.surname}`,
@@ -74,7 +79,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.vacationAPIService.getAllVacations().pipe(switchMap((vacations) =>
       forkJoin(...vacations.map((vacation) =>
         this.userAPIService.getUserById(vacation.userId).pipe(tap((user) =>
-
           this.fillCalendar(vacation, user)
         ))))
     )).subscribe(() => {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../../modules/shared/models/user';
+import { Employee } from '../../modules/shared/models/employee';
 
 @Component({
   selector: 'app-content',
@@ -8,7 +8,7 @@ import { User } from '../../modules/shared/models/user';
 })
 export class ContentComponent implements OnInit {
 
-  @Input() certainUser: User;
+  @Input() certainUser: Employee;
   constructor() { }
 
   ngOnInit() {

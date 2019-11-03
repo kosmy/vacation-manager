@@ -1,6 +1,5 @@
 import { Component, OnInit, Optional, Inject, ViewEncapsulation } from '@angular/core';
-import { User } from '../../../shared/models/user';
-import { UserDataService } from '../../../shared/services/user-data.service';
+import { Employee } from '../../../shared/models/employee';
 import { ActivatedRoute } from '@angular/router';
 import { UserAPIService } from '../../../shared/services/user-api.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -15,8 +14,8 @@ import { Vacation } from '../../../shared/models/vacation';
 export class UserInfoComponent implements OnInit {
 
   // @Input() certainUser: User;
-  certainUser: User;
-  allUsers: User[];
+  certainUser: Employee;
+  allUsers: Employee[];
   isLoaded: boolean = false;
   isModal: boolean = false;
 

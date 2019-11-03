@@ -5,7 +5,7 @@ export enum WorkStatus{
     fired
 }
 
-export class User {
+export class Employee {
     constructor( 
         public id: number,
         public login: string,
@@ -20,7 +20,7 @@ export class User {
         public balance: number,
         public startDate: Date,
         public workStatus: WorkStatus,
-        public team: Team["teamName"],
+        // public team: Team["teamName"],
         public avatar?: string,
         public fireDate? : Date) { }
 }

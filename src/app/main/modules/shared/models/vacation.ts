@@ -1,4 +1,4 @@
-import { User } from './user';
+import { Employee } from './employee';
 
 export enum VacationType {
     Recreation,
@@ -24,7 +24,7 @@ export enum VacationStatus {
 
 export class Vacation {
     constructor(
-        public userId: User["id"],
+        public userId: Employee["id"],
         public startDate: Date,
         public endDate: Date,
         public amount: number,

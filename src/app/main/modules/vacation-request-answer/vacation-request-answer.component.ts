@@ -1,11 +1,9 @@
 import { Component, OnInit, Inject, ViewEncapsulation, Optional } from '@angular/core';
-import { UserDataService } from '../shared/services/user-data.service';
-import { Vacation, VacationStatus } from '../shared/models/vacation';
 import { VacationAPIService } from '../shared/services/vacation-api.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VacationRequestListComponent } from '../vacation-request-list/vacation-request-list.component';
 import { UserAPIService } from '../shared/services/user-api.service';
-import { User } from '../shared/models/user';
+import { Employee } from '../shared/models/employee';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
@@ -20,7 +18,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class VacationRequestAnswerComponent implements OnInit {
 
   request;
-  user: User;
+  user: Employee;
   isLoaded: boolean = false;
   requestAnswerForm: FormGroup;
   answer: number;
@@ -70,7 +68,6 @@ export class VacationRequestAnswerComponent implements OnInit {
   // }
 
   onSubmit(requestAnswerForm: FormGroup) {
-
     this.request.startDate = requestAnswerForm.value.startDate;
     this.request.endDate = requestAnswerForm.value.endDate;
     this.request.status = +requestAnswerForm.value.status;

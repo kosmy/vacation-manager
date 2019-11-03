@@ -1,18 +1,15 @@
 <form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm)">
     <mat-form-field type="text">
-        <input matInput placeholder="Login" formControlName="login">
+        <input type="email" matInput name="email" placeholder="email" formControlName="email">
     </mat-form-field>
-    <!-- <mat-error *ngIf='logInForm.get(‘login’).invalid && logInForm.get(‘login’).touched'>
-        Login is <strong>required</strong>
-    </mat-error> -->
-    <mat-error *ngIf="logInForm.get('login').invalid && logInForm.get('login').touched">
-        <ng-container *ngIf="logInForm.get('login').errors.required">login is required.</ng-container>
+    <mat-error *ngIf="logInForm.get('email').invalid && logInForm.get('email').touched">
+        <ng-container *ngIf="logInForm.get('email').errors.required">email required.</ng-container>
     </mat-error>
-    <mat-form-field type="text">
-        <input matInput placeholder="Password" formControlName="password">
+    <mat-form-field type="password">
+        <input type="password" matInput name="password" placeholder="Password" formControlName="password">
     </mat-form-field>
     <mat-error *ngIf="logInForm.get('password').invalid && logInForm.get('password').touched">
-        <ng-container *ngIf="logInForm.get('password').errors.required">password is required.</ng-container>
+        <ng-container *ngIf="logInForm.get('password').errors.required">password required.</ng-container>
     </mat-error>
     <button mat-stroked-button>Log in</button>
 </form>

@@ -28,10 +28,10 @@ export class AddEditTeamComponent implements OnInit {
     })
   }
   onSubmit(addTeamForm: FormGroup) {
-    this.team = new Team(
-      addTeamForm.value.teamName,
-      addTeamForm.value.teamLeadName
-    );
+    // this.team = new Team(
+    //   addTeamForm.value.teamName,
+    //   addTeamForm.value.teamLeadName
+    // );
     this.teamAPIService.addTeam(this.team).subscribe();
   }
 }

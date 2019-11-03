@@ -6,8 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { UserInfoComponent } from '../profile/components/user-info/user-info.component';
-import { User } from '../shared/models/user';
-import { UserAPIService } from '../shared/services/user-api.service';
+import { Employee } from '../shared/models/employee';
 import { VacationRequestAnswerComponent } from '../vacation-request-answer/vacation-request-answer.component';
 
 
@@ -23,7 +22,7 @@ export class VacationRequestListComponent implements OnInit {
   vacationsList: Vacation[];
   dataSource;
   isLoaded: boolean = false;
-  toUser: User;
+  toUser: Employee;
 
 
   private paginator: MatPaginator;

@@ -3,7 +3,6 @@ import { VacationType, Vacation, VacationStatus } from '../shared/models/vacatio
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { VacationAPIService } from '../shared/services/vacation-api.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserDataService } from '../shared/services/user-data.service';
 
 @Component({
   selector: 'app-vacation-request',
@@ -19,7 +18,6 @@ export class VacationRequestComponent implements OnInit {
 
   constructor(private vacationAPIService: VacationAPIService,
     private router: Router,
-    private userDataService: UserDataService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -47,7 +45,7 @@ export class VacationRequestComponent implements OnInit {
       VacationStatus.Pending);
 
     this.vacationAPIService.addVacation(this.vacation).subscribe();
-    this.router.navigate(['main/profile', this.userDataService.getUserId()])
+    // this.router.navigate(['main/profile', this.userDataService.getUserId()])
 
     console.log(this.vacation)
   }

@@ -3,7 +3,7 @@ import { Vacation, VacationStatus, VacationType } from '../models/vacation';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from '../models/user';
+import { Employee } from '../models/employee';
 
 @Injectable({
   providedIn: 'root'

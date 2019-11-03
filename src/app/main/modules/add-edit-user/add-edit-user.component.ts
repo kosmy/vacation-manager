@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Optional, ViewEncapsulation } from '@angular/core';
-import { WorkStatus, User } from '../shared/models/user';
+import { WorkStatus, Employee } from '../shared/models/employee';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Team } from '../shared/models/team';
 import { TeamAPIService } from '../shared/services/team-api.service';
@@ -17,32 +17,31 @@ export class AddEditUserComponent implements OnInit {
 
   statuses = [{ value: WorkStatus.active, text: "Active" }, { value: WorkStatus.fired, text: "Fired" }];
   addUserForm: FormGroup;
-  user: User;
+  user: Employee;
   isModal: boolean = false;
   teams: Team[];
-  allUsers: User[];
+  allUsers: Employee[];
   btnName: string;
   titleName: string;
 
-  // constructor(private userDataService: UserDataService,
-  //   private teamDataService: TeamDataService, public dialogRef: MatDialogRef<AddUserComponent>,
-  //   @Inject(MAT_DIALOG_DATA) public data: User) { }
 
   constructor(
     private teamAPIService: TeamAPIService,
     private userApiService: UserAPIService,
     @Optional() public dialogRef: MatDialogRef<AddEditUserComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: User) { }
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: Employee) { }
 
   ngOnInit() {
     this.buildForm();
+    this.userApiService.getAllUsers().subscribe((users) => {
+      this.allUsers = users
+      console.log(this.allUsers);
+    })
     this.teamAPIService.getAllTeams().subscribe((teams: Team[]) => {
       this.teams = teams;
+      console.log(this.teams)
     });
     this.fillUserInputs();
-
-    this.userApiService.getAllUsers().subscribe(data => this.allUsers = data)
-    console.log(this.allUsers);
   }
 
   buildForm() {
@@ -63,10 +62,6 @@ export class AddEditUserComponent implements OnInit {
     })
   }
 
-  // fillUserInputs() {
-  //   this.user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-  //   this.addUserForm.patchValue(this.user);
-  // }
   fillUserInputs() {
     if (this.data) {
       this.isModal = true;
@@ -76,7 +71,7 @@ export class AddEditUserComponent implements OnInit {
       this.titleName = "Edit Profile"
     }
     else {
-      this.user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      this.user = new Employee(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
       this.addUserForm.patchValue(this.user);
       this.btnName = "Add User";
       this.titleName = "Add Employee"
@@ -96,7 +91,7 @@ export class AddEditUserComponent implements OnInit {
     this.user.balance = addUserForm.value.balance;
     this.user.startDate = addUserForm.value.startDate;
     this.user.workStatus = WorkStatus.active;
-    this.user.team = addUserForm.value.team;
+    // this.user.team = addUserForm.value.team;
 
     if (this.data) {
       this.userApiService.editUser(this.user).subscribe();
@@ -104,7 +99,7 @@ export class AddEditUserComponent implements OnInit {
     else {
       this.userApiService.addUser(this.user).subscribe();
     }
-    this.user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+    this.user = new Employee(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     this.addUserForm.reset();
     this.addUserForm.markAsUntouched();
     Object.keys(this.addUserForm.controls).forEach(name => {

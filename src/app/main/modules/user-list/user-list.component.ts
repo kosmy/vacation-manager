@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserDataService } from '../shared/services/user-data.service';
-import { User } from '../shared/models/user';
+import { Employee } from '../shared/models/employee';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,21 +24,21 @@ export class UserListComponent implements OnInit {
   // @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns: string[] = ['name', 'phone', 'workEmail', 'vacationsAvailable', 'action'];
-  users: User[];
+  users: Employee[];
   dataSource;
-  filteredUsers: User[];
+  filteredUsers: Employee[];
 
   constructor(private dialog: MatDialog, private userAPIService: UserAPIService) { }
 
   ngOnInit() {
-    this.userAPIService.getAllUsers().subscribe((users: User[]) => {
+    this.userAPIService.getAllUsers().subscribe((users: Employee[]) => {
       this.users = users;
       this.assignCopy();
       this.dataSource = new MatTableDataSource<any>(this.filteredUsers)
     });
   }
 
-  editUser(user: User): void {
+  editUser(user: Employee): void {
     const dialogRef = this.dialog.open(AddEditUserComponent, {
       width: 'fit-content',
       data: user
@@ -55,7 +54,7 @@ export class UserListComponent implements OnInit {
       this.assignCopy();
     }
     this.filteredUsers = Object.assign([], this.users)
-      .filter((user: User) => {
+      .filter((user: Employee) => {
         if (user.name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           return user.name.toLowerCase().indexOf(value.toLowerCase()) > -1
         }

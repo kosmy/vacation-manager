@@ -4,9 +4,9 @@ import { LogInComponent } from './log-in.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AuthorizationService } from './services/authorization.service';
 import { SharedModule } from '../main/modules/shared/shared.module';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { AuthorizationService } from './services/authorization.service';
 
 
 
@@ -20,8 +20,9 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
     ReactiveFormsModule,
     FormsModule,
   ],
-  providers: [AuthorizationService,
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+  providers: [
+    AuthorizationService,
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ]
 })
 export class LogInModule { }

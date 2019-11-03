@@ -5,6 +5,7 @@ import { AddUserRoutingModule } from './add-edit-user-routing.module';
 import { AddEditUserComponent } from './add-edit-user.component';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { SharedModule } from '../shared/shared.module';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     CommonModule,
     AddUserRoutingModule,
+    FileUploadModule
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
