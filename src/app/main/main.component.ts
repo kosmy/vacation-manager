@@ -10,10 +10,9 @@ import { AuthorizationService } from '../log-in/services/authorization.service';
 export class MainComponent implements OnInit {
 
 
-  constructor(private authService: AuthorizationService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.authService.getUserId('yo').subscribe( users => console.log(users))
   }
 
 }

@@ -5,6 +5,7 @@ import { VacationRequestListComponent } from '../vacation-request-list/vacation-
 import { UserAPIService } from '../shared/services/user-api.service';
 import { Employee } from '../shared/models/employee';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Vacation } from '../shared/models/vacation';
 
 
 
@@ -17,7 +18,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class VacationRequestAnswerComponent implements OnInit {
 
-  request;
+  request: Vacation;
   user: Employee;
   isLoaded: boolean = false;
   requestAnswerForm: FormGroup;
@@ -30,14 +31,15 @@ export class VacationRequestAnswerComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data) { }
 
   ngOnInit() {
-    // this.fromCalendar = this.request.event.extendedProps.vacation;
     if (this.data.event) {
+      console.log(this.data)
       this.request = this.data.event.extendedProps.vacation
     }
     else {
+      console.log(this.data)
       this.request = this.data
     }
-    this.userAPIService.getUserById(this.request.userId).subscribe((user) => {
+    this.userAPIService.getUserById(this.request.employeeId).subscribe((user) => {
       this.user = user;
       this.buildForm();
       this.fillInputs();
@@ -68,6 +70,7 @@ export class VacationRequestAnswerComponent implements OnInit {
   // }
 
   onSubmit(requestAnswerForm: FormGroup) {
+    
     this.request.startDate = requestAnswerForm.value.startDate;
     this.request.endDate = requestAnswerForm.value.endDate;
     this.request.status = +requestAnswerForm.value.status;

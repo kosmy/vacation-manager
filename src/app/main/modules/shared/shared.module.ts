@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VacationAPIService } from './services/vacation-api.service';
 import { VacationStatusPipe } from './pipes/vacation-status.pipe';
-import { VacationTypePipe } from './pipes/vacation-type.pipe';
 import { TeamAPIService } from './services/team-api.service';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -19,10 +18,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { TransactionApiService } from './services/transaction-api.service';
 
 
 @NgModule({
-  declarations: [VacationStatusPipe, VacationTypePipe],
+  declarations: [VacationStatusPipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -41,6 +41,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     MatRadioModule
   ],
   providers: [
+    TransactionApiService,
     VacationAPIService,
     TeamAPIService,
     UserAPIService,
@@ -48,7 +49,6 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
   ],
   exports: [
-    VacationTypePipe,
     VacationStatusPipe,
     MatTableModule,
     MatButtonModule,

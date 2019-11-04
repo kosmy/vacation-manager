@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthorizationService } from './services/authorization.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Employee } from '../main/modules/shared/models/employee';
+import { forkJoin } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-log-in',
@@ -26,9 +28,17 @@ export class LogInComponent {
   }
 
   onSubmit(logInForm: FormGroup) {
-    this.authService.singIn(logInForm.value).subscribe(() => {
-      this.router.navigate(['main']);
-    });
+    const email = logInForm.value.email;
+
+    this.authService.singIn(logInForm.value).pipe(
+      flatMap(() =>
+        this.authService.getUserByEmail(email)
+      )
+    ).subscribe((employee) => {
+      localStorage.setItem('currentUserId', employee.id)
+      this.router.navigate(['main/profile', employee.id]);
+    })
+
     this.logInForm.reset();
     this.logInForm.markAsUntouched();
     Object.keys(this.logInForm.controls).forEach(name => {

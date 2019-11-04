@@ -29,27 +29,29 @@ export class VacationRequestListComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: false }) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
-    this.dataSource.paginator = this.paginator;
   }
 
   constructor(private vacationAPIService: VacationAPIService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getVacations();
-    this.isLoaded = true;
     // this.dataSource.sort = this.sort;
   }
 
   // get all vacation requests for all users
   getVacations() {
-    this.vacationAPIService.getAllVacations().subscribe((vacations) => {
-      this.dataSource = new MatTableDataSource<any>(vacations)
+    this.vacationAPIService.getAllVacations().subscribe((vacations: Vacation[]) => {
+      this.dataSource = new MatTableDataSource<any>(vacations);
+      console.log("ALL VACATIOns", vacations)
+      console.log('VASYL T Balance', vacations[1].employee.balance)
+      this.dataSource.paginator = this.paginator;
+      this.isLoaded = true;
     });
   }
 
   decide(vacation: Vacation) {
     const dialogRef = this.dialog.open(VacationRequestAnswerComponent, {
-      width: 'fit-content',
+      width: 'fit-content', 
       height: 'fit-content',
       data: vacation
     });

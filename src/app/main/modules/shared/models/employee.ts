@@ -1,26 +1,23 @@
 import { Team } from './team'
 
-export enum WorkStatus{
-    active,
-    fired
-}
-
 export class Employee {
     constructor( 
-        public id: number,
-        public login: string,
-        public password: string,
-        public name: string,
+        public firstName: string,
         public surname: string,
-        public birthday: Date,
+        public birthdate: Date,
+        public jobTitle: string,
         public workEmail: string,
         public email: string,
         public phone: string,
         public skype: string,
+        public workStartDate: Date,
+        public isActive: boolean,
+        public deleted: boolean,
         public balance: number,
-        public startDate: Date,
-        public workStatus: WorkStatus,
-        // public team: Team["teamName"],
+        public teamId: string,
+        public workEndDate?: Date,
+        public id?: string,
         public avatar?: string,
-        public fireDate? : Date) { }
+        public teams?: Team[]
+        ) { }
 }

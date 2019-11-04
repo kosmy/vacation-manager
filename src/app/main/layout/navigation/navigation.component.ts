@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Employee } from '../../modules/shared/models/employee';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -9,24 +9,11 @@ import { Router } from '@angular/router';
 })
 export class NavigationComponent implements OnInit {
 
-  certainUserId: number;
-
+  certainUserId: Employee['id'];
   
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() {
-    // this.certainUserId = this.userDataService.getUserId()
-    // console.log(this.certainUserId)
+    this.certainUserId = localStorage.getItem('currentUserId')
   }
-
-  // toProfile() {
-  //   this.certainUserId = this.userDataService.getUserId()
-  //   this.router.navigate(["/main/profile", this.certainUserId])
-  // }
-  // toVacationRequest() {
-  //   this.certainUserId = this.userDataService.getUserId()
-  //   this.router.navigate(["/main/vacation-request", this.certainUserId])
-  // }
-  
-
 }

@@ -2,32 +2,34 @@ import { Injectable } from '@angular/core';
 import { Team } from '../models/team';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Employee } from '../models/employee';
 
 @Injectable()
 export class TeamAPIService {
 
-  constructor(private http: HttpClient) { };
+  constructor(private http: HttpClient) { }
 
-  private teamApiUrl = 'http://localhost:3000/teams/';
-  private teams: Team[] = [];
+ 
 
-  // addTeam(team: Team) { 
-  //   if (!localStorage.getItem('teams')) {
-  //     localStorage.setItem('teams', JSON.stringify([]));
-  //   }
-  //   JSON.parse(localStorage.getItem('teams'));
-  //   this.teams.push(team);
-  //   localStorage.setItem('teams', JSON.stringify(this.teams));
-  // }
+  private teamApiUrl = 'https://vacations.polytech.rocks:52540/api/Team/';
+
   addTeam(team: Team): Observable<Team> {
     return this.http.post<Team>(this.teamApiUrl, team);
   }
 
-  getAllTeams(): Observable<Team[]> {
-    return this.http.get<Team[]>(this.teamApiUrl)
+  getTeam(teamId: Team['id']): Observable<Team> {
+    return this.http.get<Team>(this.teamApiUrl + teamId);
   }
 
-  // getTeams(): Team[] {
-  //   return JSON.parse(localStorage.getItem('teams'));
-  // }
+  getAllTeams(): Observable<Team[]> {
+    return this.http.get<Team[]>(this.teamApiUrl);
+  }
+
+  addUserToTeam(teamId: Team['id'], userId: Employee['id']): Observable<Employee['id']> {
+    return this.http.post<Employee['id']>(this.teamApiUrl + teamId + '/user/' + userId + '/add', userId);
+  }
+
+  removeUserFromTeam(teamId: Team['id'], userId: Employee['id']): Observable<Employee['id']> {
+    return this.http.post<Employee['id']>(this.teamApiUrl + teamId + '/user/' + userId + '/remove', userId);
+  }
 }

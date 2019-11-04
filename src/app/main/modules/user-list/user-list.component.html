@@ -1,4 +1,4 @@
-<div class="whole-block">
+<div class="whole-block" *ngIf="isLoaded">
     <div class="title">
         Employees List
     </div>
@@ -7,15 +7,15 @@
             (keyup)="filterValue = input.value"> -->
         <mat-form-field type="text">
             <input matInput #filterUsers type="text" placeholder="Find Users" (input)="filterItem(filterUsers.value)">
-            <button mat-button  matSuffix mat-icon-button aria-label="Clear">
+            <!-- <button mat-button  matSuffix mat-icon-button aria-label="Clear">
                 <mat-icon>close</mat-icon>
-            </button>
+            </button> -->
         </mat-form-field>
     </div>
     <table class="main-block" mat-table [dataSource]="dataSource" class="mat-elevation-z8"> -->
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let user"> {{user.name}}</td>
+            <td mat-cell *matCellDef="let user"> {{user.firstName}} {{user.surname}}</td>
         </ng-container>
         <ng-container matColumnDef="phone">
             <th mat-header-cell *matHeaderCellDef>Phone Number</th>

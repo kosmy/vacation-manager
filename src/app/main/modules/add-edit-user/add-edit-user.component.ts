@@ -1,56 +1,46 @@
 import { Component, OnInit, Inject, Optional, ViewEncapsulation } from '@angular/core';
-import { WorkStatus, Employee } from '../shared/models/employee';
+import { Employee } from '../shared/models/employee';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Team } from '../shared/models/team';
 import { TeamAPIService } from '../shared/services/team-api.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserAPIService } from '../shared/services/user-api.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-edit-user',
   templateUrl: './add-edit-user.component.html',
   styleUrls: ['./add-edit-user.component.scss'],
   encapsulation: ViewEncapsulation.None
-
 })
 export class AddEditUserComponent implements OnInit {
 
-  statuses = [{ value: WorkStatus.active, text: "Active" }, { value: WorkStatus.fired, text: "Fired" }];
   addUserForm: FormGroup;
   user: Employee;
   isModal: boolean = false;
-  teams: Team[];
+  statuses: string[] = ['Active', 'Fired']
   allUsers: Employee[];
   btnName: string;
   titleName: string;
-
-
+  teams$: Observable<Team[]>;
   constructor(
-    private teamAPIService: TeamAPIService,
+    private teamApiService: TeamAPIService,
     private userApiService: UserAPIService,
     @Optional() public dialogRef: MatDialogRef<AddEditUserComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Employee) { }
 
   ngOnInit() {
     this.buildForm();
-    this.userApiService.getAllUsers().subscribe((users) => {
-      this.allUsers = users
-      console.log(this.allUsers);
-    })
-    this.teamAPIService.getAllTeams().subscribe((teams: Team[]) => {
-      this.teams = teams;
-      console.log(this.teams)
-    });
+    this.teams$ = this.teamApiService.getAllTeams();
     this.fillUserInputs();
   }
 
   buildForm() {
     this.addUserForm = new FormGroup({
-      login: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required]),
       surname: new FormControl('', [Validators.required]),
-      birthday: new FormControl('', [Validators.required]),
+      jobTitle: new FormControl('', [Validators.required]),
+      birthdate: new FormControl('', [Validators.required]),
       workEmail: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required]),
       phone: new FormControl('', [Validators.required]),
@@ -62,6 +52,19 @@ export class AddEditUserComponent implements OnInit {
     })
   }
 
+  changeStatus() {
+    if (this.addUserForm.value.workStatus === 'Active') {
+      console.log('Active')
+      this.user.isActive = true;
+      this.user.deleted = false;
+    }
+    else {
+      console.log('Fired')
+      this.user.isActive = true;
+      this.user.deleted = false;
+    }
+  }
+
   fillUserInputs() {
     if (this.data) {
       this.isModal = true;
@@ -71,7 +74,7 @@ export class AddEditUserComponent implements OnInit {
       this.titleName = "Edit Profile"
     }
     else {
-      this.user = new Employee(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      this.user = new Employee(null, null, null, null, null, null, null, null, null, null, null, null, null, null,);
       this.addUserForm.patchValue(this.user);
       this.btnName = "Add User";
       this.titleName = "Add Employee"
@@ -79,20 +82,17 @@ export class AddEditUserComponent implements OnInit {
   }
 
   onSubmit(addUserForm: FormGroup) {
-    this.user.login = addUserForm.value.login
-    this.user.password = addUserForm.value.password
-    this.user.name = addUserForm.value.name;
+    this.user.firstName = addUserForm.value.firstName;
     this.user.surname = addUserForm.value.surname;
-    this.user.birthday = addUserForm.value.birthday;
+    this.user.jobTitle = addUserForm.value.jobTitle;
+    this.user.birthdate = addUserForm.value.birthdate;
     this.user.workEmail = addUserForm.value.workEmail;
     this.user.email = addUserForm.value.email;
     this.user.phone = addUserForm.value.phone;
     this.user.skype = addUserForm.value.skype;
     this.user.balance = addUserForm.value.balance;
-    this.user.startDate = addUserForm.value.startDate;
-    this.user.workStatus = WorkStatus.active;
-    // this.user.team = addUserForm.value.team;
-
+    this.user.workStartDate = addUserForm.value.startDate;
+    
     if (this.data) {
       this.userApiService.editUser(this.user).subscribe();
     }

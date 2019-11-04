@@ -5,26 +5,11 @@
         </div>
         <form class="main-block" [formGroup]="addUserForm" (ngSubmit)="onSubmit(addUserForm)">
             <div class="sub-block">
-
                 <mat-form-field type="text">
-                    <input matInput placeholder="Login" formControlName="login">
+                    <input matInput placeholder="Name" formControlName="firstName">
                 </mat-form-field>
-                <mat-error *ngIf="addUserForm.get('login').invalid && addUserForm.get('login').touched">
-                    <ng-container *ngIf="addUserForm.get('login').errors.required">login is required.
-                    </ng-container>
-                </mat-error>
-                <mat-form-field type="text">
-                    <input matInput placeholder="Password" formControlName="password">
-                </mat-form-field>
-                <mat-error *ngIf="addUserForm.get('password').invalid && addUserForm.get('password').touched">
-                    <ng-container *ngIf="addUserForm.get('password').errors.required">password is required.
-                    </ng-container>
-                </mat-error>
-                <mat-form-field type="text">
-                    <input matInput placeholder="Name" formControlName="name">
-                </mat-form-field>
-                <mat-error *ngIf="addUserForm.get('name').invalid && addUserForm.get('name').touched">
-                    <ng-container *ngIf="addUserForm.get('name').errors.required">name is required.
+                <mat-error *ngIf="addUserForm.get('firstName').invalid && addUserForm.get('firstName').touched">
+                    <ng-container *ngIf="addUserForm.get('firstName').errors.required">name is required.
                     </ng-container>
                 </mat-error>
                 <mat-form-field type="text">
@@ -34,19 +19,26 @@
                     <ng-container *ngIf="addUserForm.get('surname').errors.required">surname is required.
                     </ng-container>
                 </mat-error>
+                <mat-form-field>
+                    <input type="text" matInput placeholder="Job Title" formControlName="jobTitle">
+                </mat-form-field>
+                <mat-error *ngIf="addUserForm.get('jobTitle').invalid && addUserForm.get('jobTitle').touched">
+                    <ng-container *ngIf="addUserForm.get('jobTitle').errors.required">Job Title is required.
+                    </ng-container>
+                </mat-error>
                 <mat-form-field id="workStatus">
                     <mat-label>Work Status</mat-label>
-                    <mat-select formControlName="workStatus">
+                    <mat-select formControlName="workStatus" (selectionChange)="changeStatus()">
                         <mat-option>None</mat-option>
-                        <mat-option *ngFor="let status of statuses" [value]="status.value">{{status.text}}</mat-option>
+                        <mat-option *ngFor="let status of statuses" [value]="status">{{status}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-error *ngIf="addUserForm.get('workStatus').invalid && addUserForm.get('workStatus').touched">
                     <ng-container *ngIf="addUserForm.get('workStatus').errors.required">workStatus is required.
                     </ng-container>
                 </mat-error>
-                <mat-form-field>
-                    <input type="number" matInput placeholder="Vacations Available" formControlName="balance">
+                <mat-form-field >
+                    <input [disabled]="data" type="number" matInput placeholder="Vacations Available" formControlName="balance">
                 </mat-form-field>
                 <mat-error *ngIf="addUserForm.get('balance').invalid && addUserForm.get('balance').touched">
                     <ng-container *ngIf="addUserForm.get('balance').errors.required">balance is required.
@@ -56,7 +48,7 @@
                     <mat-label>Team</mat-label>
                     <mat-select formControlName="team">
                         <mat-option>None</mat-option>
-                        <mat-option *ngFor="let team of teams" [value]="team.teamName">{{team.teamName}}</mat-option>
+                        <mat-option *ngFor="let team of teams$ | async" [value]="team.name">{{team.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-error *ngIf="addUserForm.get('team').invalid && addUserForm.get('team').touched">
@@ -66,12 +58,12 @@
             </div>
             <div class="sub-block">
                 <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Birthday" formControlName="birthday">
+                    <input matInput [matDatepicker]="picker" placeholder="Birthday" formControlName="birthdate">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-                <mat-error *ngIf="addUserForm.get('birthday').invalid && addUserForm.get('birthday').touched">
-                    <ng-container *ngIf="addUserForm.get('birthday').errors.required">birthday is required.
+                <mat-error *ngIf="addUserForm.get('birthdate').invalid && addUserForm.get('birthdate').touched">
+                    <ng-container *ngIf="addUserForm.get('birthdate').errors.required">birthday is required.
                     </ng-container>
                 </mat-error>
                 <mat-form-field type="text">

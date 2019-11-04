@@ -4,27 +4,28 @@
     </div>
     <form class="main-block" [formGroup]="vacationRequestForm" (ngSubmit)="onSubmit(vacationRequestForm)">
         <mat-form-field id="from">
-            <input matInput [matDatepicker]="picker" placeholder="Choose a From Date" formControlName="start">
+            <input matInput #dateOne [matDatepicker]="picker" placeholder="Choose a From Date" formControlName="start"
+                (dateChange)="countAmount(dateOne.value, dateTwo.value)">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <mat-error *ngIf="vacationRequestForm.get('start').invalid && vacationRequestForm.get('start').touched">
-            <ng-container *ngIf="vacationRequestForm.get('start').errors.required">start date is required.</ng-container>
+            <ng-container *ngIf="vacationRequestForm.get('start').errors.required">start date is required.
+            </ng-container>
         </mat-error>
         <mat-form-field id="to">
-            <input matInput [matDatepicker]="pickerTwo" placeholder="Choose a To Date" formControlName="end">
+            <input matInput #dateTwo [matDatepicker]="pickerTwo" placeholder="Choose a To Date" formControlName="end"
+                (dateChange)="countAmount(dateOne.value, dateTwo.value)">
             <mat-datepicker-toggle matSuffix [for]="pickerTwo"></mat-datepicker-toggle>
             <mat-datepicker #pickerTwo></mat-datepicker>
         </mat-form-field>
         <mat-error *ngIf="vacationRequestForm.get('end').invalid && vacationRequestForm.get('end').touched">
             <ng-container *ngIf="vacationRequestForm.get('end').errors.required">end date is required.</ng-container>
         </mat-error>
-        <mat-form-field type="number">
-            <input matInput placeholder="Amount of Days" formControlName="amount">
-        </mat-form-field>
-        <mat-error *ngIf="vacationRequestForm.get('amount').invalid && vacationRequestForm.get('amount').touched">
-            <ng-container *ngIf="vacationRequestForm.get('amount').errors.required">amount is required.</ng-container>
-        </mat-error>
+        <div class="amount">
+            <p>Amount of days:</p>
+            <div>{{amount}}</div>
+        </div>
         <mat-form-field class="example-full-width">
             <textarea matInput placeholder="Leave a Comment" formControlName="comment"></textarea>
         </mat-form-field>

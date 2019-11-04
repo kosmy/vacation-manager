@@ -42,12 +42,12 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.calendarComponent.eventClick.subscribe((data) => {
-        this.openDialog(data);
-        console.log(data)
-      })
-    }, 1000);
+    // setTimeout(() => {
+    //   this.calendarComponent.eventClick.subscribe((data) => {
+    //     this.openDialog(data);
+    //     console.log(data)
+    //   })
+    // }, 1000);
     // this.calendarComponent.eventClick.subscribe((data) => {
     //   this.openDialog(data);
     //   this.cd.detectChanges();
@@ -65,7 +65,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   fillCalendar(vacation: Vacation, user: Employee) {
     this.calendarEvents.push(
       {
-        title: `${user.name} ${user.surname}`,
+        title: `${user.firstName} ${user.surname}`,
         start: vacation.startDate,
         end: vacation.endDate,
         extendedProps: {
@@ -78,7 +78,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   getData() {
     this.vacationAPIService.getAllVacations().pipe(switchMap((vacations) =>
       forkJoin(...vacations.map((vacation) =>
-        this.userAPIService.getUserById(vacation.userId).pipe(tap((user) =>
+        this.userAPIService.getUserById(vacation.employeeId).pipe(tap((user) =>
           this.fillCalendar(vacation, user)
         ))))
     )).subscribe(() => {

@@ -9,21 +9,19 @@ export class UserAPIService {
 
   constructor(private http: HttpClient) { }
 
-  private userApiUrl = 'http://localhost:3000/users/';
+  private userApiUrl = 'https://vacations.polytech.rocks:52540/api/Employee/';
 
 
   getAllUsers(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.userApiUrl);
   }
 
-  getUserById(id: number): Observable<Employee> {
-    return this.http.get<Employee>(this.userApiUrl + id).pipe(map((response) => {
-      return response
-    }));
+  getUserById(id: Employee['id']): Observable<Employee> {
+    return this.http.get<Employee>(this.userApiUrl + id);
   }
 
   editUser(user: Employee) {
-    return this.http.put(this.userApiUrl + user.id, user);
+    return this.http.put(this.userApiUrl, user);``
   }
 
   addUser(user: Employee) {

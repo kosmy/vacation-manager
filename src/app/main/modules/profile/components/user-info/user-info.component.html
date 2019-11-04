@@ -5,14 +5,14 @@
     <div class="image">
         <img [src]='certainUser.avatar'>
         <div class="info">
-            <h4>{{certainUser.name}}</h4>
-            <p>Developer</p>
+            <h4>{{certainUser.firstName}} {{certainUser.surname}}</h4>
+            <p>{{certainUser.jobTitle}}</p>
         </div>
     </div>
     <div class="info">
         <div class="birth">
             <p>date of birth</p>
-            <h3>{{certainUser.birthday | date}}</h3>
+            <h3>{{certainUser.birthdate | date}}</h3>
         </div>
         <div class="email">
             <p>personal email</p>

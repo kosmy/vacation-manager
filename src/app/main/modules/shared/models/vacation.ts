@@ -1,11 +1,5 @@
 import { Employee } from './employee';
-
-export enum VacationType {
-    Recreation,
-    University,
-    Family,
-    Sick
-}
+import { Team } from './team';
 
 export enum VacationStatus {
     Pending,
@@ -13,21 +7,21 @@ export enum VacationStatus {
     Refused
 }
 
-// export interface Vacation {
-//     userId: number;
-//     type: VacationType;
-//     startDate: Date;
-//     endDate: Date;
-//     comment: string;
-//     status: VacationStatus;
-// }
-
 export class Vacation {
     constructor(
-        public userId: Employee["id"],
         public startDate: Date,
         public endDate: Date,
-        public amount: number,
         public comment: string,
-        public status: VacationStatus) { }
+        public status: VacationStatus,
+        public createDateTime: Date,
+        public deleted: boolean,
+        public employee: Employee,
+        public statusChangeDate?: Date,
+        public id?: string,
+        public employeeId?: Employee["id"],
+        public approverComment?: string,
+        public approverId?: string,
+        public teams?: Team[],
+        public approver?: Employee,
+        ) { }
 }

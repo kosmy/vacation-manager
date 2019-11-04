@@ -51,8 +51,8 @@
                 <mat-radio-button value="1">Approve</mat-radio-button>
                 <mat-radio-button value="2">Refuse</mat-radio-button>
             </mat-radio-group>
+            <button mat-stroked-button [disabled]="requestAnswerForm.invalid">Answer</button>
         </div>
-        <button mat-stroked-button [disabled]="requestAnswerForm.invalid">Answer</button>
         <!-- <button mat-stroked-button>Cancel</button> -->
     </form>
 

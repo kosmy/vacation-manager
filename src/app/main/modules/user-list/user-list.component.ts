@@ -14,6 +14,7 @@ import { UserAPIService } from '../shared/services/user-api.service';
 export class UserListComponent implements OnInit {
 
   private paginator: MatPaginator;
+  isLoaded: boolean = false;
 
   @ViewChild(MatPaginator, { static: false }) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
@@ -35,6 +36,7 @@ export class UserListComponent implements OnInit {
       this.users = users;
       this.assignCopy();
       this.dataSource = new MatTableDataSource<any>(this.filteredUsers)
+      this.isLoaded = true;
     });
   }
 
@@ -55,13 +57,16 @@ export class UserListComponent implements OnInit {
     }
     this.filteredUsers = Object.assign([], this.users)
       .filter((user: Employee) => {
-        if (user.name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
-          return user.name.toLowerCase().indexOf(value.toLowerCase()) > -1
+        if (user.firstName !== null && user.firstName.toLowerCase().indexOf(value.toLowerCase()) > -1) {
+          return user.firstName.toLowerCase().indexOf(value.toLowerCase()) > -1
         }
-        else if (user.workEmail.toLowerCase().indexOf(value.toLowerCase()) > -1) {
+        else if (user.surname !== null && user.surname.toLowerCase().indexOf(value.toLowerCase()) > -1) {
+          return user.surname.toLowerCase().indexOf(value.toLowerCase()) > -1
+        }
+        else if (user.workEmail !== null && user.workEmail.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           return user.workEmail.toLowerCase().indexOf(value.toLowerCase()) > -1
         }
-        else if (user.phone.indexOf(value) > -1) {
+        else if (user.phone !== null &&  user.phone.indexOf(value) > -1) {
           return user.phone.indexOf(value) > -1
         }
       })
