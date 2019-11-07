@@ -9,9 +9,7 @@ export class VacationStatusPipe implements PipeTransform {
 
   constructor(public vacationAPIService: VacationAPIService) { };
 
-  transform(status?: VacationStatus): any {
-    return this.vacationAPIService.convertStatus(status)
+  transform(status?: VacationStatus): string {
+    return this.vacationAPIService.convertStatus(status);
   }
-
-
 }

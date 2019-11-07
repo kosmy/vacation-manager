@@ -9,10 +9,6 @@ import { UserAPIService } from '../../../shared/services/user-api.service';
 import { flatMap, map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 
-export const array = [
-  {}
-]
-
 @Component({
   selector: 'app-user-vacations',
   templateUrl: './user-vacations.component.html',
@@ -28,7 +24,7 @@ export class UserVacationsComponent implements OnInit {
   }
 
   certainUserId: Employee['id'];
-  dataSource;
+  dataSource: MatTableDataSource<Vacation>;
   userBalance: Employee["balance"];
   isLoaded: boolean = false;
   displayedColumns: string[] = ['dates', 'status',];
@@ -50,7 +46,7 @@ export class UserVacationsComponent implements OnInit {
       })
     ).subscribe((res) => {
       this.userBalance = res[0].balance;
-      this.dataSource = new MatTableDataSource<any>(res[1]);
+      this.dataSource = new MatTableDataSource<Vacation>(res[1]);
       this.dataSource.paginator = this.paginator;
       this.isLoaded = true;
     })

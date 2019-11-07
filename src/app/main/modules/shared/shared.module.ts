@@ -12,6 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -19,6 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { TransactionApiService } from './services/transaction-api.service';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 
 @NgModule({
@@ -32,13 +35,15 @@ import { TransactionApiService } from './services/transaction-api.service';
     MatButtonModule,
     MatPaginatorModule,
     MatSortModule,
+    MatCardModule,
     MatDialogModule,
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
     MatIconModule,
-    MatRadioModule
+    MatRadioModule,
+    NgSelectModule
   ],
   providers: [
     TransactionApiService,
@@ -54,6 +59,7 @@ import { TransactionApiService } from './services/transaction-api.service';
     MatButtonModule,
     MatPaginatorModule,
     MatSortModule,
+    MatCardModule,
     MatDialogModule,
     MatInputModule,
     MatDatepickerModule,
@@ -61,7 +67,8 @@ import { TransactionApiService } from './services/transaction-api.service';
     MatSelectModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatRadioModule
+    MatRadioModule,
+    NgSelectModule
   ]
 })
 export class SharedModule { }

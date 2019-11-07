@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, DoCheck, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, DoCheck, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { UserAPIService } from '../shared/services/user-api.service';
@@ -10,81 +10,60 @@ import { EventInput, preventDefault } from '@fullcalendar/core';
 import { MatDialog } from '@angular/material/dialog';
 import { VacationRequestAnswerComponent } from '../vacation-request-answer/vacation-request-answer.component';
 import { tap, switchMap } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
-
-
-
-
+import { forkJoin, Observable, Subject } from 'rxjs';
+import { Team } from '../shared/models/team';
+import { TeamAPIService } from '../shared/services/team-api.service';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+  styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent implements OnInit, AfterViewInit {
 
-
+export class CalendarComponent implements OnInit {
 
   @ViewChild('calendar', { static: false }) calendarComponent: FullCalendarComponent;
 
-
-  calendarEvents: EventInput[] = [];
+  calendarEvents: EventInput[];
   calendarPlugins = [dayGridPlugin, interactionPlugin];
-  user: Employee;
   vacations: Vacation[];
-  isLoaded: boolean = false;
+  teams$: Observable<Team[]>;
+  selected: Team['id'] = '75fa16ee-760c-48b0-bb40-b8e61988f604';
 
-  constructor(private userAPIService: UserAPIService, private vacationAPIService: VacationAPIService, private dialog: MatDialog, private cd: ChangeDetectorRef) { }
+
+  constructor(private userAPIService: UserAPIService,
+    private vacationAPIService: VacationAPIService,
+    private dialog: MatDialog,
+    private teamAPIService: TeamAPIService
+  ) { }
 
   ngOnInit() {
-    this.getData();
-    console.log(this.calendarEvents)
+    this.teams$ = this.teamAPIService.getAllTeams();
+    this.vacationAPIService.changeTeamVacs.subscribe((calendarEvents) => {
+      this.calendarEvents = calendarEvents;
+    })
   }
 
+  changeVacationsForTeam(value) {
+    console.log("EVENT", value)
+    return this.vacationAPIService.changeVacationsForTeam(value);
+  }
   ngAfterViewInit(): void {
-    // setTimeout(() => {
-    //   this.calendarComponent.eventClick.subscribe((data) => {
-    //     this.openDialog(data);
-    //     console.log(data)
-    //   })
-    // }, 1000);
-    // this.calendarComponent.eventClick.subscribe((data) => {
-    //   this.openDialog(data);
-    //   this.cd.detectChanges();
-    // })
+    this.calendarComponent.eventClick.subscribe((data) => {
+      this.openDialog(data);
+    })
   }
 
   // getData() {
-  //   this.vacationAPIService.getVacationsForUser(1).subscribe((vacations) => {
-  //     this.vacations = vacations
-  //     this.fillCalendar(vacations)
+  //   this.vacationAPIService.getAllVacations().pipe(switchMap((vacations) =>
+  //     forkJoin(...vacations.map((vacation) =>
+  //       this.userAPIService.getUserById(vacation.employeeId).pipe(tap((user) =>
+  //         this.fillCalendar(vacation, user)
+  //       ))))
+  //   )).subscribe(() => {
   //     this.isLoaded = true;
-  //   })
+  //   });
   // }
-
-  fillCalendar(vacation: Vacation, user: Employee) {
-    this.calendarEvents.push(
-      {
-        title: `${user.firstName} ${user.surname}`,
-        start: vacation.startDate,
-        end: vacation.endDate,
-        extendedProps: {
-          vacation: vacation
-        }
-      }
-    )
-  }
-
-  getData() {
-    this.vacationAPIService.getAllVacations().pipe(switchMap((vacations) =>
-      forkJoin(...vacations.map((vacation) =>
-        this.userAPIService.getUserById(vacation.employeeId).pipe(tap((user) =>
-          this.fillCalendar(vacation, user)
-        ))))
-    )).subscribe(() => {
-      this.isLoaded = true;
-    });
-  }
 
   openDialog(data) {
     const dialogRef = this.dialog.open(VacationRequestAnswerComponent, {

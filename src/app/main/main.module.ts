@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainComponent } from './main.component';
 import { HeaderComponent } from './layout/header/header.component';
-import { NavigationComponent } from './layout/navigation/navigation.component';
 import { ContentComponent } from './layout/content/content.component';
 import { MainRoutingModule } from './main-routing.module';
 import { ProfileModule } from './modules/profile/profile.module';
@@ -15,13 +14,15 @@ import { VacationRequestAnswerModule } from './modules/vacation-request-answer/v
 import { AddEditTeamModule } from './modules/add-edit-team/add-edit-team.module';
 import { TeamListModule } from './modules/team-list/team-list.module';
 import { CalendarModule } from './modules/calendar/calendar.module';
+import { NavigationModule } from './modules/navigation/navigation.module';
 
 
 @NgModule({
-  declarations: [MainComponent, HeaderComponent, NavigationComponent, ContentComponent],
+  declarations: [MainComponent, HeaderComponent, ContentComponent],
   imports: [
     CommonModule,
     MainRoutingModule,
+    NavigationModule,
     ProfileModule,
     VacationRequestModule,
     AddEditUserModule,

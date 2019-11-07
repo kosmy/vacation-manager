@@ -21,7 +21,7 @@ export class UserAPIService {
   }
 
   editUser(user: Employee) {
-    return this.http.put(this.userApiUrl, user);``
+    return this.http.put(this.userApiUrl, user); ``
   }
 
   addUser(user: Employee) {
@@ -36,7 +36,5 @@ export class UserAPIService {
   //     console.log(vacations)
   //   }))
   // }
-
-
   
 }

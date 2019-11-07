@@ -35,7 +35,8 @@ export class LogInComponent {
         this.authService.getUserByEmail(email)
       )
     ).subscribe((employee) => {
-      localStorage.setItem('currentUserId', employee.id)
+      this.authService.certainUserId = employee.id;
+      localStorage.setItem('currentUserId', employee.id);
       this.router.navigate(['main/profile', employee.id]);
     })
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Employee } from '../shared/models/employee';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditUserComponent } from '../add-edit-user/add-edit-user.component';
 import { UserAPIService } from '../shared/services/user-api.service';
@@ -26,8 +26,9 @@ export class UserListComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'phone', 'workEmail', 'vacationsAvailable', 'action'];
   users: Employee[];
-  dataSource;
+  dataSource: MatTableDataSource<Employee[]>;
   filteredUsers: Employee[];
+  selected: boolean = true;
 
   constructor(private dialog: MatDialog, private userAPIService: UserAPIService) { }
 
@@ -46,7 +47,7 @@ export class UserListComponent implements OnInit {
       data: user
     });
   }
-  
+
   assignCopy() {
     this.filteredUsers = this.users;
   }
@@ -66,10 +67,18 @@ export class UserListComponent implements OnInit {
         else if (user.workEmail !== null && user.workEmail.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           return user.workEmail.toLowerCase().indexOf(value.toLowerCase()) > -1
         }
-        else if (user.phone !== null &&  user.phone.indexOf(value) > -1) {
+        else if (user.phone !== null && user.phone.indexOf(value) > -1) {
           return user.phone.indexOf(value) > -1
         }
       })
+
+    // .filter(item => (this.filterStatus !== undefined) ? item.isActive === this.filterStatus : item);
+
+    this.dataSource = new MatTableDataSource<any>(this.filteredUsers)
+  }
+
+  filterStatus(value: Employee['isActive']) {
+    this.filteredUsers = Object.assign([], this.users).filter((user: Employee) => user.isActive === value);
     this.dataSource = new MatTableDataSource<any>(this.filteredUsers)
   }
 }

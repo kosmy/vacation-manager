@@ -5,7 +5,7 @@ import { Team } from '../shared/models/team';
 import { TeamAPIService } from '../shared/services/team-api.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserAPIService } from '../shared/services/user-api.service';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -15,24 +15,30 @@ import { Observable } from 'rxjs';
 })
 export class AddEditUserComponent implements OnInit {
 
-  addUserForm: FormGroup;
-  user: Employee;
+  private addUserForm: FormGroup;
+  private user: Employee;
   isModal: boolean = false;
   statuses: string[] = ['Active', 'Fired']
   allUsers: Employee[];
   btnName: string;
   titleName: string;
-  teams$: Observable<Team[]>;
+  teams: Team[];
+  isLoaded: boolean = false;
+
   constructor(
     private teamApiService: TeamAPIService,
     private userApiService: UserAPIService,
     @Optional() public dialogRef: MatDialogRef<AddEditUserComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: Employee) { }
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: Employee
+  ) { }
 
   ngOnInit() {
-    this.buildForm();
-    this.teams$ = this.teamApiService.getAllTeams();
-    this.fillUserInputs();
+    this.teamApiService.getAllTeams().subscribe((teams) => {
+      this.teams = teams;
+      this.buildForm();
+      this.fillUserInputs();
+      this.isLoaded = true;
+    });
   }
 
   buildForm() {
@@ -74,7 +80,7 @@ export class AddEditUserComponent implements OnInit {
       this.titleName = "Edit Profile"
     }
     else {
-      this.user = new Employee(null, null, null, null, null, null, null, null, null, null, null, null, null, null,);
+      this.user = new Employee(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
       this.addUserForm.patchValue(this.user);
       this.btnName = "Add User";
       this.titleName = "Add Employee"
@@ -92,9 +98,14 @@ export class AddEditUserComponent implements OnInit {
     this.user.skype = addUserForm.value.skype;
     this.user.balance = addUserForm.value.balance;
     this.user.workStartDate = addUserForm.value.startDate;
-    
+    this.user.teamId = addUserForm.value.team;
+    this.user.teams.push(this.teams.find(team => team.id === addUserForm.value.team));
+
     if (this.data) {
-      this.userApiService.editUser(this.user).subscribe();
+      forkJoin(
+        this.userApiService.editUser(this.user),
+        this.teamApiService.addUserToTeam(this.user.teamId, this.data.id)
+      ).subscribe();
     }
     else {
       this.userApiService.addUser(this.user).subscribe();

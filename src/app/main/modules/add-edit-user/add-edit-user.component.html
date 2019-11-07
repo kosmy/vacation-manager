@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="isLoaded">
     <div [className]="isModal ? 'edit-user-modal' : 'whole-block'">
         <div class="title">
             {{titleName}}
@@ -48,7 +48,7 @@
                     <mat-label>Team</mat-label>
                     <mat-select formControlName="team">
                         <mat-option>None</mat-option>
-                        <mat-option *ngFor="let team of teams$ | async" [value]="team.name">{{team.name}}</mat-option>
+                        <mat-option *ngFor="let team of teams" [value]="team.id">{{team.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-error *ngIf="addUserForm.get('team').invalid && addUserForm.get('team').touched">

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Vacation } from '../shared/models/vacation';
 import { VacationAPIService } from '../shared/services/vacation-api.service';
 import { MatPaginator } from '@angular/material/paginator';
@@ -29,6 +29,9 @@ export class VacationRequestListComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: false }) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
+    if (this.dataSource) {
+      this.dataSource.paginator = this.paginator;
+    }
   }
 
   constructor(private vacationAPIService: VacationAPIService, private dialog: MatDialog) { }
@@ -42,8 +45,6 @@ export class VacationRequestListComponent implements OnInit {
   getVacations() {
     this.vacationAPIService.getAllVacations().subscribe((vacations: Vacation[]) => {
       this.dataSource = new MatTableDataSource<any>(vacations);
-      console.log("ALL VACATIOns", vacations)
-      console.log('VASYL T Balance', vacations[1].employee.balance)
       this.dataSource.paginator = this.paginator;
       this.isLoaded = true;
     });
@@ -51,15 +52,13 @@ export class VacationRequestListComponent implements OnInit {
 
   decide(vacation: Vacation) {
     const dialogRef = this.dialog.open(VacationRequestAnswerComponent, {
-      width: 'fit-content', 
+      width: 'fit-content',
       height: 'fit-content',
       data: vacation
     });
   }
+
   showProfile(vacation: Vacation) {
-    // this.userAPIService.getUserById(1).subscribe((user) => {
-    //   this.toUser = user
-    // });
     this.dialog.open(UserInfoComponent, {
       width: 'fit-content',
       height: 'fit-content',

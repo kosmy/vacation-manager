@@ -4,9 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserAPIService } from '../../../shared/services/user-api.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Vacation } from '../../../shared/models/vacation';
-import { switchMap, flatMap } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
-import { VacationAPIService } from '../../../shared/services/vacation-api.service';
+import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-info',
@@ -45,7 +43,6 @@ export class UserInfoComponent implements OnInit {
         this.isLoaded = true;
       });
     }
-
   }
 
   getUserFromList(vacation: Vacation) {

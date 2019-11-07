@@ -3,13 +3,12 @@ import { Team } from '../models/team';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Employee } from '../models/employee';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class TeamAPIService {
 
   constructor(private http: HttpClient) { }
-
- 
 
   private teamApiUrl = 'https://vacations.polytech.rocks:52540/api/Team/';
 
@@ -32,4 +31,5 @@ export class TeamAPIService {
   removeUserFromTeam(teamId: Team['id'], userId: Employee['id']): Observable<Employee['id']> {
     return this.http.post<Employee['id']>(this.teamApiUrl + teamId + '/user/' + userId + '/remove', userId);
   }
+
 }

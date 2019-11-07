@@ -1,0 +1,136 @@
+Date : 2019-11-04 21:38:27
+Directory : /Users/nikita/FrontEnd/Polytech courses/Main Project/project/vacation-app/src/app
+Total : 86 files,  2421 codes, 107 comments, 403 blanks, all 2931 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| TypeScript |         52 |      1,415 |         53 |        316 |      1,784 |
+| SCSS       |         17 |        562 |         12 |         77 |        651 |
+| HTML       |         17 |        444 |         42 |         10 |        496 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                         | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                            |         86 |      2,421 |        107 |        403 |      2,931 |
+| main                                                                         |         76 |      2,242 |        106 |        369 |      2,717 |
+| main/modules                                                                 |         61 |      2,032 |        104 |        325 |      2,461 |
+| main/modules/profile                                                         |         11 |        389 |         37 |         57 |        483 |
+| main/modules/profile/components                                              |          6 |        338 |         37 |         40 |        415 |
+| main/modules/add-edit-user                                                   |          5 |        313 |          6 |         31 |        350 |
+| main/modules/shared                                                          |         11 |        289 |          8 |         62 |        359 |
+| main/modules/profile/components/user-info                                    |          3 |        203 |          4 |         18 |        225 |
+| main/modules/vacation-request-answer                                         |          4 |        190 |         14 |         30 |        234 |
+| main/modules/vacation-request                                                |          5 |        188 |          3 |         25 |        216 |
+| main/modules/user-list                                                       |          5 |        172 |          6 |         25 |        203 |
+| main/modules/vacation-request-list                                           |          5 |        161 |          5 |         26 |        192 |
+| main/modules/shared/services                                                 |          5 |        143 |          8 |         47 |        198 |
+| main/modules/profile/components/user-vacations                               |          3 |        135 |         33 |         22 |        190 |
+| log-in                                                                       |          5 |        134 |          0 |         23 |        157 |
+| main/modules/add-edit-team                                                   |          5 |        132 |          8 |         21 |        161 |
+| main/layout                                                                  |         10 |        121 |          0 |         29 |        150 |
+| main/modules/calendar                                                        |          5 |        100 |         17 |         27 |        144 |
+| main/modules/team-list                                                       |          5 |         98 |          0 |         21 |        119 |
+| main/modules/shared/models                                                   |          4 |         69 |          0 |          6 |         75 |
+| main/layout/navigation                                                       |          3 |         66 |          0 |         12 |         78 |
+| main/layout/header                                                           |          4 |         36 |          0 |         12 |         48 |
+| log-in/services                                                              |          1 |         33 |          0 |          6 |         39 |
+| main/layout/content                                                          |          3 |         19 |          0 |          5 |         24 |
+| main/modules/shared/pipes                                                    |          1 |         12 |          0 |          6 |         18 |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                     | language   | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| app-routing.module.ts                                                        | TypeScript |         13 |          1 |          4 |         18 |
+| app.component.html                                                           | HTML       |          1 |          0 |          0 |          1 |
+| app.component.scss                                                           | SCSS       |          0 |          0 |          1 |          1 |
+| app.component.ts                                                             | TypeScript |          9 |          0 |          2 |         11 |
+| app.module.ts                                                                | TypeScript |         22 |          0 |          4 |         26 |
+| log-in/log-in.component.html                                                 | HTML       |         15 |          0 |          0 |         15 |
+| log-in/log-in.component.scss                                                 | SCSS       |         19 |          0 |          3 |         22 |
+| log-in/log-in.component.ts                                                   | TypeScript |         42 |          0 |         10 |         52 |
+| log-in/log-in.module.ts                                                      | TypeScript |         25 |          0 |          4 |         29 |
+| log-in/services/authorization.service.ts                                     | TypeScript |         33 |          0 |          6 |         39 |
+| main/layout/content/content.component.html                                   | HTML       |          1 |          0 |          0 |          1 |
+| main/layout/content/content.component.scss                                   | SCSS       |          5 |          0 |          0 |          5 |
+| main/layout/content/content.component.ts                                     | TypeScript |         13 |          0 |          5 |         18 |
+| main/layout/header/header.component.html                                     | HTML       |          0 |          0 |          1 |          1 |
+| main/layout/header/header.component.scss                                     | SCSS       |          5 |          0 |          0 |          5 |
+| main/layout/header/header.component.spec.ts                                  | TypeScript |         20 |          0 |          6 |         26 |
+| main/layout/header/header.component.ts                                       | TypeScript |         11 |          0 |          5 |         16 |
+| main/layout/navigation/navigation.component.html                             | HTML       |         12 |          0 |          0 |         12 |
+| main/layout/navigation/navigation.component.scss                             | SCSS       |         39 |          0 |          7 |         46 |
+| main/layout/navigation/navigation.component.ts                               | TypeScript |         15 |          0 |          5 |         20 |
+| main/main-routing.module.ts                                                  | TypeScript |         22 |          2 |          5 |         29 |
+| main/main.component.html                                                     | HTML       |          5 |          0 |          0 |          5 |
+| main/main.component.scss                                                     | SCSS       |         14 |          0 |          1 |         15 |
+| main/main.component.ts                                                       | TypeScript |         13 |          0 |          6 |         19 |
+| main/main.module.ts                                                          | TypeScript |         35 |          0 |          3 |         38 |
+| main/modules/add-edit-team/add-edit-team-routing.module.ts                   | TypeScript |         11 |          0 |          4 |         15 |
+| main/modules/add-edit-team/add-edit-team.component.html                      | HTML       |         34 |          4 |          0 |         38 |
+| main/modules/add-edit-team/add-edit-team.component.scss                      | SCSS       |         37 |          0 |          7 |         44 |
+| main/modules/add-edit-team/add-edit-team.component.ts                        | TypeScript |         28 |          4 |          6 |         38 |
+| main/modules/add-edit-team/add-edit-team.module.ts                           | TypeScript |         22 |          0 |          4 |         26 |
+| main/modules/add-edit-user/add-edit-user-routing.module.ts                   | TypeScript |         11 |          0 |          4 |         15 |
+| main/modules/add-edit-user/add-edit-user.component.html                      | HTML       |        110 |          0 |          1 |        111 |
+| main/modules/add-edit-user/add-edit-user.component.scss                      | SCSS       |         70 |          6 |         12 |         88 |
+| main/modules/add-edit-user/add-edit-user.component.ts                        | TypeScript |        102 |          0 |          9 |        111 |
+| main/modules/add-edit-user/add-edit-user.module.ts                           | TypeScript |         20 |          0 |          5 |         25 |
+| main/modules/calendar/calendar-routing.module.ts                             | TypeScript |         11 |          0 |          4 |         15 |
+| main/modules/calendar/calendar.component.html                                | HTML       |          4 |          0 |          0 |          4 |
+| main/modules/calendar/calendar.component.scss                                | SCSS       |         10 |          0 |          1 |         11 |
+| main/modules/calendar/calendar.component.ts                                  | TypeScript |         61 |         17 |         19 |         97 |
+| main/modules/calendar/calendar.module.ts                                     | TypeScript |         14 |          0 |          3 |         17 |
+| main/modules/profile/components/user-info/user-info.component.html           | HTML       |         38 |          0 |          0 |         38 |
+| main/modules/profile/components/user-info/user-info.component.scss           | SCSS       |        115 |          4 |         10 |        129 |
+| main/modules/profile/components/user-info/user-info.component.ts             | TypeScript |         50 |          0 |          8 |         58 |
+| main/modules/profile/components/user-vacations/user-vacations.component.html | HTML       |         26 |         30 |          2 |         58 |
+| main/modules/profile/components/user-vacations/user-vacations.component.scss | SCSS       |         50 |          1 |          6 |         57 |
+| main/modules/profile/components/user-vacations/user-vacations.component.ts   | TypeScript |         59 |          2 |         14 |         75 |
+| main/modules/profile/profile-routing.module.ts                               | TypeScript |         12 |          0 |          5 |         17 |
+| main/modules/profile/profile.component.html                                  | HTML       |          2 |          0 |          0 |          2 |
+| main/modules/profile/profile.component.scss                                  | SCSS       |          4 |          0 |          0 |          4 |
+| main/modules/profile/profile.component.ts                                    | TypeScript |         11 |          0 |          8 |         19 |
+| main/modules/profile/profile.module.ts                                       | TypeScript |         22 |          0 |          4 |         26 |
+| main/modules/shared/models/employee.ts                                       | TypeScript |         22 |          0 |          1 |         23 |
+| main/modules/shared/models/team.ts                                           | TypeScript |         12 |          0 |          1 |         13 |
+| main/modules/shared/models/transaction.ts                                    | TypeScript |         10 |          0 |          1 |         11 |
+| main/modules/shared/models/vacation.ts                                       | TypeScript |         25 |          0 |          3 |         28 |
+| main/modules/shared/pipes/vacation-status.pipe.ts                            | TypeScript |         12 |          0 |          6 |         18 |
+| main/modules/shared/services/auth-interceptor.service.ts                     | TypeScript |         25 |          0 |          5 |         30 |
+| main/modules/shared/services/team-api.service.ts                             | TypeScript |         25 |          0 |         11 |         36 |
+| main/modules/shared/services/transaction-api.service.ts                      | TypeScript |         19 |          0 |          7 |         26 |
+| main/modules/shared/services/user-api.service.ts                             | TypeScript |         22 |          8 |         13 |         43 |
+| main/modules/shared/services/vacation-api.service.ts                         | TypeScript |         52 |          0 |         11 |         63 |
+| main/modules/shared/shared.module.ts                                         | TypeScript |         65 |          0 |          3 |         68 |
+| main/modules/team-list/team-list-routing.module.ts                           | TypeScript |         11 |          0 |          4 |         15 |
+| main/modules/team-list/team-list.component.html                              | HTML       |         25 |          0 |          1 |         26 |
+| main/modules/team-list/team-list.component.scss                              | SCSS       |         23 |          0 |          4 |         27 |
+| main/modules/team-list/team-list.component.ts                                | TypeScript |         25 |          0 |          8 |         33 |
+| main/modules/team-list/team-list.module.ts                                   | TypeScript |         14 |          0 |          4 |         18 |
+| main/modules/user-list/user-list-routing.module.ts                           | TypeScript |         11 |          0 |          4 |         15 |
+| main/modules/user-list/user-list.component.html                              | HTML       |         37 |          5 |          1 |         43 |
+| main/modules/user-list/user-list.component.scss                              | SCSS       |         43 |          0 |          6 |         49 |
+| main/modules/user-list/user-list.component.ts                                | TypeScript |         65 |          1 |         10 |         76 |
+| main/modules/user-list/user-list.module.ts                                   | TypeScript |         16 |          0 |          4 |         20 |
+| main/modules/vacation-request-answer/vacation-request-answer.component.html  | HTML       |         54 |          3 |          2 |         59 |
+| main/modules/vacation-request-answer/vacation-request-answer.component.scss  | SCSS       |         55 |          1 |          9 |         65 |
+| main/modules/vacation-request-answer/vacation-request-answer.component.ts    | TypeScript |         63 |         10 |         15 |         88 |
+| main/modules/vacation-request-answer/vacation-request-answer.module.ts       | TypeScript |         18 |          0 |          4 |         22 |
+| main/modules/vacation-request-list/vacation-request-list-routing.module.ts   | TypeScript |         11 |          0 |          4 |         15 |
+| main/modules/vacation-request-list/vacation-request-list.component.html      | HTML       |         43 |          0 |          2 |         45 |
+| main/modules/vacation-request-list/vacation-request-list.component.scss      | SCSS       |         27 |          0 |          5 |         32 |
+| main/modules/vacation-request-list/vacation-request-list.component.ts        | TypeScript |         54 |          5 |         11 |         70 |
+| main/modules/vacation-request-list/vacation-request-list.module.ts           | TypeScript |         26 |          0 |          4 |         30 |
+| main/modules/vacation-request/vacation-request-routing.module.ts             | TypeScript |         11 |          0 |          5 |         16 |
+| main/modules/vacation-request/vacation-request.component.html                | HTML       |         37 |          0 |          0 |         37 |
+| main/modules/vacation-request/vacation-request.component.scss                | SCSS       |         46 |          0 |          5 |         51 |
+| main/modules/vacation-request/vacation-request.component.ts                  | TypeScript |         67 |          3 |         12 |         82 |
+| main/modules/vacation-request/vacation-request.module.ts                     | TypeScript |         27 |          0 |          3 |         30 |
+| Total                                                                        |            |      2,421 |        107 |        403 |      2,931 |
++------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
