@@ -10,13 +10,13 @@ import { AuthorizationService } from 'src/app/log-in/services/authorization.serv
 })
 export class NavigationComponent implements OnInit {
 
-  certainUserId: Employee['id'];
+  currentUserId: Employee['id'];
   
   constructor(private authService: AuthorizationService) { }
 
   ngOnInit() {
-    // console.log("CERTAIN USER",this.authService.certainUserId)
-    // this.certainUserId = this.authService.certainUserId;
-    this.certainUserId = localStorage.getItem('currentUserId')
+    // console.log("CERTAIN USER",this.authService.currentUserId)
+    // this.currentUserId = this.authService.currentUserId;
+    this.currentUserId = localStorage.getItem('currentUserId')
   }
 }

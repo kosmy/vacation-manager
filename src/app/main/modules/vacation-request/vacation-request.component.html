@@ -3,24 +3,24 @@
         Vacation Request
     </div>
     <form class="main-block" [formGroup]="vacationRequestForm" (ngSubmit)="onSubmit(vacationRequestForm)">
-        <mat-form-field id="from">
-            <input matInput #dateOne [matDatepicker]="picker" placeholder="Choose a From Date" formControlName="start"
+        <mat-form-field>
+            <input matInput #dateOne [matDatepicker]="picker" placeholder="Choose a From Date" formControlName="startDate"
                 (dateChange)="countAmount(dateOne.value, dateTwo.value)">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <mat-error *ngIf="vacationRequestForm.get('start').invalid && vacationRequestForm.get('start').touched">
-            <ng-container *ngIf="vacationRequestForm.get('start').errors.required">start date is required.
+        <mat-error *ngIf="vacationRequestForm.get('startDate').invalid && vacationRequestForm.get('startDate').touched">
+            <ng-container *ngIf="vacationRequestForm.get('startDate').errors.required">start date is required.
             </ng-container>
         </mat-error>
-        <mat-form-field id="to">
-            <input matInput #dateTwo [matDatepicker]="pickerTwo" placeholder="Choose a To Date" formControlName="end"
+        <mat-form-field>
+            <input matInput #dateTwo [matDatepicker]="pickerTwo" placeholder="Choose a To Date" formControlName="endDate"
                 (dateChange)="countAmount(dateOne.value, dateTwo.value)">
             <mat-datepicker-toggle matSuffix [for]="pickerTwo"></mat-datepicker-toggle>
             <mat-datepicker #pickerTwo></mat-datepicker>
         </mat-form-field>
-        <mat-error *ngIf="vacationRequestForm.get('end').invalid && vacationRequestForm.get('end').touched">
-            <ng-container *ngIf="vacationRequestForm.get('end').errors.required">end date is required.</ng-container>
+        <mat-error *ngIf="vacationRequestForm.get('endDate').invalid && vacationRequestForm.get('endDate').touched">
+            <ng-container *ngIf="vacationRequestForm.get('endDate').errors.required">end date is required.</ng-container>
         </mat-error>
         <div class="amount">
             <p>Amount of days:</p>

@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from '../main/modules/shared/shared.module';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { AuthorizationService } from './services/authorization.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 
 
@@ -22,6 +23,7 @@ import { AuthorizationService } from './services/authorization.service';
   ],
   providers: [
     AuthorizationService,
+    AuthGuardService,
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ]
 })

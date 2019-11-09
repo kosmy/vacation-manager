@@ -19,7 +19,7 @@ export class TransactionApiService {
     return this.http.get<Transaction>(this.transactionApiUrl + id);
   }
 
-  getTransactionEmployeeById(id: Employee['id']): Observable<Employee> {
-    return this.http.get<Employee>(this.transactionApiUrl + 'employee/' + id);
+  getEmpoyeeTransactions(id: Employee['id']): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(this.transactionApiUrl + 'employee/' + id);
   }
 }

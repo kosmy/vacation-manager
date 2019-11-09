@@ -1,0 +1,77 @@
+.mat-dialog-container {
+  padding: 0px !important;
+  border-radius: 10px !important;
+}
+.team-profile {
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid gray;
+  height: auto;
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  justify-self: center;
+
+  .title {
+    border-bottom: 1px solid gray;
+    text-align: center;
+    font-size: 25px;
+    padding: 11px 0px;
+  }
+
+  .team-profile-main {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+
+    .team-profile-sub:first-child {
+      border-right: 1px solid gray;
+    }
+    .team-profile-sub {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      padding: 20px 30px;
+
+      img {
+        // width: 100px;
+        // height: 100px;
+        border-radius: 50%;
+        margin-left: 5%;
+      }
+
+      .team-lead {
+        display: flex;
+        flex-direction: row;
+      }
+      .team-member {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        // grid-template-rows: repeat(4, 1fr);
+      }
+
+      div:first-child {
+        margin-bottom: 20px;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      mat-card-subtitle {
+        font-size: 14px;
+        margin-bottom: 2%;
+      }
+      mat-card-title {
+        font-size: 19px;
+      }
+
+      button {
+        margin-top: 15px;
+      }
+    }
+  }
+}

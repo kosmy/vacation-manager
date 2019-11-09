@@ -7,24 +7,44 @@
             <form class="main-block" [formGroup]="addTeamForm" (ngSubmit)="onSubmit(addTeamForm)">
                 <div class="sub-block">
                     <mat-form-field type="text">
-                        <input matInput placeholder="Team Name" formControlName="teamName">
+                        <input matInput placeholder="Team Name" formControlName="name">
                     </mat-form-field>
-                    <mat-error *ngIf="addTeamForm.get('teamName').invalid && addTeamForm.get('teamName').touched">
-                        <ng-container *ngIf="addTeamForm.get('teamName').errors.required">teamName is required.
+                    <mat-error *ngIf="addTeamForm.get('name').invalid && addTeamForm.get('name').touched">
+                        <ng-container *ngIf="addTeamForm.get('name').errors.required">name is required.
                         </ng-container>
                     </mat-error>
-                    <mat-form-field type="text">
-                        <input matInput placeholder="Team Lead Name" name="teamLeadName" formControlName="teamLeadName">
+                    <mat-form-field>
+                        <mat-label>Team Lead</mat-label>
+                        <mat-select formControlName="teamLead" #singleSelect placeholder="'search'">
+                            <!-- <mat-option>None</mat-option> -->
+                            <mat-option>
+                                <ngx-mat-select-search [placeholderLabel]="'Find Employees'"
+                                    formControlName="teamLeadFilter"></ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let user of filteredUsers | async" [value]="user">{{user.firstName}}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
+                    <!-- <mat-form-field type="text">
+                        <input matInput placeholder="Team Lead Name" name="teamLeadName" formControlName="teamLeadName">
+                    </mat-form-field> -->
                     <mat-error
-                        *ngIf="addTeamForm.get('teamLeadName').invalid && addTeamForm.get('teamLeadName').touched">
-                        <ng-container *ngIf="addTeamForm.get('teamLeadName').errors.required">teamLeadName is required.
+                        *ngIf="addTeamForm.get('teamLead').invalid && addTeamForm.get('teamLead').touched">
+                        <ng-container *ngIf="addTeamForm.get('teamLead').errors.required">teamLeadName is required.
                         </ng-container>
                     </mat-error>
                 </div>
                 <div class="sub-block">
-                    <mat-form-field type="text">
-                        <input matInput placeholder="Team Members" name="teamMembers" formControlName="teamMembers">
+                    <mat-form-field>
+                        <mat-label>Team Members</mat-label>
+                        <mat-select formControlName="teamMembers" #multiSelect [multiple]="true">
+                            <!-- <mat-option>None</mat-option> -->
+                            <ngx-mat-select-search [placeholderLabel]="'Add Team Members'"
+                                formControlName="teamMembersFilter"></ngx-mat-select-search>
+                            <mat-option *ngFor="let user of filteredUsersMulti | async" [value]="user">
+                                {{user.firstName}}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
                     <!-- <mat-error *ngIf="addTeamForm.get('skype').invalid && addTeamForm.get('skype').touched">
                                 <ng-container *ngIf="addTeamForm.get('skype').errors.required">skype is required.

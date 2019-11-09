@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { TransactionApiService } from './services/transaction-api.service';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 
@@ -43,7 +43,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MatSelectModule,
     MatIconModule,
     MatRadioModule,
-    NgSelectModule
+    NgxMatSelectSearchModule
   ],
   providers: [
     TransactionApiService,
@@ -68,7 +68,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ReactiveFormsModule,
     MatIconModule,
     MatRadioModule,
-    NgSelectModule
+    NgxMatSelectSearchModule
   ]
 })
 export class SharedModule { }

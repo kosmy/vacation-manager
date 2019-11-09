@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Optional, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Inject, Optional, ViewEncapsulation, AfterContentInit, AfterViewInit } from '@angular/core';
 import { Employee } from '../shared/models/employee';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Team } from '../shared/models/team';
@@ -13,7 +13,7 @@ import { Observable, forkJoin } from 'rxjs';
   styleUrls: ['./add-edit-user.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AddEditUserComponent implements OnInit {
+export class AddEditUserComponent implements OnInit, AfterContentInit, AfterViewInit {
 
   private addUserForm: FormGroup;
   private user: Employee;
@@ -40,7 +40,10 @@ export class AddEditUserComponent implements OnInit {
       this.isLoaded = true;
     });
   }
-
+  ngAfterViewInit(): void {
+  }
+  ngAfterContentInit() {
+  }
   buildForm() {
     this.addUserForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
@@ -52,7 +55,7 @@ export class AddEditUserComponent implements OnInit {
       phone: new FormControl('', [Validators.required]),
       skype: new FormControl('', [Validators.required]),
       balance: new FormControl('', [Validators.required]),
-      startDate: new FormControl('', [Validators.required]),
+      workStartDate: new FormControl('', [Validators.required]),
       workStatus: new FormControl('', [Validators.required]),
       team: new FormControl('', [Validators.required]),
     })
@@ -70,11 +73,12 @@ export class AddEditUserComponent implements OnInit {
       this.user.deleted = false;
     }
   }
-
+ 
   fillUserInputs() {
     if (this.data) {
       this.isModal = true;
       this.user = this.data;
+      console.log("USER BEFORE PATCH VALUE", this.user);
       this.addUserForm.patchValue(this.user);
       this.btnName = "Edit User";
       this.titleName = "Edit Profile"
@@ -87,6 +91,14 @@ export class AddEditUserComponent implements OnInit {
     }
   }
 
+  clearFormInputs() {
+    this.addUserForm.reset();
+    this.addUserForm.markAsUntouched();
+    Object.keys(this.addUserForm.controls).forEach(name => {
+      let control = this.addUserForm.controls[name];
+      control.setErrors(null);
+    });
+  }
   onSubmit(addUserForm: FormGroup) {
     this.user.firstName = addUserForm.value.firstName;
     this.user.surname = addUserForm.value.surname;
@@ -111,11 +123,6 @@ export class AddEditUserComponent implements OnInit {
       this.userApiService.addUser(this.user).subscribe();
     }
     this.user = new Employee(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-    this.addUserForm.reset();
-    this.addUserForm.markAsUntouched();
-    Object.keys(this.addUserForm.controls).forEach(name => {
-      let control = this.addUserForm.controls[name];
-      control.setErrors(null);
-    });
+    this.clearFormInputs();
   }
 }

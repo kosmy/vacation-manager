@@ -21,7 +21,7 @@ export class UserAPIService {
   }
 
   editUser(user: Employee) {
-    return this.http.put(this.userApiUrl, user); ``
+    return this.http.put(this.userApiUrl, user); 
   }
 
   addUser(user: Employee) {

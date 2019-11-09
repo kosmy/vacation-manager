@@ -19,11 +19,11 @@ export class AuthInterceptorService  implements HttpInterceptor{
       });
       return next.handle(modifiedReq);
     }
-    return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
-      if (error && error.status === 401) {
-        this.router.navigate(['log-in']);
-      }
-      return throwError(error);
-    }));
+    // return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
+    //   if (error && error.status === 401) {
+    //     this.router.navigate(['log-in']);
+    //   }
+    //   return throwError(error);
+    // }));
   }
 }

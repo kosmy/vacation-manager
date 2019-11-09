@@ -3,36 +3,36 @@
         <h2>Profile</h2>
     </div>
     <div class="image">
-        <img [src]='certainUser.avatar'>
+        <img [src]='currentUser.avatar'>
         <div class="info">
-            <h4>{{certainUser.firstName}} {{certainUser.surname}}</h4>
-            <p>{{certainUser.jobTitle}}</p>
+            <h4>{{currentUser.firstName}} {{currentUser.surname}}</h4>
+            <p>{{currentUser.jobTitle}}</p>
         </div>
     </div>
     <div class="info">
         <div class="birth">
             <p>date of birth</p>
-            <h3>{{certainUser.birthdate | date}}</h3>
+            <h3>{{currentUser.birthdate | date}}</h3>
         </div>
         <div class="email">
             <p>personal email</p>
-            <h3>{{certainUser.email}}</h3>
+            <h3>{{currentUser.email}}</h3>
         </div>
         <div class="phone">
             <p>mobile phone</p>
-            <h3>{{certainUser.phone}}</h3>
+            <h3>{{currentUser.phone}}</h3>
         </div>
         <div class="skype">
             <p>skype</p>
-            <h3>{{certainUser.skype}}</h3>
+            <h3>{{currentUser.skype}}</h3>
         </div>
         <div class="hire-date">
             <p>hire date</p>
-            <h3>{{certainUser.startDate | date}}</h3>
+            <h3>{{currentUser.startDate | date}}</h3>
         </div>
         <div class="team-name">
             <p>team name</p>
-            <h3>{{certainUser.team}}</h3>
+            <h3>{{currentUser.team}}</h3>
         </div>
     </div>
 </div>

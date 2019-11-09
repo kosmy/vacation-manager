@@ -20,7 +20,7 @@ export class VacationRequestComponent implements OnInit {
   vacation: Vacation;
   transaction: Transaction;
   vacationRequestForm: FormGroup;
-  certainUserId: string;
+  currentUserId: Employee['id'];
   certainUser: Employee;
   amount: number;
 
@@ -34,8 +34,8 @@ export class VacationRequestComponent implements OnInit {
     this.buildForm();
     this.route.params.pipe(
       flatMap((params) => {
-        this.certainUserId = params['id'];
-        return this.userApiService.getUserById(this.certainUserId);
+        this.currentUserId = params['id'];
+        return this.userApiService.getUserById(this.currentUserId);
       })
     ).subscribe((user) => {
       this.certainUser = user;
@@ -51,8 +51,8 @@ export class VacationRequestComponent implements OnInit {
 
   buildForm() {
     this.vacationRequestForm = new FormGroup({
-      start: new FormControl('', [Validators.required]),
-      end: new FormControl('', [Validators.required]),
+      startDate: new FormControl('', [Validators.required]),
+      endDate: new FormControl('', [Validators.required]),
       comment: new FormControl('', [Validators.required])
     })
   }
@@ -61,20 +61,22 @@ export class VacationRequestComponent implements OnInit {
 
     //create new Vacation
     this.vacation = new Vacation(
-      vacationRequestForm.value.start,
-      vacationRequestForm.value.end,
-      vacationRequestForm.value.comment,
+      this.currentUserId,
+      vacationRequestForm.value.startDate,
+      vacationRequestForm.value.endDate,
       VacationStatus.Pending,
       new Date(),
       false,
-      this.certainUser
+      this.certainUser,
+      vacationRequestForm.value.comment,
     );
 
     //send Data
+    console.log("this vacation", this.vacation)
       this.vacationAPIService.addVacation(this.vacation)
     .subscribe(() => {
       this.vacation = new Vacation(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-      this.router.navigate(['main/profile', this.certainUserId])
+      this.router.navigate(['main/profile', this.currentUserId])
     })
   }
 

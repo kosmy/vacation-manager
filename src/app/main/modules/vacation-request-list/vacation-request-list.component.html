@@ -10,7 +10,7 @@
         </ng-container>
         <ng-container matColumnDef="team">
             <th mat-header-cell *matHeaderCellDef>Team</th>
-            <td mat-cell *matCellDef="let vacation"> {{vacation.employee.teamId}}</td>
+            <td mat-cell *matCellDef="let vacation"> {{vacation.employee.teams}}</td>
         </ng-container>
         <ng-container matColumnDef="vacationDates">
             <th mat-header-cell *matHeaderCellDef>Vacation Dates</th>
@@ -32,7 +32,7 @@
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let vacation">
-                <button mat-stroked-button (click)="decide(vacation)">Approve/Refuse</button>
+                <button mat-stroked-button (click)="answerTheRequest(vacation)">Approve/Refuse</button>
                 <button mat-stroked-button (click)="showProfile(vacation)">Show Profile</button>
             </td>
         </ng-container>

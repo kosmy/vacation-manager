@@ -9,16 +9,16 @@ export enum VacationStatus {
 
 export class Vacation {
     constructor(
+        public employeeId: Employee["id"],
         public startDate: Date,
         public endDate: Date,
-        public comment: string,
         public status: VacationStatus,
         public createDateTime: Date,
         public deleted: boolean,
         public employee: Employee,
+        public comment?: string,
         public statusChangeDate?: Date,
         public id?: string,
-        public employeeId?: Employee["id"],
         public approverComment?: string,
         public approverId?: string,
         public teams?: Team[],

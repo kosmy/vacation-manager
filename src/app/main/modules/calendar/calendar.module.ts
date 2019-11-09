@@ -4,7 +4,6 @@ import { CalendarComponent } from './calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarRoutingModule } from './calendar-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 
 
@@ -15,7 +14,6 @@ import { FormsModule } from '@angular/forms';
     SharedModule,
     CalendarRoutingModule,
     FullCalendarModule,
-    NgSelectModule,
     FormsModule
   ]
 })

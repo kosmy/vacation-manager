@@ -15,6 +15,8 @@ import { AddEditTeamModule } from './modules/add-edit-team/add-edit-team.module'
 import { TeamListModule } from './modules/team-list/team-list.module';
 import { CalendarModule } from './modules/calendar/calendar.module';
 import { NavigationModule } from './modules/navigation/navigation.module';
+import { TeamProfileModule } from './modules/team-profile/team-profile.module';
+import { LogInModule } from '../log-in/log-in.module';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { NavigationModule } from './modules/navigation/navigation.module';
     UserListModule,
     VacationRequestAnswerModule,
     TeamListModule,
-    CalendarModule
+    CalendarModule,
+    TeamProfileModule,
+    LogInModule
   ]
 })
 export class MainModule { }

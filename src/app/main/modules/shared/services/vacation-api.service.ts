@@ -37,6 +37,10 @@ export class VacationAPIService {
       ))
   }
 
+  changeVacationStatus(requestId, vacation){
+    return this.http.put(this.vacationApiUrl + requestId + '/status', vacation);
+  }
+
   vacationAmount(from, to) {
     const start = moment(from);
     const end = moment(to);

@@ -23,7 +23,7 @@ export class UserVacationsComponent implements OnInit {
     this.paginator = mp;
   }
 
-  certainUserId: Employee['id'];
+  currentUserId: Employee['id'];
   dataSource: MatTableDataSource<Vacation>;
   userBalance: Employee["balance"];
   isLoaded: boolean = false;
@@ -38,14 +38,15 @@ export class UserVacationsComponent implements OnInit {
   ngOnInit() {    
     this.route.params.pipe(
       flatMap((params) => {
-        this.certainUserId = params['id'];
+        this.currentUserId = params['id'];
         return forkJoin(
-          this.userAPIService.getUserById(this.certainUserId),
-          this.vacationAPIService.getVacationsForUser(this.certainUserId)
+          this.userAPIService.getUserById(this.currentUserId),
+          this.vacationAPIService.getVacationsForUser(this.currentUserId)
         )
       })
     ).subscribe((res) => {
       this.userBalance = res[0].balance;
+      console.log(res[1]);
       this.dataSource = new MatTableDataSource<Vacation>(res[1]);
       this.dataSource.paginator = this.paginator;
       this.isLoaded = true;
@@ -64,7 +65,7 @@ export class UserVacationsComponent implements OnInit {
   }
 
   requestVacation() {
-    this.router.navigate(['main/vacation-request', this.certainUserId])
+    this.router.navigate(['main/vacation-request', this.currentUserId])
   }
 
 }

@@ -10,24 +10,21 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthorizationService {
 
   private apiUrl: string = 'https://vacations.polytech.rocks:52540';
+  private _currentUserId: Employee['id'];
+  jwtHelper = new JwtHelperService();
 
-  private _certainUserId: string;
-
-  tokenData
-  
-  get certainUserId() {
-    return this._certainUserId;
+  get currentUserId() {
+    return this._currentUserId;
   }
 
-  set certainUserId(id: string) {
-    this._certainUserId = id;
+  set currentUserId(id: string) {
+    this._currentUserId = id;
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, ) { }
 
   singIn(userDetails: { email: string, password: string }) {
-    const helper = new JwtHelperService();
-    
+
     const formData = new FormData();
     formData.append('username', userDetails.email);
     formData.append('password', userDetails.password);
@@ -38,20 +35,28 @@ export class AuthorizationService {
     return this.http.post(this.apiUrl + '/connect/token', formData)
       .pipe(map((response) => {
         localStorage.setItem('auth_token', response['access_token']);
-        this.tokenData = helper.decodeToken(localStorage.getItem('auth_token'));
-        console.log(this.tokenData)
+        const tokenData = this.jwtHelper.decodeToken(localStorage.getItem('auth_token'));
+        console.log("Token Data", tokenData)
+        this.currentUserId = tokenData.sub;
       }));
   }
 
-  getUserByEmail(email: string): Observable<Employee> {
-    console.log(email)
-    return this.http.get<Employee[]>(this.apiUrl + '/api/Employee').pipe(
-      map((employees) => {
-        console.log(employees);
-        return employees
-          .find(employee =>
-            employee.email === email
-          )
-      }))
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('auth_token');
+    // Check whether the token is expired and return
+    // true or false
+    return !this.jwtHelper.isTokenExpired(token);
   }
+
+  // getUserByEmail(email: string): Observable<Employee> {
+  //   console.log(email)
+  //   return this.http.get<Employee[]>(this.apiUrl + '/api/Employee').pipe(
+  //     map((employees) => {
+  //       console.log(employees);
+  //       return employees
+  //         .find(employee =>
+  //           employee.email === email
+  //         )
+  //     }))
+  // }
 }

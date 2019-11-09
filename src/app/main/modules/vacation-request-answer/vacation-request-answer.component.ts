@@ -6,6 +6,8 @@ import { UserAPIService } from '../shared/services/user-api.service';
 import { Employee } from '../shared/models/employee';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Vacation } from '../shared/models/vacation';
+import { TransactionApiService } from '../shared/services/transaction-api.service';
+import { AuthorizationService } from 'src/app/log-in/services/authorization.service';
 
 
 
@@ -22,13 +24,14 @@ export class VacationRequestAnswerComponent implements OnInit {
   user: Employee;
   isLoaded: boolean = false;
   requestAnswerForm: FormGroup;
-  answer: number;
+  approver: Employee;
 
-  fromCalendar
-
-  constructor(private userAPIService: UserAPIService, private vacationAPIService: VacationAPIService,
-    public dialogRef: MatDialogRef<VacationRequestListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data) { }
+  constructor(private userAPIService: UserAPIService,
+    private vacationAPIService: VacationAPIService,
+    private transactionAPIService: TransactionApiService,
+    private dialogRef: MatDialogRef<VacationRequestListComponent>,
+    private authService: AuthorizationService,
+    @Inject(MAT_DIALOG_DATA) private data) { }
 
   ngOnInit() {
     if (this.data.event) {
@@ -44,6 +47,10 @@ export class VacationRequestAnswerComponent implements OnInit {
       this.buildForm();
       this.fillInputs();
       this.isLoaded = true;
+    });
+    this.userAPIService.getUserById(localStorage.getItem('userId')).subscribe((approver) => {
+      console.log(approver);
+      this.approver = approver;
     })
   }
 
@@ -58,30 +65,19 @@ export class VacationRequestAnswerComponent implements OnInit {
     this.requestAnswerForm.patchValue(this.request);
   }
 
-  // approve() {
-  //   this.request.status = VacationStatus.Approved
-  //   this.vacationAPIService.editVacation(this.request).subscribe();
-  //   this.dialogRef.close();
-  // }
-  // refuse() {
-  //   this.request.status = VacationStatus.Refused
-  //   this.vacationAPIService.editVacation(this.request).subscribe();
-  //   this.dialogRef.close();
-  // }
-
   onSubmit(requestAnswerForm: FormGroup) {
-    
-    this.request.startDate = requestAnswerForm.value.startDate;
-    this.request.endDate = requestAnswerForm.value.endDate;
+    // this.request.startDate = requestAnswerForm.value.startDate;
+    // this.request.endDate = requestAnswerForm.value.endDate;
     this.request.status = +requestAnswerForm.value.status;
+    // this.request.approverId = this.approver.id;
+    // this.request.approver = this.approver;
 
-    this.vacationAPIService.editVacation(this.request).subscribe();
-
-    this.requestAnswerForm.reset();
-    this.requestAnswerForm.markAsUntouched();
-    Object.keys(this.requestAnswerForm.controls).forEach(name => {
-      let control = this.requestAnswerForm.controls[name];
-      control.setErrors(null);
-    });
+    console.log(this.request)
+    // this.vacationAPIService.editVacation(this.request).subscribe( () => {
+    //   this.request = new Vacation(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+    // });
+    this.vacationAPIService.changeVacationStatus(this.request.id, this.request).subscribe(() => {
+      this.request = new Vacation(null, null, null, null, null, null, null, null, null);
+    })
   }
 }

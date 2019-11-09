@@ -4,7 +4,7 @@ import { AuthorizationService } from './services/authorization.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Employee } from '../main/modules/shared/models/employee';
 import { forkJoin } from 'rxjs';
-import { flatMap } from 'rxjs/operators';
+import { flatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-log-in',
@@ -28,16 +28,19 @@ export class LogInComponent {
   }
 
   onSubmit(logInForm: FormGroup) {
-    const email = logInForm.value.email;
 
-    this.authService.singIn(logInForm.value).pipe(
-      flatMap(() =>
-        this.authService.getUserByEmail(email)
-      )
-    ).subscribe((employee) => {
-      this.authService.certainUserId = employee.id;
-      localStorage.setItem('currentUserId', employee.id);
-      this.router.navigate(['main/profile', employee.id]);
+    // this.authService.singIn(logInForm.value).pipe(
+    //   flatMap(() =>
+    //     this.authService.getUserByEmail(email)
+    //   )
+    // ).subscribe((employee) => {
+    //   this.authService.currentUserId = employee.id;
+    //   localStorage.setItem('currentUserId', employee.id);
+    //   this.router.navigate(['main/profile', employee.id]);
+    // })
+
+    this.authService.singIn(logInForm.value).subscribe(() => {
+        this.router.navigate(['main/profile', this.authService.currentUserId]);
     })
 
     this.logInForm.reset();

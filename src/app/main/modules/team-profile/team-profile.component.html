@@ -1,0 +1,28 @@
+<div class="team-profile">
+
+    <div class="title">
+        Team Profile
+    </div>
+    <div class="team-profile-main">
+        <div class="team-profile-sub">
+            <div>
+                <mat-card-subtitle>team Name</mat-card-subtitle>
+                <mat-card-title>{{team.name}}</mat-card-title>
+            </div>
+            <div>
+                <mat-card-subtitle>team Leader</mat-card-subtitle>
+                <div class="team-lead">
+                    <!-- <img mat-card-image [src]='team'> -->
+                    <mat-card-title>{{team.teamLeadName}}</mat-card-title>
+                </div>
+            </div>
+        </div>
+        <div class="team-profile-sub">
+            <div class="team-member" *ngFor="let member of team.employees">
+                <!-- <img mat-card-image [src]='team.avatar'> -->
+                <mat-card-title>{{member.firstName}} {{member.surname}}</mat-card-title>
+            </div>
+        </div>
+    </div>
+
+</div>

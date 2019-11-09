@@ -5,6 +5,7 @@ import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditUserComponent } from '../add-edit-user/add-edit-user.component';
 import { UserAPIService } from '../shared/services/user-api.service';
+import { UserInfoComponent } from '../profile/components/user-info/user-info.component';
 
 @Component({
   selector: 'app-user-list',
@@ -56,7 +57,7 @@ export class UserListComponent implements OnInit {
     if (!value) {
       this.assignCopy();
     }
-    this.filteredUsers = Object.assign([], this.users)
+    this.filteredUsers = Object.assign([], this.users) 
       .filter((user: Employee) => {
         if (user.firstName !== null && user.firstName.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           return user.firstName.toLowerCase().indexOf(value.toLowerCase()) > -1
@@ -80,5 +81,13 @@ export class UserListComponent implements OnInit {
   filterStatus(value: Employee['isActive']) {
     this.filteredUsers = Object.assign([], this.users).filter((user: Employee) => user.isActive === value);
     this.dataSource = new MatTableDataSource<any>(this.filteredUsers)
+  }
+
+  showProfile(user: Employee) {
+    this.dialog.open(UserInfoComponent, {
+      width: 'fit-content',
+      height: 'fit-content',
+      data: user
+    });
   }
 }

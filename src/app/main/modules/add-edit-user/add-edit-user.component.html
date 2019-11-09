@@ -94,13 +94,13 @@
                     <ng-container *ngIf="addUserForm.get('skype').errors.required">skype is required.
                     </ng-container>
                 </mat-error>
-                <mat-form-field id="startDate">
-                    <input matInput [matDatepicker]="pickerTwo" placeholder="Start Date" formControlName="startDate">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="pickerTwo" placeholder="Start Date" formControlName="workStartDate">
                     <mat-datepicker-toggle matSuffix [for]="pickerTwo"></mat-datepicker-toggle>
                     <mat-datepicker #pickerTwo></mat-datepicker>
                 </mat-form-field>
-                <mat-error *ngIf="addUserForm.get('startDate').invalid && addUserForm.get('startDate').touched">
-                    <ng-container *ngIf="addUserForm.get('startDate').errors.required">startDate is required.
+                <mat-error *ngIf="addUserForm.get('workStartDate').invalid && addUserForm.get('workStartDate').touched">
+                    <ng-container *ngIf="addUserForm.get('workStartDate').errors.required">startDate is required.
                     </ng-container>
                 </mat-error>
 

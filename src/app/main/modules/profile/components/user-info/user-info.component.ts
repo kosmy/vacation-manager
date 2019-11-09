@@ -14,7 +14,7 @@ import { flatMap } from 'rxjs/operators';
 })
 export class UserInfoComponent implements OnInit {
 
-  certainUser: Employee;
+  currentUser: Employee;
   isLoaded: boolean = false;
   isModal: boolean = false;
 
@@ -22,7 +22,7 @@ export class UserInfoComponent implements OnInit {
     private userApiService: UserAPIService,
     private route: ActivatedRoute,
     @Optional() public dialogRef: MatDialogRef<UserInfoComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: Vacation
+    @Optional() @Inject(MAT_DIALOG_DATA) public data
   ) { }
 
   ngOnInit() {
@@ -30,7 +30,6 @@ export class UserInfoComponent implements OnInit {
     if (this.data) {
       this.getUserFromList(this.data);
       this.isModal = true;
-      this.isLoaded = true;
     }
     else {
       this.route.params.pipe(
@@ -39,16 +38,23 @@ export class UserInfoComponent implements OnInit {
           return this.userApiService.getUserById(id);
         })
       ).subscribe((user) => {
-        this.certainUser = user;
+        this.currentUser = user;
         this.isLoaded = true;
       });
     }
   }
 
-  getUserFromList(vacation: Vacation) {
-    this.userApiService.getUserById(vacation.employeeId).subscribe((user) => {
-      this.certainUser = user;
-    })
+  getUserFromList(data) {
+    if (data.employeeId) {
+      this.userApiService.getUserById(data.employeeId).subscribe((user) => {
+        this.currentUser = user;
+        this.isLoaded = true;
+      })
+    }
+    else {
+      this.currentUser = data;
+      this.isLoaded = true;
+    }
   }
 
 }
