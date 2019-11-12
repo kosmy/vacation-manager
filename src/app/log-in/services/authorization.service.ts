@@ -12,6 +12,7 @@ export class AuthorizationService {
   private apiUrl: string = 'https://vacations.polytech.rocks:52540';
   private _currentUserId: Employee['id'];
   jwtHelper = new JwtHelperService();
+  public tokenData;
 
   get currentUserId() {
     return this._currentUserId;
@@ -35,28 +36,18 @@ export class AuthorizationService {
     return this.http.post(this.apiUrl + '/connect/token', formData)
       .pipe(map((response) => {
         localStorage.setItem('auth_token', response['access_token']);
-        const tokenData = this.jwtHelper.decodeToken(localStorage.getItem('auth_token'));
-        console.log("Token Data", tokenData)
-        this.currentUserId = tokenData.sub;
+        this.tokenData = this.jwtHelper.decodeToken(localStorage.getItem('auth_token'));
+        console.log("Token Data", this.tokenData)
+        this.currentUserId = this.tokenData.sub;
       }));
+  }
+
+  forgotPassword(request): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/api/auth/forgotPassword', request);
   }
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem('auth_token');
-    // Check whether the token is expired and return
-    // true or false
     return !this.jwtHelper.isTokenExpired(token);
   }
-
-  // getUserByEmail(email: string): Observable<Employee> {
-  //   console.log(email)
-  //   return this.http.get<Employee[]>(this.apiUrl + '/api/Employee').pipe(
-  //     map((employees) => {
-  //       console.log(employees);
-  //       return employees
-  //         .find(employee =>
-  //           employee.email === email
-  //         )
-  //     }))
-  // }
 }

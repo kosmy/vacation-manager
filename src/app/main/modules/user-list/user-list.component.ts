@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Employee } from '../shared/models/employee';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
@@ -6,13 +6,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddEditUserComponent } from '../add-edit-user/add-edit-user.component';
 import { UserAPIService } from '../shared/services/user-api.service';
 import { UserInfoComponent } from '../profile/components/user-info/user-info.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
 
   private paginator: MatPaginator;
   isLoaded: boolean = false;
@@ -29,17 +30,23 @@ export class UserListComponent implements OnInit {
   users: Employee[];
   dataSource: MatTableDataSource<Employee[]>;
   filteredUsers: Employee[];
+  filteredByStatus: Employee[];
   selected: boolean = true;
+  getUsersSubscription: Subscription;
 
   constructor(private dialog: MatDialog, private userAPIService: UserAPIService) { }
 
   ngOnInit() {
-    this.userAPIService.getAllUsers().subscribe((users: Employee[]) => {
+    this.getUsersSubscription =  this.userAPIService.getAllUsers().subscribe((users: Employee[]) => {
       this.users = users;
+      this.filteredByStatus = users;
       this.assignCopy();
       this.dataSource = new MatTableDataSource<any>(this.filteredUsers)
       this.isLoaded = true;
     });
+  }
+  ngOnDestroy(): void {
+    this.getUsersSubscription.unsubscribe();
   }
 
   editUser(user: Employee): void {
@@ -57,18 +64,18 @@ export class UserListComponent implements OnInit {
     if (!value) {
       this.assignCopy();
     }
-    this.filteredUsers = Object.assign([], this.users) 
+    this.filteredUsers = Object.assign([], this.filteredByStatus) 
       .filter((user: Employee) => {
-        if (user.firstName !== null && user.firstName.toLowerCase().indexOf(value.toLowerCase()) > -1) {
+        if (user.firstName && user.firstName.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           return user.firstName.toLowerCase().indexOf(value.toLowerCase()) > -1
         }
-        else if (user.surname !== null && user.surname.toLowerCase().indexOf(value.toLowerCase()) > -1) {
+        else if (user.surname && user.surname.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           return user.surname.toLowerCase().indexOf(value.toLowerCase()) > -1
         }
-        else if (user.workEmail !== null && user.workEmail.toLowerCase().indexOf(value.toLowerCase()) > -1) {
+        else if (user.workEmail && user.workEmail.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           return user.workEmail.toLowerCase().indexOf(value.toLowerCase()) > -1
         }
-        else if (user.phone !== null && user.phone.indexOf(value) > -1) {
+        else if (user.phone && user.phone.indexOf(value) > -1) {
           return user.phone.indexOf(value) > -1
         }
       })
@@ -79,8 +86,8 @@ export class UserListComponent implements OnInit {
   }
 
   filterStatus(value: Employee['isActive']) {
-    this.filteredUsers = Object.assign([], this.users).filter((user: Employee) => user.isActive === value);
-    this.dataSource = new MatTableDataSource<any>(this.filteredUsers)
+    this.filteredByStatus = Object.assign([], this.users).filter((user: Employee) => user.isActive === value);
+    this.dataSource = new MatTableDataSource<any>(this.filteredByStatus)
   }
 
   showProfile(user: Employee) {

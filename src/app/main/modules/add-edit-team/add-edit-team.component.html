@@ -1,58 +1,55 @@
-<div class="team">
-    <div class="whole-block">
+<div class="team" *ngIf="isLoaded">
+    <div class="team-block" [className]="data ? 'edit-team-modal' : 'team-block'">
         <div class="title">
-            Add New Team
+            {{titleName}}
         </div>
-        <div class="main-block">
-            <form class="main-block" [formGroup]="addTeamForm" (ngSubmit)="onSubmit(addTeamForm)">
-                <div class="sub-block">
-                    <mat-form-field type="text">
-                        <input matInput placeholder="Team Name" formControlName="name">
-                    </mat-form-field>
-                    <mat-error *ngIf="addTeamForm.get('name').invalid && addTeamForm.get('name').touched">
-                        <ng-container *ngIf="addTeamForm.get('name').errors.required">name is required.
-                        </ng-container>
-                    </mat-error>
-                    <mat-form-field>
-                        <mat-label>Team Lead</mat-label>
-                        <mat-select formControlName="teamLead" #singleSelect placeholder="'search'">
-                            <!-- <mat-option>None</mat-option> -->
-                            <mat-option>
-                                <ngx-mat-select-search [placeholderLabel]="'Find Employees'"
-                                    formControlName="teamLeadFilter"></ngx-mat-select-search>
-                            </mat-option>
-                            <mat-option *ngFor="let user of filteredUsers | async" [value]="user">{{user.firstName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <!-- <mat-form-field type="text">
-                        <input matInput placeholder="Team Lead Name" name="teamLeadName" formControlName="teamLeadName">
-                    </mat-form-field> -->
-                    <mat-error
-                        *ngIf="addTeamForm.get('teamLead').invalid && addTeamForm.get('teamLead').touched">
-                        <ng-container *ngIf="addTeamForm.get('teamLead').errors.required">teamLeadName is required.
-                        </ng-container>
-                    </mat-error>
-                </div>
-                <div class="sub-block">
-                    <mat-form-field>
-                        <mat-label>Team Members</mat-label>
-                        <mat-select formControlName="teamMembers" #multiSelect [multiple]="true">
-                            <!-- <mat-option>None</mat-option> -->
-                            <ngx-mat-select-search [placeholderLabel]="'Add Team Members'"
-                                formControlName="teamMembersFilter"></ngx-mat-select-search>
-                            <mat-option *ngFor="let user of filteredUsersMulti | async" [value]="user">
-                                {{user.firstName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <!-- <mat-error *ngIf="addTeamForm.get('skype').invalid && addTeamForm.get('skype').touched">
-                                <ng-container *ngIf="addTeamForm.get('skype').errors.required">skype is required.
-                                </ng-container>
-                            </mat-error> -->
-                    <button mat-stroked-button [disabled]="addTeamForm.invalid">Add Team</button>
-                </div>
-            </form>
-        </div>
+        <form class="main-block" [formGroup]="addTeamForm" (ngSubmit)="onSubmit()">
+            <div class="sub-block">
+                <mat-form-field type="text">
+                    <input matInput placeholder="Team Name" formControlName="name">
+                </mat-form-field>
+                <mat-error *ngIf="addTeamForm.get('name').invalid && addTeamForm.get('name').touched">
+                    <ng-container *ngIf="addTeamForm.get('name').errors.required">name is required.
+                    </ng-container>
+                </mat-error>
+
+                <mat-form-field>
+                    <input type="text" placeholder="Team Lead" matInput formControlName="teamLead"
+                        [matAutocomplete]="teamLeadAuto">
+                    <mat-autocomplete #teamLeadAuto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+                            {{user.firstName}} {{user.surname}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <mat-error *ngIf="addTeamForm.get('teamLead').invalid && addTeamForm.get('teamLead').touched">
+                    <ng-container *ngIf="addTeamForm.get('teamLead').errors.required">teamLeadName is required.
+                    </ng-container>
+                </mat-error>
+            </div>
+            <div class="sub-block">
+                <mat-form-field class="members">
+                    <mat-chip-list #chipList>
+                        <mat-chip *ngFor="let member of members" [selectable]="selectable" [removable]="removable"
+                            (removed)="remove(member)">
+                            {{member.firstName}} {{member.surname}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="New member..." #memberInput formControlName="teamMembers"
+                            [matAutocomplete]="memberAuto" [matChipInputFor]="chipList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <mat-autocomplete #memberAuto="matAutocomplete" (optionSelected)="selected($event)">
+                        <mat-option *ngFor="let member of filteredMembers | async" [value]="member.id">
+                            {{member.firstName}} {{member.surname}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <button *ngIf="data" mat-stroked-button (click)="cancel()">Cancel</button>
+                <button mat-stroked-button [disabled]="addTeamForm.invalid">{{btnName}}</button>
+            </div>
+        </form>
     </div>
 </div>

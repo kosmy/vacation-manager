@@ -1,9 +1,12 @@
-<div *ngIf="isLoaded" [className]="isModal ? 'profile-modal' : 'profile-block'">
+<div *ngIf="isLoaded" [className]="data ? 'profile-modal' : 'profile-block'">
     <div class="title">
         <h2>Profile</h2>
     </div>
     <div class="image">
-        <img [src]='currentUser.avatar'>
+            <img [src]='currentUser.avatar' *ngIf="currentUser.avatar && currentUser.avatar !== 'string'; else localAvatar">
+            <ng-template #localAvatar>
+                <img src="../../../../../../assets/avatar.png">
+            </ng-template>
         <div class="info">
             <h4>{{currentUser.firstName}} {{currentUser.surname}}</h4>
             <p>{{currentUser.jobTitle}}</p>

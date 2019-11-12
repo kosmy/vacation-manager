@@ -5,7 +5,7 @@
   height: fit-content;
   margin-top: 10px;
   margin-left: 50px;
-  border-radius: 8px;
+  border-radius: 10px;
   background-color: rgb(61, 61, 61);
   border: 1px solid gray;
 
@@ -50,13 +50,9 @@
       }
       h3 {
         margin: 0px;
-        // border: 1px solid black;
         color: rgb(197, 197, 197);
       }
       margin-bottom: 4%;
-    }
-    > div:hover {
-      background-color: rgb(122, 100, 52);
     }
   }
 }
@@ -69,7 +65,7 @@
   width: 300px;
   height: fit-content;
   border: 1px solid black;
-  border-radius: 8px;
+  border-radius: 10px;
   background-color: rgb(61, 61, 61);
   border: 1px solid gray;
   margin: 0px 0px;
@@ -121,8 +117,6 @@
       }
       margin-bottom: 4%;
     }
-    > div:hover {
-      background-color: rgb(122, 100, 52);
-    }
+    
   }
 }

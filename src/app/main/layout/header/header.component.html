@@ -1,0 +1,19 @@
+
+<div class="menu">
+    <a [routerLink]="['/main/profile', currentUser.id]" routerLinkActive="active">My Profile</a>
+    <a [routerLink]="['/main/vacation-request', currentUser.id]" routerLinkActive="active">Request Vacation</a>
+</div>
+<button mat-button [matMenuTriggerFor]="menu">
+    <div class="user">
+    <span class="name">
+        {{currentUser.firstName}} {{currentUser.surname}}
+    </span>
+    <img [src]='currentUser.avatar' *ngIf="currentUser.avatar && currentUser.avatar !== 'string'; else localAvatar">
+    <ng-template #localAvatar>
+        <img src="../../../../../../assets/avatar.png">
+    </ng-template></div></button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="editProfile()">Edit Profile</button>
+  <button mat-menu-item (click)="logOut()">Log Out</button>
+</mat-menu>
+

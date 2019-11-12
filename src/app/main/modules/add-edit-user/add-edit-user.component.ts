@@ -1,29 +1,45 @@
-import { Component, OnInit, Inject, Optional, ViewEncapsulation, AfterContentInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, Optional, ViewEncapsulation, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Employee } from '../shared/models/employee';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Team } from '../shared/models/team';
 import { TeamAPIService } from '../shared/services/team-api.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserAPIService } from '../shared/services/user-api.service';
-import { Observable, forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
+
+
+class ImageSnippet {
+  pending: boolean = false;
+  status: string = 'init';
+
+  constructor(public src: string, public file: File) { }
+}
 
 @Component({
   selector: 'app-add-edit-user',
   templateUrl: './add-edit-user.component.html',
   styleUrls: ['./add-edit-user.component.scss'],
-  encapsulation: ViewEncapsulation.None
-})
-export class AddEditUserComponent implements OnInit, AfterContentInit, AfterViewInit {
+  encapsulation: ViewEncapsulation.None,
 
-  private addUserForm: FormGroup;
-  private user: Employee;
-  isModal: boolean = false;
+})
+export class AddEditUserComponent implements OnInit, OnDestroy {
+
+  addUserForm: FormGroup;
+  user: Employee;
   statuses: string[] = ['Active', 'Fired']
   allUsers: Employee[];
   btnName: string;
   titleName: string;
+  avatarPreview: string;
   teams: Team[];
   isLoaded: boolean = false;
+
+  selectedFile: ImageSnippet;
+
+
+  getTeamsSubscription: Subscription;
+  addUserSubscription: Subscription;
+  editUserSubscription: Subscription;
 
   constructor(
     private teamApiService: TeamAPIService,
@@ -32,60 +48,129 @@ export class AddEditUserComponent implements OnInit, AfterContentInit, AfterView
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Employee
   ) { }
 
-  ngOnInit() {
-    this.teamApiService.getAllTeams().subscribe((teams) => {
+  processFile(imageInput: any) {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      this.selectedFile = new ImageSnippet(event.target.result, file);
+    });
+    reader.readAsDataURL(file);
+  }
+  ngOnInit(): void {
+    this.getTeamsSubscription = this.teamApiService.getAllTeams().subscribe((teams) => {
       this.teams = teams;
       this.buildForm();
-      this.fillUserInputs();
+      this.fillInputs();
       this.isLoaded = true;
     });
   }
-  ngAfterViewInit(): void {
+
+  ngOnDestroy(): void {
+    this.getTeamsSubscription.unsubscribe();
+    if (this.addUserSubscription) {
+      this.addUserSubscription.unsubscribe();
+    }
+    else if (this.editUserSubscription) {
+      this.editUserSubscription.unsubscribe();
+    }
   }
-  ngAfterContentInit() {
-  }
+
+
+
   buildForm() {
     this.addUserForm = new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
-      surname: new FormControl('', [Validators.required]),
-      jobTitle: new FormControl('', [Validators.required]),
+      avatar: new FormControl,
+      firstName: new FormControl('',
+        [
+          Validators.required,
+          Validators.pattern('[A-Za-z]*'),
+          Validators.minLength(2),
+          Validators.maxLength(15)
+        ]),
+      surname: new FormControl('',
+        [
+          Validators.required,
+          Validators.pattern('[A-Za-z]*'),
+          Validators.minLength(2),
+          Validators.maxLength(15)
+        ]),
+      jobTitle: new FormControl('',
+        [
+          Validators.required,
+          Validators.pattern('[A-Za-z]*'),
+          Validators.minLength(2),
+          Validators.maxLength(15)
+        ]),
       birthdate: new FormControl('', [Validators.required]),
-      workEmail: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
+      workEmail: new FormControl('',
+        [
+          Validators.required,
+          Validators.email
+        ]),
+      email: new FormControl('',
+        [
+          Validators.required,
+          Validators.email
+        ]),
       phone: new FormControl('', [Validators.required]),
       skype: new FormControl('', [Validators.required]),
       balance: new FormControl('', [Validators.required]),
-      workStartDate: new FormControl('', [Validators.required]),
+      workStartDate: new FormControl(''),
+      workEndDate: new FormControl(''),
       workStatus: new FormControl('', [Validators.required]),
       team: new FormControl('', [Validators.required]),
     })
   }
 
   changeStatus() {
-    if (this.addUserForm.value.workStatus === 'Active') {
-      console.log('Active')
+    if (this.addUserForm.value.workStatus === 'Active' && !this.data) {
       this.user.isActive = true;
-      this.user.deleted = false;
+      this.user.workStartDate = new Date();
+      this.user.workEndDate = null;
+
+    }
+    else if (this.addUserForm.value.workStatus === 'Active' && this.data) {
+      this.user.isActive = true;
+      this.user.workEndDate = null;
+
+    }
+    else if (this.addUserForm.value.workStatus === 'Fired' && !this.data) {
+      this.user.isActive = false;
+      this.user.workStartDate = null;
+      this.user.workEndDate = new Date();
     }
     else {
-      console.log('Fired')
-      this.user.isActive = true;
-      this.user.deleted = false;
+      this.user.isActive = false;
+      this.user.workStartDate = null;
     }
   }
- 
-  fillUserInputs() {
+
+  setStatus() {
+    if (this.data.isActive === true) {
+      this.addUserForm.controls['workStatus'].setValue("Active")
+      console.log(this.addUserForm.controls['workStatus'].value)
+    }
+    else {
+      this.addUserForm.controls['workStatus'].setValue("Fired")
+      console.log(this.addUserForm.controls['workStatus'].value)
+    }
+  }
+  setTeam() {
+    this.addUserForm.controls['team'].setValue(this.data.teamId);
+  }
+
+  fillInputs() {
     if (this.data) {
-      this.isModal = true;
       this.user = this.data;
       console.log("USER BEFORE PATCH VALUE", this.user);
       this.addUserForm.patchValue(this.user);
+      this.setStatus();
+      this.setTeam();
       this.btnName = "Edit User";
       this.titleName = "Edit Profile"
     }
     else {
       this.user = new Employee(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-      this.addUserForm.patchValue(this.user);
       this.btnName = "Add User";
       this.titleName = "Add Employee"
     }
@@ -99,30 +184,33 @@ export class AddEditUserComponent implements OnInit, AfterContentInit, AfterView
       control.setErrors(null);
     });
   }
-  onSubmit(addUserForm: FormGroup) {
-    this.user.firstName = addUserForm.value.firstName;
-    this.user.surname = addUserForm.value.surname;
-    this.user.jobTitle = addUserForm.value.jobTitle;
-    this.user.birthdate = addUserForm.value.birthdate;
-    this.user.workEmail = addUserForm.value.workEmail;
-    this.user.email = addUserForm.value.email;
-    this.user.phone = addUserForm.value.phone;
-    this.user.skype = addUserForm.value.skype;
-    this.user.balance = addUserForm.value.balance;
-    this.user.workStartDate = addUserForm.value.startDate;
-    this.user.teamId = addUserForm.value.team;
-    this.user.teams.push(this.teams.find(team => team.id === addUserForm.value.team));
+
+  cancel(): void {
+    this.dialogRef.close();
+  }
+
+  onSubmit() {
+    this.user.firstName = this.addUserForm.value.firstName;
+    this.user.surname = this.addUserForm.value.surname;
+    this.user.jobTitle = this.addUserForm.value.jobTitle;
+    this.user.birthdate = this.addUserForm.value.birthdate;
+    this.user.workEmail = this.addUserForm.value.workEmail;
+    this.user.email = this.addUserForm.value.email;
+    this.user.phone = this.addUserForm.value.phone;
+    this.user.skype = this.addUserForm.value.skype;
+    this.user.deleted = false;
+    this.user.balance = this.addUserForm.value.balance;
+    this.user.workStartDate = this.addUserForm.value.startDate;
+    this.user.teamId = this.addUserForm.value.team;
 
     if (this.data) {
-      forkJoin(
-        this.userApiService.editUser(this.user),
-        this.teamApiService.addUserToTeam(this.user.teamId, this.data.id)
-      ).subscribe();
+      this.editUserSubscription = this.userApiService.editUser(this.user).subscribe();
     }
     else {
-      this.userApiService.addUser(this.user).subscribe();
+      this.addUserSubscription = this.userApiService.addUser(this.user).subscribe();
     }
     this.user = new Employee(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     this.clearFormInputs();
+    this.dialogRef.close();
   }
 }

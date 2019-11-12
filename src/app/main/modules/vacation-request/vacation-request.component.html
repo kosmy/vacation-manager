@@ -4,34 +4,37 @@
     </div>
     <form class="main-block" [formGroup]="vacationRequestForm" (ngSubmit)="onSubmit(vacationRequestForm)">
         <mat-form-field>
-            <input matInput #dateOne [matDatepicker]="picker" placeholder="Choose a From Date" formControlName="startDate"
-                (dateChange)="countAmount(dateOne.value, dateTwo.value)">
+            <input matInput #dateOne [matDatepicker]="picker" placeholder="Choose a From Date"
+                formControlName="startDate" (dateChange)="countAmount(dateOne.value, dateTwo.value)">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-error
+                *ngIf="vacationRequestForm.get('startDate').invalid && vacationRequestForm.get('startDate').touched && vacationRequestForm.get('startDate').errors.required">
+                Start date is required.
+
+            </mat-error>
         </mat-form-field>
-        <mat-error *ngIf="vacationRequestForm.get('startDate').invalid && vacationRequestForm.get('startDate').touched">
-            <ng-container *ngIf="vacationRequestForm.get('startDate').errors.required">start date is required.
-            </ng-container>
-        </mat-error>
+
         <mat-form-field>
-            <input matInput #dateTwo [matDatepicker]="pickerTwo" placeholder="Choose a To Date" formControlName="endDate"
-                (dateChange)="countAmount(dateOne.value, dateTwo.value)">
+            <input matInput #dateTwo [matDatepicker]="pickerTwo" placeholder="Choose a To Date"
+                formControlName="endDate" (dateChange)="countAmount(dateOne.value, dateTwo.value)">
             <mat-datepicker-toggle matSuffix [for]="pickerTwo"></mat-datepicker-toggle>
             <mat-datepicker #pickerTwo></mat-datepicker>
+            <mat-error
+                *ngIf="vacationRequestForm.get('endDate').invalid && vacationRequestForm.get('endDate').touched && vacationRequestForm.get('endDate').errors.required">
+                End date is required
+            </mat-error>
         </mat-form-field>
-        <mat-error *ngIf="vacationRequestForm.get('endDate').invalid && vacationRequestForm.get('endDate').touched">
-            <ng-container *ngIf="vacationRequestForm.get('endDate').errors.required">end date is required.</ng-container>
-        </mat-error>
+
         <div class="amount">
             <p>Amount of days:</p>
             <div>{{amount}}</div>
         </div>
-        <mat-form-field class="example-full-width">
+        
+        <mat-form-field>
             <textarea matInput placeholder="Leave a Comment" formControlName="comment"></textarea>
         </mat-form-field>
-        <mat-error *ngIf="vacationRequestForm.get('comment').invalid && vacationRequestForm.get('comment').touched">
-            <ng-container *ngIf="vacationRequestForm.get('comment').errors.required">comment is required.</ng-container>
-        </mat-error>
+
         <button type="submit" mat-stroked-button [disabled]="vacationRequestForm.invalid">Request Vacation</button>
     </form>
 </div>

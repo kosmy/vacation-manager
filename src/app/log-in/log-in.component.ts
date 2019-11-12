@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthorizationService } from './services/authorization.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Employee } from '../main/modules/shared/models/employee';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscribable, Subscription } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
 
 @Component({
@@ -14,33 +14,41 @@ import { flatMap, map } from 'rxjs/operators';
 export class LogInComponent {
 
   logInForm: FormGroup;
-  constructor(private router: Router, private authService: AuthorizationService) { }
+  forgotPassword: boolean = false;
+  isSent: boolean = false;
+  forgotPasswordSubscription: Subscription;
+
+  sendEmail = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
+  constructor(
+    private router: Router,
+    private authService: AuthorizationService
+  ) { }
 
   ngOnInit() {
+
     this.buildForm();
   }
 
   buildForm() {
     this.logInForm = new FormGroup({
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('',
+        [
+          Validators.required,
+          Validators.email
+        ]),
       password: new FormControl('', [Validators.required])
     })
+
   }
 
   onSubmit(logInForm: FormGroup) {
 
-    // this.authService.singIn(logInForm.value).pipe(
-    //   flatMap(() =>
-    //     this.authService.getUserByEmail(email)
-    //   )
-    // ).subscribe((employee) => {
-    //   this.authService.currentUserId = employee.id;
-    //   localStorage.setItem('currentUserId', employee.id);
-    //   this.router.navigate(['main/profile', employee.id]);
-    // })
-
     this.authService.singIn(logInForm.value).subscribe(() => {
-        this.router.navigate(['main/profile', this.authService.currentUserId]);
+      this.router.navigate(['main/profile', this.authService.currentUserId]);
     })
 
     this.logInForm.reset();
@@ -52,4 +60,20 @@ export class LogInComponent {
 
   }
 
+  sendPassword(inputEmail) {
+    if (inputEmail) {
+      console.log(inputEmail)
+      const request = {
+        email: inputEmail,
+        date: new Date()
+      }
+      this.forgotPasswordSubscription = this.authService.forgotPassword(request).subscribe(() => {
+        this.isSent = true;
+        setTimeout(() => {
+          this.forgotPassword = false;
+          this.isSent = false;
+        }, 2000);
+      })
+    }
+  }
 }

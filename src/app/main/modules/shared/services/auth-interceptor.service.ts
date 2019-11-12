@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpHandler, HttpRequest, HttpErrorResponse, HttpInterceptor } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
-@Injectable()
-export class AuthInterceptorService  implements HttpInterceptor{
+@Injectable(
+  { providedIn: 'root' }
+)
+export class AuthInterceptorService implements HttpInterceptor {
 
   constructor(private router: Router) { }
 
@@ -25,5 +27,15 @@ export class AuthInterceptorService  implements HttpInterceptor{
     //   }
     //   return throwError(error);
     // }));
+    return next.handle(request).pipe(tap(() => { },
+      (err: any) => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401) {
+            console.log("NAVIGAAATE")
+            this.router.navigate(['main']);
+            this.router.navigate(['log-in']);
+          }
+        }
+      }));
   }
 }

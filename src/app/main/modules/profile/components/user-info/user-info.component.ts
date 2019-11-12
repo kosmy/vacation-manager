@@ -1,10 +1,11 @@
-import { Component, OnInit, Optional, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Optional, Inject, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Employee } from '../../../shared/models/employee';
 import { ActivatedRoute } from '@angular/router';
 import { UserAPIService } from '../../../shared/services/user-api.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Vacation } from '../../../shared/models/vacation';
 import { flatMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-info',
@@ -12,11 +13,12 @@ import { flatMap } from 'rxjs/operators';
   styleUrls: ['./user-info.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class UserInfoComponent implements OnInit {
+export class UserInfoComponent implements OnInit, OnDestroy {
 
   currentUser: Employee;
   isLoaded: boolean = false;
-  isModal: boolean = false;
+  getUserSubscription: Subscription;
+  getUserModalSubscription: Subscription
 
   constructor(
     private userApiService: UserAPIService,
@@ -25,14 +27,12 @@ export class UserInfoComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public data
   ) { }
 
-  ngOnInit() {
-    console.log('User Info Route', this.route)
+  ngOnInit(): void {
     if (this.data) {
       this.getUserFromList(this.data);
-      this.isModal = true;
     }
     else {
-      this.route.params.pipe(
+      this.getUserSubscription = this.route.params.pipe(
         flatMap((params) => {
           const id = params['id'];
           return this.userApiService.getUserById(id);
@@ -44,9 +44,18 @@ export class UserInfoComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.getUserModalSubscription) {
+      this.getUserModalSubscription.unsubscribe();
+    }
+    else if (this.getUserSubscription) {
+      this.getUserSubscription.unsubscribe();
+    }
+  }
+
   getUserFromList(data) {
     if (data.employeeId) {
-      this.userApiService.getUserById(data.employeeId).subscribe((user) => {
+      this.getUserModalSubscription = this.userApiService.getUserById(data.employeeId).subscribe((user) => {
         this.currentUser = user;
         this.isLoaded = true;
       })

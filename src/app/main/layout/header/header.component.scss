@@ -1,5 +1,65 @@
 :host {
-    height: 12%;
-    width: 100%;
-    background-color: grey;
+  height: 12%;
+  width: 100%;
+  background-color: rgb(18, 39, 68);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+
+  .menu {
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+    height: 100%;
+    margin-right: 200px;
+
+    a {
+      color: aliceblue;
+      font-size: 20px;
+      display: inline-block;
+      height: 97%;
+      vertical-align: middle;
+      line-height: 100px;
+      text-decoration: none;
+      background-color: rgba(67, 74, 82, 0);
+      transition: all 0.5s ease;
+      margin-right: 6%;
+
+      &.active {
+        border-bottom: 3px solid rgb(255, 208, 0);
+      }
+    }
+    a:hover {
+      text-decoration: none;
+      background-color: rgb(224, 183, 0);
+      cursor: pointer;
+      box-shadow: 1px 1px 5px 2px orange;
+    }
+  }
+
+  button {
+    width: 115px;
+    margin-right: 100px;
+  }
+  .user {
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    margin-right: 100px;
+  }
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 10px;
+    
+  }
+  img:hover {
+    cursor: pointer;
+  }
 }

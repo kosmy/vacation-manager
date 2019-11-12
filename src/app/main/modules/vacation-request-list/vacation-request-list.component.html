@@ -2,15 +2,19 @@
     <div class="title">
         Vacation Request List
     </div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let vacation"> {{vacation.employee.firstName}} {{vacation.employee.surname}}
             </td>
-        </ng-container>
+        </ng-container> 
         <ng-container matColumnDef="team">
             <th mat-header-cell *matHeaderCellDef>Team</th>
-            <td mat-cell *matCellDef="let vacation"> {{vacation.employee.teams}}</td>
+            <td mat-cell *matCellDef="let vacation" style="width: 10%">
+                <ng-container *ngFor="let team of vacation.employee.teams">
+                    {{team.name}}
+                </ng-container>
+            </td>
         </ng-container>
         <ng-container matColumnDef="vacationDates">
             <th mat-header-cell *matHeaderCellDef>Vacation Dates</th>
@@ -39,6 +43,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> 
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
-

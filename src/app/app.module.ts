@@ -19,7 +19,9 @@ import { LogInModule } from './log-in/log-in.module';
     MainModule,
     LogInModule,
   ],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

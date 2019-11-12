@@ -16,6 +16,10 @@ export class TeamAPIService {
     return this.http.post<Team>(this.teamApiUrl, team);
   }
 
+  editTeam(team: Team): Observable<Team> {
+    return this.http.put<Team>(this.teamApiUrl, team);
+  }
+
   getTeam(teamId: Team['id']): Observable<Team> {
     return this.http.get<Team>(this.teamApiUrl + teamId);
   }

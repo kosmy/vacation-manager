@@ -1,0 +1,11 @@
+<nav>
+    <div class="menu">
+        <a routerLink="/main/add-edit-user" routerLinkActive="active">Add New Employee</a>
+        <a routerLink="/main/add-edit-team" routerLinkActive="active">Add New Team</a>
+        <a routerLink="/main/vacation-request-list" routerLinkActive="active">
+            <span [matBadge]="(requestCount$ | async)" matBadgeOverlap="false">Vacation Requests</span></a>
+        <a routerLink="/main/user-list" routerLinkActive="active">Employees List</a>
+        <a routerLink="/main/team-list" routerLinkActive="active">Team List</a>
+        <a routerLink="/main/calendar" routerLinkActive="active">Calendar</a>
+    </div>
+</nav>

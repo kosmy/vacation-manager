@@ -6,10 +6,11 @@
 }
 .whole-block {
   border: 1px solid gray;
-  width: 30%;
+  width: 350px;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
+  color: rgb(204, 211, 216);
 
   .title {
     border-bottom: 1px solid gray;
@@ -33,7 +34,7 @@
       flex-direction: row;
       
       p {
-        color: aliceblue;
+        color: rgb(186, 192, 197);
       }
       div {
         text-align: center;
@@ -44,6 +45,7 @@
         border-radius: 4px;
         width: 50px;
         height: 40px;
+        margin-top: 1%;
       }
     }
   }

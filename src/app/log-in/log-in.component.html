@@ -1,15 +1,41 @@
-<form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm)">
-    <mat-form-field type="text">
-        <input type="email" matInput name="email" placeholder="email" formControlName="email">
+<img src="../../assets/softheme.png">
+<p class="title"><strong>Softheme</strong> Vacations</p>
+<form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm)" *ngIf="!forgotPassword; else forgotPass">
+    <mat-form-field>
+        <input type="email" matInput placeholder="Email" formControlName="email">
     </mat-form-field>
-    <mat-error *ngIf="logInForm.get('email').invalid && logInForm.get('email').touched">
-        <ng-container *ngIf="logInForm.get('email').errors.required">email required.</ng-container>
+    <mat-error
+        *ngIf="logInForm.get('email').invalid && logInForm.get('email').touched && logInForm.get('email').errors.required">
+        Email is <strong>required</strong>
     </mat-error>
-    <mat-form-field type="password">
+    <mat-error
+        *ngIf="logInForm.get('email').invalid && logInForm.get('email').touched && logInForm.get('email').errors.email && !logInForm.get('email').errors.required">
+        Please enter a valid email address
+    </mat-error>
+    <mat-form-field>
         <input type="password" matInput name="password" placeholder="Password" formControlName="password">
     </mat-form-field>
-    <mat-error *ngIf="logInForm.get('password').invalid && logInForm.get('password').touched">
-        <ng-container *ngIf="logInForm.get('password').errors.required">password required.</ng-container>
+    <mat-error
+        *ngIf="logInForm.get('email').invalid  && logInForm.get('password').touched && logInForm.get('password').errors.required">
+        Password is <strong>required</strong>
     </mat-error>
     <button mat-stroked-button>Log in</button>
+    <p class="forgot" (click)="forgotPassword = true">forgot password?</p>
 </form>
+<ng-template #forgotPass>
+    <form class="passForm">
+        <p>Enter your email adress and we'll send you a link to reset your password</p>
+        <mat-form-field>
+            <input type="email" matInput placeholder="Please enter your email adress" [formControl]="sendEmail">
+            <mat-error *ngIf="sendEmail.hasError('email') && !sendEmail.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="sendEmail.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <p class="sent" *ngIf="isSent">Ready! Check your email, please</p>
+        <button type="submit" mat-stroked-button (click)="sendPassword(sendEmail.value)">Send</button>
+        <p class="remember" (click)="forgotPassword = false">Never mind, I remember</p>
+    </form>
+</ng-template>

@@ -1,16 +1,14 @@
-import { Component, OnInit, ViewChild, AfterViewInit, DoCheck, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, DoCheck, ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { UserAPIService } from '../shared/services/user-api.service';
 import { VacationAPIService } from '../shared/services/vacation-api.service';
-import { Employee } from '../shared/models/employee';
 import { Vacation } from '../shared/models/vacation';
 import interactionPlugin from '@fullcalendar/interaction';
-import { EventInput, preventDefault } from '@fullcalendar/core';
+import { EventInput } from '@fullcalendar/core';
 import { MatDialog } from '@angular/material/dialog';
 import { VacationRequestAnswerComponent } from '../vacation-request-answer/vacation-request-answer.component';
-import { tap, switchMap } from 'rxjs/operators';
-import { forkJoin, Observable, Subject } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Team } from '../shared/models/team';
 import { TeamAPIService } from '../shared/services/team-api.service';
 
@@ -20,7 +18,7 @@ import { TeamAPIService } from '../shared/services/team-api.service';
   styleUrls: ['./calendar.component.scss'],
 })
 
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnDestroy {
 
   @ViewChild('calendar', { static: false }) calendarComponent: FullCalendarComponent;
 
@@ -29,29 +27,41 @@ export class CalendarComponent implements OnInit {
   vacations: Vacation[];
   teams$: Observable<Team[]>;
   selected: Team['id'] = '75fa16ee-760c-48b0-bb40-b8e61988f604';
+  changeTeamSubscription: Subscription;
+  calendarSubscription: Subscription;
+  getVacsSubscription: Subscription;
 
-
-  constructor(private userAPIService: UserAPIService,
+  constructor(
     private vacationAPIService: VacationAPIService,
     private dialog: MatDialog,
     private teamAPIService: TeamAPIService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.getVacsSubscription =  this.vacationAPIService.getAllVacations().subscribe((vacs) => {
+      console.log(vacs)
+    })
     this.teams$ = this.teamAPIService.getAllTeams();
-    this.vacationAPIService.changeTeamVacs.subscribe((calendarEvents) => {
+    this.changeVacationsForTeam('75fa16ee-760c-48b0-bb40-b8e61988f604');
+    this.changeTeamSubscription = this.vacationAPIService.teamVacs.subscribe((calendarEvents) => {
       this.calendarEvents = calendarEvents;
+    }) 
+  }
+
+  ngAfterViewInit(): void {
+    this.calendarSubscription = this.calendarComponent.eventClick.subscribe((data) => {
+      this.openDialog(data);
     })
   }
 
-  changeVacationsForTeam(value) {
-    console.log("EVENT", value)
-    return this.vacationAPIService.changeVacationsForTeam(value);
+  ngOnDestroy(): void {
+    this.changeTeamSubscription.unsubscribe();
+    this.calendarSubscription.unsubscribe();
+    this.getVacsSubscription.unsubscribe();
   }
-  ngAfterViewInit(): void {
-    this.calendarComponent.eventClick.subscribe((data) => {
-      this.openDialog(data);
-    })
+
+  changeVacationsForTeam(value) {
+    return this.vacationAPIService.changeVacationsForTeam(value);
   }
 
   // getData() {

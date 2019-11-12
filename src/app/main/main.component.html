@@ -1,5 +1,5 @@
-<app-header></app-header>
+<app-header *ngIf="isLoaded" [currentUser]="currentUser"></app-header>
 <div class="main">
-    <app-navigation></app-navigation>
+    <app-navigation *ngIf="isShown"></app-navigation>
     <app-content></app-content>
 </div>

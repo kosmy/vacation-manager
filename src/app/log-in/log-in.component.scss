@@ -1,21 +1,97 @@
-form {
-  background-color: yellowgreen;
-
+:host {
+  // background-color: yellowgreen;
+  background-image: url(../../assets/space.jpg);
+  background-size: cover;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  input {
+  align-items: center;
+
+  img {
+    width: 50px;
+  }
+  .title {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    color: aliceblue;
+    font-family: Muli;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 25px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .forgot {
+    text-align: center;
+    color: rgb(233, 205, 44);
+  }
+  .forgot:hover {
+    cursor: pointer;
+  }
+  form {
+    height: fit-content;
     width: 250px;
-    height: 20px;
-    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+
+    input {
+      height: 30px;
+      margin-bottom: 5px;
+    }
+
+    /* Change Autocomplete styles in Chrome*/
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+      -webkit-text-fill-color: aliceblue;
+      -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
+    button {
+      border: 1px solid aliceblue;
+      color: aliceblue;
+      width: 200px;
+      align-self: center;
+      font-size: 15px;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: rgba(255, 200, 19, 0.753);
+    }
   }
 
-  button {
-    font-size: 15px;
-    padding-left: 35px;
-    padding-right: 35px;
-    margin-top: 10px;
+  .passForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: aliceblue;
+
+    p {
+      height: 50px;
+      width: 300px;
+    }
+    .remember {
+      text-align: center;
+      color: rgb(233, 205, 44);
+    }
+    .sent {
+      display: inline-block;
+      height: fit-content;
+      margin: 4px 0px;
+      color: greenyellow;
+    }
+    .remember:hover {
+      cursor: pointer;
+    }
   }
 }

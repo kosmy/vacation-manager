@@ -3,21 +3,23 @@
   align-items: center;
   justify-content: center;
   height: 90vh;
+  padding: 0px 10px;
 }
 .whole-block {
   border: 1px solid gray;
   width: 70%;
+  height: auto;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
-
-  table {
-    background-color: rgb(99, 99, 99);
-  }
+ 
   .filter {
-    align-self: center;
-    padding: 10px 0px;
+    align-self: flex-end;
+    padding: 5px 0px;
 
+    mat-form-field {
+      margin-right: 20px;
+    }
     input {
       height: 20px;
     }
@@ -32,17 +34,18 @@
     text-align: center;
     font-size: 25px;
     padding: 11px 0px;
+    color: aliceblue;
   }
 
   .main-block {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    padding: 20px 60px;
+    color: aliceblue;
+    width: 100%;
+    width: 100%;
+    // padding: 20px 60px;xw
 
     button {
       padding: 0px 0px;
-      margin: 10px 30px 3px 30px;
+      margin: 5px 5px;
     }
   }
 }

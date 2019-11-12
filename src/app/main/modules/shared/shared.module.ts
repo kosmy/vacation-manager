@@ -18,11 +18,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
-import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { TransactionApiService } from './services/transaction-api.service';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [VacationStatusPipe],
@@ -43,14 +44,18 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatSelectModule,
     MatIconModule,
     MatRadioModule,
-    NgxMatSelectSearchModule
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatBadgeModule,
+    MatMenuModule
+
   ],
   providers: [
     TransactionApiService,
     VacationAPIService,
     TeamAPIService,
     UserAPIService,
-    AuthInterceptorService,
+    // AuthInterceptorService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
   ],
   exports: [
@@ -68,7 +73,10 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     ReactiveFormsModule,
     MatIconModule,
     MatRadioModule,
-    NgxMatSelectSearchModule
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatBadgeModule,
+    MatMenuModule
   ]
 })
 export class SharedModule { }

@@ -14,17 +14,16 @@ import { VacationRequestAnswerModule } from './modules/vacation-request-answer/v
 import { AddEditTeamModule } from './modules/add-edit-team/add-edit-team.module';
 import { TeamListModule } from './modules/team-list/team-list.module';
 import { CalendarModule } from './modules/calendar/calendar.module';
-import { NavigationModule } from './modules/navigation/navigation.module';
 import { TeamProfileModule } from './modules/team-profile/team-profile.module';
 import { LogInModule } from '../log-in/log-in.module';
+import { NavigationComponent } from './layout/navigation/navigation.component';
 
 
 @NgModule({
-  declarations: [MainComponent, HeaderComponent, ContentComponent],
+  declarations: [MainComponent, NavigationComponent, HeaderComponent, ContentComponent],
   imports: [
     CommonModule,
     MainRoutingModule,
-    NavigationModule,
     ProfileModule,
     VacationRequestModule,
     AddEditUserModule,

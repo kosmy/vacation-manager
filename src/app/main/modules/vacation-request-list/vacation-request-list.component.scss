@@ -4,23 +4,23 @@
   justify-content: center;
   height: 90vh;
 
-  .vacations-table {
-    width: 1000px;
+  .vacations-table { 
+    width: 85%;
     height: auto;
     border: 1px solid gray;
-    border-radius: 8px;
+    border-radius: 10px;
 
     .title {
       border-bottom: 1px solid gray;
       text-align: center;
       font-size: 25px;
       padding: 11px 0px;
+      color: aliceblue;
     }
 
     table {
       color: aliceblue;
       width: 100%;
-      background-color: rgb(99, 99, 99);
       
     }
     mat-paginator {
