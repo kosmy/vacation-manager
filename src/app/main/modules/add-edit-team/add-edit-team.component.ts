@@ -69,7 +69,6 @@ export class AddEditTeamComponent implements OnInit, OnDestroy {
           map(value => typeof value === 'string' ? value : value.name),
           map(name => name ? this._filter(name) : this.users.slice())
         );
-      this.isLoaded = true;
       this.initFilteredMembers();
     });
   }
@@ -82,7 +81,7 @@ export class AddEditTeamComponent implements OnInit, OnDestroy {
     else if (this.editTeamSubscription) {
       this.editTeamSubscription.unsubscribe();
     }
-    else if(this.getUserByIdSubscription) {
+    else if (this.getUserByIdSubscription) {
       this.getUserByIdSubscription.unsubscribe();
     }
   }
@@ -98,18 +97,24 @@ export class AddEditTeamComponent implements OnInit, OnDestroy {
 
   fillInputs() {
     if (this.data) {
+      console.log(this.data)
       this.team = this.data;
-      this.getUserByIdSubscription =  this.userAPIService.getUserById(this.data.teamLeadId).subscribe((user) => {
+      this.getUserByIdSubscription = this.userAPIService.getUserById(this.data.teamLeadId).subscribe((user) => {
+        this.addTeamForm.patchValue(this.data);
         this.addTeamForm.controls['teamLead'].setValue(user)
+        this.members = this.data.employees;
+        console.log(this.team)
+        this.isLoaded = true;
       })
-      this.addTeamForm.patchValue(this.data);
-      this.members = this.data.employees;
       this.btnName = "Save";
       this.titleName = "Edit Team"
     }
     else {
+      this.team = new Team(null,null,null,null,null,null,null)
       this.btnName = "Save";
       this.titleName = "Add Team"
+      this.isLoaded = true;
+
     }
   }
 
@@ -193,10 +198,12 @@ export class AddEditTeamComponent implements OnInit, OnDestroy {
     this.team.teamLeadId = this.addTeamForm.value.teamLead.id;
     this.team.deleted = false;
     this.team.employeeCount = this.members.length;
+    console.log(this.members)
     this.team.employees = this.members;
 
     if (this.data) {
       this.editTeamSubscription = this.teamAPIService.editTeam(this.team).subscribe();
+      this.dialogRef.close();
     }
     else {
       this.addTeamSubscription = this.teamAPIService.addTeam(this.team).subscribe();

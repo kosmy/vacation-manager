@@ -25,6 +25,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 
+
 @NgModule({
   declarations: [VacationStatusPipe],
   imports: [

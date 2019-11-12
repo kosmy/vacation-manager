@@ -3,6 +3,8 @@ import { Employee } from './modules/shared/models/employee';
 import { AuthorizationService } from '../log-in/services/authorization.service';
 import { UserAPIService } from './modules/shared/services/user-api.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { isHitsEqual } from '@fullcalendar/interaction/interactions/HitDragging';
 
 @Component({
   selector: 'app-main',
@@ -15,7 +17,7 @@ export class MainComponent implements OnInit, OnDestroy {
   currentUser: Employee;
   isLoaded: boolean = false;
   subscription: Subscription;
-  constructor(private userAPIService: UserAPIService, private authService: AuthorizationService) { }
+  constructor(private userAPIService: UserAPIService, private authService: AuthorizationService, private router: Router) { }
 
   ngOnInit() {
     this.subscription = this.userAPIService.getUserById(this.authService.currentUserId).subscribe((user) => {
@@ -25,6 +27,7 @@ export class MainComponent implements OnInit, OnDestroy {
       }
       this.isLoaded = true;
     })
+    
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

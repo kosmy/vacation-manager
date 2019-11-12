@@ -190,6 +190,7 @@ export class AddEditUserComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.user.avatar = this.selectedFile.src;
     this.user.firstName = this.addUserForm.value.firstName;
     this.user.surname = this.addUserForm.value.surname;
     this.user.jobTitle = this.addUserForm.value.jobTitle;
@@ -211,6 +212,8 @@ export class AddEditUserComponent implements OnInit, OnDestroy {
     }
     this.user = new Employee(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     this.clearFormInputs();
-    this.dialogRef.close();
+    if (this.data) {
+      this.dialogRef.close();
+    }
   }
 }
